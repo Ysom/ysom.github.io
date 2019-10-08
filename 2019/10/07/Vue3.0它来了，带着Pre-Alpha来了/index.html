@@ -19,7 +19,7 @@
 <meta property="og:description" content="10月5号凌晨，尤雨溪大大发布了vue3.0源码   现在抓住国庆的小尾巴，来看一看vue3.0到底有啥东西 整体状态 目前发布的vue3.0是Pre-Alpha版本，后续还有Alpha、Beta版本 打包后的代码是ES2015+，不支持IE11 拥抱TypeScript，98%代码使用了TypeScript编写">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="og:updated_time" content="2019-10-08T06:09:26.831Z">
+<meta property="og:updated_time" content="2019-10-08T07:10:18.384Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="Vue3.0，它来了">
 <meta name="twitter:description" content="10月5号凌晨，尤雨溪大大发布了vue3.0源码   现在抓住国庆的小尾巴，来看一看vue3.0到底有啥东西 整体状态 目前发布的vue3.0是Pre-Alpha版本，后续还有Alpha、Beta版本 打包后的代码是ES2015+，不支持IE11 拥抱TypeScript，98%代码使用了TypeScript编写">
@@ -187,7 +187,7 @@
 <p><img src="/images/sina_yyx.jpg" alt="尤雨溪sina微博"></p>
 <p>现在抓住国庆的小尾巴，来看一看vue3.0到底有啥东西</p>
 <h3 id="整体状态"><a href="#整体状态" class="headerlink" title="整体状态"></a>整体状态</h3><ul>
-<li>目前发布的vue3.0是Pre-Alpha版本，后续还有Alpha、Beta版本</li>
+<li>目前发布的vue3.0是<code>Pre-Alpha</code>版本，后续还有<code>Alpha</code>、<code>Beta</code>版本</li>
 <li>打包后的代码是ES2015+，不支持IE11</li>
 <li>拥抱TypeScript，98%代码使用了TypeScript编写</li>
 </ul>
@@ -196,18 +196,18 @@
 
 
 <h3 id="代码目录"><a href="#代码目录" class="headerlink" title="代码目录"></a>代码目录</h3><p><img src="/images/vue-next-code-tree.png" alt="目录树结构"></p>
-<p>由上图看到（安装了Octotree插件，浏览github时可以在浏览器左侧清晰展示项目结构），vue3.0仓库有一个<code>packages</code>目录，里面包含了vue3.0主要实现的功能：</p>
+<p>由上图看到（安装了<code>Octotree</code>插件，浏览github时可以在浏览器左侧清晰展示项目结构），vue3.0仓库有一个<code>packages</code>目录，里面包含了vue3.0主要实现的功能：</p>
 <ul>
-<li><code>compiler-core</code>：平台无关的编译器. 它既包含可扩展的基础功能，也包含所有平台无关的插件</li>
-<li><code>compiler-dom</code>：针对浏览器而写的编译器</li>
-<li><code>reactivity</code>：数据响应式系统。一个单独的系统，可以与任何框架配合使用</li>
-<li><code>runtime-core</code>：与平台无关的运行时。其实现的功能有虚拟 DOM 渲染器、Vue 组件和 Vue 的各种API</li>
-<li><code>runtime-dom</code>： 针对浏览器的 runtime。其功能包括处理原生 DOM API、DOM 事件和 DOM 属性等</li>
-<li><code>runtime-test</code>：一个专门为了测试而写的轻量级 runtime</li>
-<li><code>server-renderer</code>：用于 SSR（还未实现）</li>
-<li><code>shared</code>：没有暴露任何 API，主要包含了一些平台无关的内部帮助方法</li>
-<li><code>template-explorer</code>：用于模板编译输出</li>
-<li><code>vue</code>： 用于构建「完整构建」版本</li>
+<li><strong>compiler-core</strong>：平台无关的编译器. 它既包含可扩展的基础功能，也包含所有平台无关的插件</li>
+<li><strong>compiler-dom</strong>：针对浏览器而写的编译器</li>
+<li><strong>reactivity</strong>：数据响应式系统。一个单独的系统，可以与任何框架配合使用</li>
+<li><strong>runtime-core</strong>：与平台无关的运行时。其实现的功能有虚拟 DOM 渲染器、Vue 组件和 Vue 的各种API</li>
+<li><strong>runtime-dom</strong>： 针对浏览器的 runtime。其功能包括处理原生 DOM API、DOM 事件和 DOM 属性等</li>
+<li><strong>runtime-test</strong>：一个专门为了测试而写的轻量级 runtime</li>
+<li><strong>server-renderer</strong>：用于 SSR（还未实现）</li>
+<li><strong>shared</strong>：没有暴露任何 API，主要包含了一些平台无关的内部帮助方法</li>
+<li><strong>template-explorer</strong>：用于模板编译输出</li>
+<li><strong>vue</strong>： 用于构建「完整构建」版本</li>
 </ul>
 <p>由上可知，vue3.0 代码仓库结构比较清晰，代码也是模块化的。简单过一遍目录，了解vue3.0主要的内容，后面再对部分源码进行通读。</p>
 
