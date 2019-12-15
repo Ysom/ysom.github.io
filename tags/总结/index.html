@@ -169,7 +169,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    4 分钟 读完 (大约 626 个字)
+                    7 分钟 读完 (大约 1093 个字)
                 </span>
                 
                 
@@ -195,52 +195,16 @@
 </li>
 </ul>
 <h4 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h4><p>判断操作符右边的函数的原型是否存在于左边的对象的原型链上可以准确判断引用类型，无法正确判断原始类型</p>
-<h3 id="正确判断变量类型的方式"><a href="#正确判断变量类型的方式" class="headerlink" title="正确判断变量类型的方式"></a>正确判断变量类型的方式</h3><ol>
-<li><p><code>Object.prototype.toString.apply(target)</code> // <code>&#39;[object xxx]&#39;</code>获取索引的第八位到最后一位</p>
-</li>
-<li><p>先通过<code>typeof</code>判断是否为复杂类型，是则使用<code>instanceof</code>判断</p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">data &amp;&amp; (<span class="hljs-keyword">typeof</span>(data) === <span class="hljs-string">'object'</span> || <span class="hljs-keyword">typeof</span>(data) === <span class="hljs-string">'function'</span>)</span><br><span class="line"></span><br><span class="line"><span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">PrimitiveUndefined</span> </span>&#123;</span><br><span class="line">   <span class="hljs-keyword">static</span> [<span class="hljs-built_in">Symbol</span>.hasInstance](data) &#123;</span><br><span class="line">       <span class="hljs-keyword">return</span> <span class="hljs-keyword">typeof</span> data === <span class="hljs-string">'undefined'</span>;</span><br><span class="line">   &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">data <span class="hljs-keyword">instanceof</span> PrimitiveUndefined</span><br><span class="line"><span class="hljs-comment">// 其它基本类型...</span></span><br></pre></td></tr></table></figure>
-
-</li>
-</ol>
-<h3 id="、"><a href="#、" class="headerlink" title="==、==="></a>==、===</h3><ul>
-<li><p><code>==</code>符号只判断两个变量的值是否相等，<code>===</code>判断两个变量的类型和值</p>
-</li>
-<li><p><code>==</code>判断过程中，若两变量的类型不同，则会涉及到变量类型转换</p>
-</li>
-</ul>
-<h3 id="var、let、const"><a href="#var、let、const" class="headerlink" title="var、let、const"></a>var、let、const</h3><ul>
-<li><p><code>var</code>声明的变量会被提升到作用域顶部，声明了全局变量则会挂载在window上面</p>
-</li>
-<li><p><code>let</code>跟<code>const</code>声明的变量存在暂时性死区，因此在变量声明前调用会报错</p>
-</li>
-<li><p><code>const</code>声明的变量是常量，为基础类型时值不能改变，复杂类型时地址不能改变</p>
-</li>
-</ul>
-<h3 id="变量提升"><a href="#变量提升" class="headerlink" title="变量提升"></a>变量提升</h3><ol>
-<li><p>变量还没有被声明，但是可以被使用（值为<code>undefined</code>），提升的是声明（<code>var</code>声明）</p>
-</li>
-<li><p>函数也会被提升到作用域顶部，因此函数可以在声明之前调用，且函数提升优先于变量提升</p>
-</li>
-</ol>
-<h3 id="this指向"><a href="#this指向" class="headerlink" title="this指向"></a>this指向</h3><ol>
-<li><p>指向全局对象window</p>
-</li>
-<li><p>指向调用方法的对象</p>
-</li>
-<li><p>指向new操作符赋值后的对象</p>
-</li>
-<li><p>箭头函数没有this，也无法使用bind，this指向包裹该箭头函数的第一个普通函数</p>
-</li>
-<li><p>函数绑定多层bind的情况，由第一个bind决定</p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fn.bind().bind(a)()</span><br></pre></td></tr></table></figure>
-</li>
-<li><p>多个规则下this指向优先级：<code>new</code> &gt; <code>bind</code> &gt; <code>obj.fn</code> &gt; <code>fn</code></p>
-</li>
-</ol>
-
         </div>
         
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2019/12/14/JavaScript整理总结(持续更新)/#more">阅读更多</a>
+                </div>
+            </div>
+        </div>
         
         
     </div>

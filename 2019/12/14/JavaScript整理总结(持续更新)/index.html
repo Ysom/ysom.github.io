@@ -19,7 +19,7 @@
 <meta property="og:description" content="数据类型、存储方式 原始（基本）类型，变量存储的是在栈内存的值string、number、boolean、undefined、null、symbol、（以及提案新增的BigInt）  引用（复杂）类型，变量存储的是在栈内存中的指针（地址），指向存储的地址，地址所在的堆内存存放着值。引用类型都是object   typeof和instanceoftypeof 原始类型：除了null判断为object">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="og:updated_time" content="2019-12-14T15:32:43.203Z">
+<meta property="og:updated_time" content="2019-12-15T14:52:49.440Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript整理总结(持续更新)">
 <meta name="twitter:description" content="数据类型、存储方式 原始（基本）类型，变量存储的是在栈内存的值string、number、boolean、undefined、null、symbol、（以及提案新增的BigInt）  引用（复杂）类型，变量存储的是在栈内存中的指针（地址），指向存储的地址，地址所在的堆内存存放着值。引用类型都是object   typeof和instanceoftypeof 原始类型：除了null判断为object">
@@ -163,7 +163,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    4 分钟 读完 (大约 626 个字)
+                    7 分钟 读完 (大约 1093 个字)
                 </span>
                 
                 
@@ -194,6 +194,8 @@
 </li>
 </ul>
 <h4 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h4><p>判断操作符右边的函数的原型是否存在于左边的对象的原型链上可以准确判断引用类型，无法正确判断原始类型</p>
+<a id="more"></a>
+
 <h3 id="正确判断变量类型的方式"><a href="#正确判断变量类型的方式" class="headerlink" title="正确判断变量类型的方式"></a>正确判断变量类型的方式</h3><ol>
 <li><p><code>Object.prototype.toString.apply(target)</code> // <code>&#39;[object xxx]&#39;</code>获取索引的第八位到最后一位</p>
 </li>
@@ -236,6 +238,32 @@
 </li>
 <li><p>多个规则下this指向优先级：<code>new</code> &gt; <code>bind</code> &gt; <code>obj.fn</code> &gt; <code>fn</code></p>
 </li>
+</ol>
+<h3 id="apply、call、bind"><a href="#apply、call、bind" class="headerlink" title="apply、call、bind"></a>apply、call、bind</h3><h4 id="apply"><a href="#apply" class="headerlink" title="apply"></a>apply</h4><h4 id="call"><a href="#call" class="headerlink" title="call"></a>call</h4><h4 id="bind"><a href="#bind" class="headerlink" title="bind"></a>bind</h4><h3 id="闭包"><a href="#闭包" class="headerlink" title="闭包"></a>闭包</h3><h4 id="闭包是什么"><a href="#闭包是什么" class="headerlink" title="闭包是什么"></a>闭包是什么</h4><blockquote>
+<p>闭包是函数和声明该函数的词法环境的组合 –MDN</p>
+</blockquote>
+<p>我的理解是，函数+该函数体可以访问的变量总和；函数不一定是在另一个函数里面声明，它也可以在外部声明，在另一个函数内部重新赋值</p>
+<h4 id="闭包的作用"><a href="#闭包的作用" class="headerlink" title="闭包的作用"></a>闭包的作用</h4><p>闭包的最多用途还是在于隐藏变量，常用于实现私有变量</p>
+<h3 id="深、浅拷贝"><a href="#深、浅拷贝" class="headerlink" title="深、浅拷贝"></a>深、浅拷贝</h3><blockquote>
+<p>深、浅拷贝的区别就是拷贝的值存在引用类型时，浅拷贝会把地址复制，而深拷贝不会</p>
+</blockquote>
+<h4 id="浅拷贝"><a href="#浅拷贝" class="headerlink" title="浅拷贝"></a>浅拷贝</h4><h5 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign()"></a><code>Object.assign()</code></h5><h5 id="扩展运算符"><a href="#扩展运算符" class="headerlink" title="...扩展运算符"></a><code>...</code>扩展运算符</h5><h4 id="深拷贝"><a href="#深拷贝" class="headerlink" title="深拷贝"></a>深拷贝</h4><h5 id="JSON-parse-JSON-stringify-obj"><a href="#JSON-parse-JSON-stringify-obj" class="headerlink" title="JSON.parse(JSON.stringify(obj))"></a><code>JSON.parse(JSON.stringify(obj))</code></h5><p>局限性：</p>
+<ol>
+<li><p>不能序列化undefined、函数和symbol，会忽略</p>
+</li>
+<li><p>存在对象循环引用时，会报错</p>
+</li>
+</ol>
+<h5 id="MessageChannel"><a href="#MessageChannel" class="headerlink" title="MessageChannel"></a><code>MessageChannel</code></h5><p>当有内置类型，且不包含函数时使用</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">MesCalDeepClone</span> (<span class="hljs-params">obj</span>) </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Promise</span>(<span class="hljs-function">(<span class="hljs-params">resolve</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="hljs-keyword">let</span> &#123;port1, port2&#125; = <span class="hljs-keyword">new</span> MessageChannel()</span><br><span class="line">      port2.onmessage = <span class="hljs-function">(<span class="hljs-params">ev</span>) =&gt;</span> resolve(ev.data)</span><br><span class="line">      port1.postMessage(obj)</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h3><p>原型<code>__proto__</code>是一个对象，里面预设了一些函数和属性，包括了构造函数<code>constructor</code>；而构造函数拥有<code>prototype</code>属性，指回了原型对象，通过构造函数生成的实例对象，会自动将构造函数的原型设置为实例对象的原型。</p>
+<h3 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h3><p>对象拥有原型对象，而原型对象也会拥有自己的原型，依次类推形成一条原型链，直到原型对象为<code>null</code>时结束即<code>Object.prototype.__proto__</code></p>
+<h3 id="new操作符的过程"><a href="#new操作符的过程" class="headerlink" title="new操作符的过程"></a>new操作符的过程</h3><ol>
+<li>创建一个空对象</li>
+<li>将该空对象作为上下文<code>this</code>传入构造函数</li>
+<li>对该对象进行一系列初始化</li>
+<li>返回该对象或函数指定的其它对象（非对象会忽略）</li>
 </ol>
 
         </div>
