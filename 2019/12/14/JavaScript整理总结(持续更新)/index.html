@@ -19,7 +19,7 @@
 <meta property="og:description" content="数据类型、存储方式 原始（基本）类型，变量存储的是在栈内存的值string、number、boolean、undefined、null、symbol、（以及提案新增的BigInt）  引用（复杂）类型，变量存储的是在栈内存中的指针（地址），指向存储的地址，地址所在的堆内存存放着值。引用类型都是object   typeof和instanceoftypeof 原始类型：除了null判断为object">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="og:updated_time" content="2019-12-15T14:52:49.440Z">
+<meta property="og:updated_time" content="2019-12-17T14:44:24.292Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript整理总结(持续更新)">
 <meta name="twitter:description" content="数据类型、存储方式 原始（基本）类型，变量存储的是在栈内存的值string、number、boolean、undefined、null、symbol、（以及提案新增的BigInt）  引用（复杂）类型，变量存储的是在栈内存中的指针（地址），指向存储的地址，地址所在的堆内存存放着值。引用类型都是object   typeof和instanceoftypeof 原始类型：除了null判断为object">
@@ -163,7 +163,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    7 分钟 读完 (大约 1093 个字)
+                    10 分钟 读完 (大约 1432 个字)
                 </span>
                 
                 
@@ -259,6 +259,18 @@
 
 <h3 id="原型"><a href="#原型" class="headerlink" title="原型"></a>原型</h3><p>原型<code>__proto__</code>是一个对象，里面预设了一些函数和属性，包括了构造函数<code>constructor</code>；而构造函数拥有<code>prototype</code>属性，指回了原型对象，通过构造函数生成的实例对象，会自动将构造函数的原型设置为实例对象的原型。</p>
 <h3 id="原型链"><a href="#原型链" class="headerlink" title="原型链"></a>原型链</h3><p>对象拥有原型对象，而原型对象也会拥有自己的原型，依次类推形成一条原型链，直到原型对象为<code>null</code>时结束即<code>Object.prototype.__proto__</code></p>
+<h3 id="继承"><a href="#继承" class="headerlink" title="继承"></a>继承</h3><blockquote>
+<p>在新的对象上复用现有对象的属性和方法，有助于避免重复代码和重复数据。</p>
+</blockquote>
+<h4 id="原型继承"><a href="#原型继承" class="headerlink" title="原型继承"></a>原型继承</h4><p>将函数A的原型赋值为函数B的实例，函数B的实例具有函数的全部属性以及指向超类的原型，以此实现原型继承。</p>
+<p>这里借用《js忍者秘籍》第二版里面的一个例子</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Person</span> (<span class="hljs-params"></span>) </span>&#123;&#125;</span><br><span class="line">Person.prototype.dance = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">Ninja</span> (<span class="hljs-params"></span>) </span>&#123;&#125;</span><br><span class="line"><span class="hljs-comment">// Ninja的原型赋值为Person的实例</span></span><br><span class="line">Ninja.prototype = <span class="hljs-keyword">new</span> Person()</span><br></pre></td></tr></table></figure>
+
+<p><img src="https://uploader.shimo.im/f/qO9X0TpV2SIM99G4.png!thumbnail" alt="img"></p>
+<p>这里有一个要注意的地方，当把<code>Ninja</code>的原型设置为<code>Person</code>的实例对象之后，<code>Ninja</code>和它原来的原型失去了联系，现有的原型的构造函数<code>constructor</code>也是指向<code>Person</code>而不是指向<code>Ninja</code>，所以需要做一步操作，重新建立起Ninja实例与Ninja的联系</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">Object</span>.definedProperty(Ninja.prototype, <span class="hljs-string">'constructor'</span>, &#123;</span><br><span class="line">  enumerable: <span class="hljs-literal">false</span>, <span class="hljs-comment">// 不可枚举</span></span><br><span class="line">  value: Ninja, <span class="hljs-comment">// 值为Ninja</span></span><br><span class="line">  writable: <span class="hljs-literal">true</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h4 id="class"><a href="#class" class="headerlink" title="class"></a>class</h4><p>class的出现是为了解决什么问题？为了让其它面向对象语言开发者适应和熟悉，ES6增加了关键字class来模拟类，class是语法糖，它的底层实现原理还是<strong>原型继承</strong>，使用<code>extends</code>也可以更优雅地继承</p>
 <h3 id="new操作符的过程"><a href="#new操作符的过程" class="headerlink" title="new操作符的过程"></a>new操作符的过程</h3><ol>
 <li>创建一个空对象</li>
 <li>将该空对象作为上下文<code>this</code>传入构造函数</li>
