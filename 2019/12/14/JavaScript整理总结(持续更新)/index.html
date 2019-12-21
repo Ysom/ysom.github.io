@@ -19,7 +19,7 @@
 <meta property="og:description" content="数据类型、存储方式 原始（基本）类型，变量存储的是在栈内存的值string、number、boolean、undefined、null、symbol、（以及提案新增的BigInt）  引用（复杂）类型，变量存储的是在栈内存中的指针（地址），指向存储的地址，地址所在的堆内存存放着值。引用类型都是object   typeof和instanceoftypeof 原始类型：除了null判断为object">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="og:updated_time" content="2019-12-21T15:42:24.908Z">
+<meta property="og:updated_time" content="2019-12-21T15:58:41.153Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="JavaScript整理总结(持续更新)">
 <meta name="twitter:description" content="数据类型、存储方式 原始（基本）类型，变量存储的是在栈内存的值string、number、boolean、undefined、null、symbol、（以及提案新增的BigInt）  引用（复杂）类型，变量存储的是在栈内存中的指针（地址），指向存储的地址，地址所在的堆内存存放着值。引用类型都是object   typeof和instanceoftypeof 原始类型：除了null判断为object">
@@ -163,7 +163,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    11 分钟 读完 (大约 1649 个字)
+                    12 分钟 读完 (大约 1757 个字)
                 </span>
                 
                 
@@ -292,6 +292,14 @@
 <h3 id="用setTimeout延迟执行事件、setInterval间隔执行事件"><a href="#用setTimeout延迟执行事件、setInterval间隔执行事件" class="headerlink" title="用setTimeout延迟执行事件、setInterval间隔执行事件"></a>用setTimeout延迟执行事件、setInterval间隔执行事件</h3><ol>
 <li><code>setTimeout</code>：延迟设定的时间执行，实际延迟时间大于等于设定的时间</li>
 <li><code>setInterval</code>：间隔设定的时间执行，实际执行次数并不等于时间内间隔时间次数；当宏任务队列里面已经存在等待执行的该间隔任务，则不会再将该间隔任务添加进宏任务队列</li>
+</ol>
+<h3 id="事件捕获、冒泡"><a href="#事件捕获、冒泡" class="headerlink" title="事件捕获、冒泡"></a>事件捕获、冒泡</h3><ol>
+<li><strong>捕获</strong>：事件自顶向下传递，从顶部元素到目标元素</li>
+<li><strong>冒泡</strong>：事件自底向上传递，从目标元素到顶部元素若没指定捕获模式，则事件默认为冒泡模式 </li>
+</ol>
+<h3 id="事件处理器中的this和event-target的区别"><a href="#事件处理器中的this和event-target的区别" class="headerlink" title="事件处理器中的this和event.target的区别"></a>事件处理器中的this和event.target的区别</h3><ol>
+<li><code>this</code>指向注册事件处理器的元素</li>
+<li><code>event.target</code>指向事件发生的元素</li>
 </ol>
 
         </div>
