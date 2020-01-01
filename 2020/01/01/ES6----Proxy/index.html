@@ -19,7 +19,7 @@
 <meta property="og:description" content="前言本文总结了Proxy代理的陷阱函数和对应的Reflect接口默认行为函数的用法。因为目前用的最多的技术栈是Vue，而Vue3.0版本其中关于响应式原理的核心是Proxy，因此有必要对Proxy做进一步的理解和总结。 set拦截对象：设置属性值行为。成功返回true，失败返回false。 默认行为实现：Reflect.set() 接收参数：  trapTarget：设置属性的对象（代理的目标对象">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="og:updated_time" content="2020-01-01T13:07:27.471Z">
+<meta property="og:updated_time" content="2020-01-01T15:03:35.271Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6 -- Proxy">
 <meta name="twitter:description" content="前言本文总结了Proxy代理的陷阱函数和对应的Reflect接口默认行为函数的用法。因为目前用的最多的技术栈是Vue，而Vue3.0版本其中关于响应式原理的核心是Proxy，因此有必要对Proxy做进一步的理解和总结。 set拦截对象：设置属性值行为。成功返回true，失败返回false。 默认行为实现：Reflect.set() 接收参数：  trapTarget：设置属性的对象（代理的目标对象">
@@ -163,7 +163,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    7 分钟 读完 (大约 1032 个字)
+                    10 分钟 读完 (大约 1565 个字)
                 </span>
                 
                 
@@ -191,6 +191,8 @@
 <li><strong>value</strong>：属性的值</li>
 <li><strong>receiver</strong>：操作发生的对象（通常指代理对象）</li>
 </ol>
+<a id="more"></a>
+
 <h3 id="get"><a href="#get" class="headerlink" title="get"></a>get</h3><p>拦截对象：获取属性值行为。</p>
 <p>默认行为实现：<code>Reflect.get()</code></p>
 <p>接收参数：</p>
@@ -239,6 +241,47 @@
 <li><code>Reflect.setPrototypeOf()</code>会返回布尔值<code>true</code>或<code>false</code>表示成功或失败，<code>Object.setPrototypeOf()</code>操作失败时会报错，成功时会将第一个参数作为返回值；</li>
 </ol>
 <p>因此，Object两个原型操作方法并不适合用来实现代理陷阱的默认行为。</p>
+<h3 id="对象可扩展性的陷阱函数"><a href="#对象可扩展性的陷阱函数" class="headerlink" title="对象可扩展性的陷阱函数"></a>对象可扩展性的陷阱函数</h3><h3 id="preventExtensions"><a href="#preventExtensions" class="headerlink" title="preventExtensions"></a>preventExtensions</h3><p>拦截对象：<code>Object.preventExtensions()</code>。返回<code>true</code>或<code>false</code>表示操作成功或失败。</p>
+<p>默认行为实现：<code>Reflect.preventExtensions()</code>。</p>
+<p>接收参数：</p>
+<ol>
+<li><strong>trapTarget</strong>：设置不可扩展的对象</li>
+</ol>
+<h3 id="isExtensible"><a href="#isExtensible" class="headerlink" title="isExtensible"></a>isExtensible</h3><p>拦截对象：<code>Object.isExtensible()</code>。返回<code>true</code>或<code>false</code>表示操作成功或失败。</p>
+<p>默认行为实现：<code>Reflect.isExtensible()</code>。</p>
+<p>接收参数：</p>
+<ol>
+<li><strong>trapTarget</strong>：设置可扩展的对象</li>
+</ol>
+<p><strong>为何存在<code>Reflect.preventExtensions()</code>、<code>Reflect.isExtensible()</code>与<code>Object.preventExtensions()</code>、<code>Object.isExtensible()</code>两组方法？</strong></p>
+<p>两组方法几乎一致，但有一些差别：</p>
+<ol>
+<li>接收的参数不为对象时，<code>Object.isExtensible()</code>是返回<code>false</code>，而<code>Reflect.isExtensible()</code>会抛出错误；</li>
+<li><code>Object.preventExtensions()</code>不管参数是否是对象，都会将参数值作为自身返回值，而<code>Reflect.preventExtensions()</code>方法则会在参数不是对象时抛出错误，在参数为对象时返回<code>true</code>或<code>false</code>表示操作成功或失败；</li>
+<li>底层功能的方法与对应的高层方法相比，会进行更为严格的校验；</li>
+</ol>
+<h3 id="属性描述符的陷阱函数"><a href="#属性描述符的陷阱函数" class="headerlink" title="属性描述符的陷阱函数"></a>属性描述符的陷阱函数</h3><h3 id="definedProperty"><a href="#definedProperty" class="headerlink" title="definedProperty"></a>definedProperty</h3><p>拦截对象：<code>Object.defineProperty()</code>，返回<code>true</code>或<code>false</code>表示操作成功或失败。</p>
+<p>默认行为实现：<code>Reflect.defineProperty()</code>。</p>
+<p>接收参数：</p>
+<ol>
+<li><strong>tarpTarget</strong>：被定义属性的对象</li>
+<li><strong>key</strong>：属性的键</li>
+<li><strong>descriptor</strong>：为该属性准备的描述符对象</li>
+</ol>
+<p>骚操作：可通过主动返回<code>false</code>让<code>Object.defineProperty()</code>抛出错误失败，也可通过返回<code>true</code>而不调用<code>Reflect.defineProperty()</code>来让<code>Object.defineProperty()</code>静默失败。</p>
+<h3 id="getOwnPropertyDescriptor"><a href="#getOwnPropertyDescriptor" class="headerlink" title="getOwnPropertyDescriptor"></a>getOwnPropertyDescriptor</h3><p>拦截对象：<code>Object.getOwnPropertyDescriptor()</code>，返回对应的描述符。</p>
+<p>默认行为实现：<code>Reflect.getOwnPropertyDescriptor()</code>。</p>
+<p>接收参数：</p>
+<ol>
+<li><strong>tarpTarget</strong>：被检索属性的对象</li>
+<li><strong>key</strong>：属性的键</li>
+</ol>
+<p><strong>为何存在<code>Reflect.defineProperty()</code>、<code>Reflect.getOwnPropertyDescriptor()</code>与<code>Object.defineProperty()</code>、<code>Object.getOwnPropertyDescriptor()</code>两组方法？</strong></p>
+<p>两组方法几乎一致，但也有一些差别：</p>
+<ol>
+<li><code>Object.defineProperty()</code>返回第一个参数值，而<code>Reflect.defineProperty()</code>返回<code>true</code>或<code>false</code>;</li>
+<li>第一个参数不是对象时，<code>Object.getOwnPropertyDescriptor()</code>会将第一个参数转为对象，而<code>Reflect.getOwnPropertyDescriptor()</code>会抛出错误；</li>
+</ol>
 <h3 id="ownKeys"><a href="#ownKeys" class="headerlink" title="ownKeys"></a>ownKeys</h3><p>拦截对象：内部方法<code>[[OwnPropertyKeys]]</code>，返回一个数组重写该行为。数组被用于四个方法：<code>Object.keys()</code>、<code>Object.getOwnPropertyNames()</code>、<code>Object.getOwnPropertySymbols()</code>、<code>Object.assign()</code></p>
 <p>默认行为实现：<code>Reflect.ownKeys()</code>，返回一个由全部自有属性的键构成的数组，无论键的类型是<strong>字符串</strong>还是<strong>符号</strong>。</p>
 <h3 id="apply和construct"><a href="#apply和construct" class="headerlink" title="apply和construct"></a>apply和construct</h3><p>拦截对象：内部方法<code>[[Call]]</code>和<code>[[Construct]]</code>，前者会在函数被直接调用时执行，而后者会在函数被使用<code>new</code>运算符调用时执行。</p>
