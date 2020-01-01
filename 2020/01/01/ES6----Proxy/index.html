@@ -7,22 +7,22 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>响应式原理-vue2.x版（上） - Ysom &#39;s Blog</title>
+<title>ES6 -- Proxy - Ysom &#39;s Blog</title>
 
 
-    <meta name="description" content="10.5尤大大发布了vue3.0 pre-alpha版本的源码，vue3.0之前，大家基本都知道响应式核心是用ES5的Object.defineProperty，而新版本3.0则是使用ES6的proxy  2.x实现原理在理解3.0的proxy实现之前，先回顾一下2.x版本基本实现原理：  将一个对象作为data选项（组件是data函数返回对象）  遍历data里面所有的属性，通过Object.">
-<meta name="keywords" content="源码,vue">
+    <meta name="description" content="前言本文总结了Proxy代理的陷阱函数和对应的Reflect接口默认行为函数的用法。因为目前用的最多的技术栈是Vue，而Vue3.0版本其中关于响应式原理的核心是Proxy，因此有必要对Proxy做进一步的理解和总结。 set拦截对象：设置属性值行为。成功返回true，失败返回false。 默认行为实现：Reflect.set() 接收参数：  trapTarget：设置属性的对象（代理的目标对象">
+<meta name="keywords" content="总结">
 <meta property="og:type" content="article">
-<meta property="og:title" content="响应式原理-vue2.x版（上）">
-<meta property="og:url" content="http://yoursite.com/2019/10/11/响应式原理-2.x版本（上）/index.html">
+<meta property="og:title" content="ES6 -- Proxy">
+<meta property="og:url" content="http://yoursite.com/2020/01/01/ES6----Proxy/index.html">
 <meta property="og:site_name" content="Ysom &#39;s Blog">
-<meta property="og:description" content="10.5尤大大发布了vue3.0 pre-alpha版本的源码，vue3.0之前，大家基本都知道响应式核心是用ES5的Object.defineProperty，而新版本3.0则是使用ES6的proxy  2.x实现原理在理解3.0的proxy实现之前，先回顾一下2.x版本基本实现原理：  将一个对象作为data选项（组件是data函数返回对象）  遍历data里面所有的属性，通过Object.">
+<meta property="og:description" content="前言本文总结了Proxy代理的陷阱函数和对应的Reflect接口默认行为函数的用法。因为目前用的最多的技术栈是Vue，而Vue3.0版本其中关于响应式原理的核心是Proxy，因此有必要对Proxy做进一步的理解和总结。 set拦截对象：设置属性值行为。成功返回true，失败返回false。 默认行为实现：Reflect.set() 接收参数：  trapTarget：设置属性的对象（代理的目标对象">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="og:updated_time" content="2019-10-12T06:30:18.949Z">
+<meta property="og:updated_time" content="2020-01-01T13:07:27.471Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="响应式原理-vue2.x版（上）">
-<meta name="twitter:description" content="10.5尤大大发布了vue3.0 pre-alpha版本的源码，vue3.0之前，大家基本都知道响应式核心是用ES5的Object.defineProperty，而新版本3.0则是使用ES6的proxy  2.x实现原理在理解3.0的proxy实现之前，先回顾一下2.x版本基本实现原理：  将一个对象作为data选项（组件是data函数返回对象）  遍历data里面所有的属性，通过Object.">
+<meta name="twitter:title" content="ES6 -- Proxy">
+<meta name="twitter:description" content="前言本文总结了Proxy代理的陷阱函数和对应的Reflect接口默认行为函数的用法。因为目前用的最多的技术栈是Vue，而Vue3.0版本其中关于响应式原理的核心是Proxy，因此有必要对Proxy做进一步的理解和总结。 set拦截对象：设置属性值行为。成功返回true，失败返回false。 默认行为实现：Reflect.set() 接收参数：  trapTarget：设置属性的对象（代理的目标对象">
 <meta name="twitter:image" content="http://yoursite.com/images/og_image.png">
 
 
@@ -97,7 +97,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo-3.png" alt="响应式原理-vue2.x版（上）" height="28">
+                <img src="/images/logo-3.png" alt="ES6 -- Proxy" height="28">
             
             </a>
         </div>
@@ -153,7 +153,7 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-10-11T02:24:10.505Z">2019-10-11</time>
+                <time class="level-item has-text-grey" datetime="2020-01-01T12:51:56.617Z">2020-01-01</time>
                 
                 <div class="level-item">
                 <a class="has-link-grey -link" href="/categories/前端/">前端</a>
@@ -163,7 +163,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    9 分钟 读完 (大约 1288 个字)
+                    7 分钟 读完 (大约 1032 个字)
                 </span>
                 
                 
@@ -177,50 +177,82 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                响应式原理-vue2.x版（上）
+                ES6 -- Proxy
             
         </h1>
         <div class="content">
-            <blockquote>
-<p>10.5尤大大发布了vue3.0 pre-alpha版本的源码，vue3.0之前，大家基本都知道响应式核心是用<strong>ES5</strong>的<code>Object.defineProperty</code>，而新版本3.0则是使用<strong>ES6</strong>的<code>proxy</code></p>
-</blockquote>
-<h2 id="2-x实现原理"><a href="#2-x实现原理" class="headerlink" title="2.x实现原理"></a>2.x实现原理</h2><p>在理解3.0的proxy实现之前，先回顾一下2.x版本基本实现原理：</p>
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本文总结了<code>Proxy</code>代理的陷阱函数和对应的<code>Reflect</code>接口默认行为函数的用法。因为目前用的最多的技术栈是<code>Vue</code>，而<code>Vue3.0</code>版本其中关于响应式原理的核心是<code>Proxy</code>，因此有必要对<code>Proxy</code>做进一步的理解和总结。</p>
+<h3 id="set"><a href="#set" class="headerlink" title="set"></a>set</h3><p>拦截对象：设置属性值行为。成功返回<code>true</code>，失败返回<code>false</code>。</p>
+<p>默认行为实现：<code>Reflect.set()</code></p>
+<p>接收参数：</p>
 <ol>
-<li><p>将一个对象作为data选项（组件是data函数返回对象）</p>
-</li>
-<li><p>遍历data里面所有的属性，通过<code>Object.defineProperty</code>将属性转为<strong>getter/setter</strong></p>
-</li>
-<li><p>每个组件都有一个<code>watcher</code>，它用来记录接触过的属性，并将其收集为依赖，当依赖的<strong>setter</strong>变更时，通知<code>watcher</code>，使与其有关联的组件更新</p>
-</li>
-<li><p>异步更新</p>
-</li>
+<li><strong>trapTarget</strong>：设置属性的对象（代理的目标对象）</li>
+<li><strong>key</strong>：属性的键</li>
+<li><strong>value</strong>：属性的值</li>
+<li><strong>receiver</strong>：操作发生的对象（通常指代理对象）</li>
 </ol>
-<h2 id="初始化data"><a href="#初始化data" class="headerlink" title="初始化data"></a>初始化data</h2><p>首先对<strong>data</strong>进行初始化<code>initData</code>，代码路径<code>/src/core/instance/state.js</code></p>
-<a id="more"></a>
-
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">initData</span> (<span class="hljs-params">vm: Component</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">let</span> data = vm.$options.data</span><br><span class="line">  data = vm._data = <span class="hljs-keyword">typeof</span> data === <span class="hljs-string">'function'</span></span><br><span class="line">    ? getData(data, vm)</span><br><span class="line">    : data || &#123;&#125;</span><br><span class="line">  <span class="hljs-keyword">if</span> (!isPlainObject(data)) &#123;</span><br><span class="line">    data = &#123;&#125;</span><br><span class="line">    process.env.NODE_ENV !== <span class="hljs-string">'production'</span> &amp;&amp; warn(</span><br><span class="line">      <span class="hljs-string">'data functions should return an object:\n'</span> +</span><br><span class="line">      <span class="hljs-string">'https://vuejs.org/v2/guide/components.html#data-Must-Be-a-Function'</span>,</span><br><span class="line">      vm</span><br><span class="line">    )</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="hljs-comment">// proxy data on instance</span></span><br><span class="line">  <span class="hljs-keyword">const</span> keys = <span class="hljs-built_in">Object</span>.keys(data)</span><br><span class="line">  <span class="hljs-keyword">const</span> props = vm.$options.props</span><br><span class="line">  <span class="hljs-keyword">const</span> methods = vm.$options.methods</span><br><span class="line">  <span class="hljs-keyword">let</span> i = keys.length</span><br><span class="line">  <span class="hljs-keyword">while</span> (i--) &#123;</span><br><span class="line">    <span class="hljs-keyword">const</span> key = keys[i]</span><br><span class="line">    <span class="hljs-keyword">if</span> (process.env.NODE_ENV !== <span class="hljs-string">'production'</span>) &#123;</span><br><span class="line">      <span class="hljs-keyword">if</span> (methods &amp;&amp; hasOwn(methods, key)) &#123;</span><br><span class="line">        warn(</span><br><span class="line">          <span class="hljs-string">`Method "<span class="hljs-subst">$&#123;key&#125;</span>" has already been defined as a data property.`</span>,</span><br><span class="line">          vm</span><br><span class="line">        )</span><br><span class="line">      &#125;</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">if</span> (props &amp;&amp; hasOwn(props, key)) &#123;</span><br><span class="line">      process.env.NODE_ENV !== <span class="hljs-string">'production'</span> &amp;&amp; warn(</span><br><span class="line">        <span class="hljs-string">`The data property "<span class="hljs-subst">$&#123;key&#125;</span>" is already declared as a prop. `</span> +</span><br><span class="line">        <span class="hljs-string">`Use prop default value instead.`</span>,</span><br><span class="line">        vm</span><br><span class="line">      )</span><br><span class="line">    &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (!isReserved(key)) &#123;</span><br><span class="line">      proxy(vm, <span class="hljs-string">`_data`</span>, key)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="hljs-comment">// observe data</span></span><br><span class="line">  observe(data, <span class="hljs-literal">true</span> <span class="hljs-comment">/* asRootData */</span>)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>data的初始化主要做两件事：</p>
+<h3 id="get"><a href="#get" class="headerlink" title="get"></a>get</h3><p>拦截对象：获取属性值行为。</p>
+<p>默认行为实现：<code>Reflect.get()</code></p>
+<p>接收参数：</p>
 <ol>
-<li>对data的所有属性遍历，先检查属性是否已定义为<strong>method</strong>或<strong>prop</strong>，否则通过一个<strong>proxy函数</strong>（不是ES6的proxy），把<code>vm._data.xxx</code>代理到<code>vm.xxx</code></li>
-<li>调用<strong>observe</strong>实现对data的监测，把data变成响应式</li>
+<li><strong>trapTarget</strong>：获取属性的对象（代理的目标对象）</li>
+<li><strong>key</strong>：属性的键</li>
+<li><strong>receiver</strong>：操作发生的对象（通常指代理对象）</li>
 </ol>
-<p>下面先看自定义的代理函数proxy</p>
-<h3 id="代理函数proxy"><a href="#代理函数proxy" class="headerlink" title="代理函数proxy"></a>代理函数proxy</h3><figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">const</span> sharedPropertyDefinition = &#123;</span><br><span class="line">  enumerable: <span class="hljs-literal">true</span>,</span><br><span class="line">  configurable: <span class="hljs-literal">true</span>,</span><br><span class="line">  <span class="hljs-keyword">get</span>: noop,</span><br><span class="line">  <span class="hljs-keyword">set</span>: noop</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export function proxy (target: Object, sourceKey: string, key: string) &#123;</span><br><span class="line">  sharedPropertyDefinition.get = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">proxyGetter</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>[sourceKey][key]</span><br><span class="line">  &#125;</span><br><span class="line">  sharedPropertyDefinition.set = <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">proxySetter</span> (<span class="hljs-params">val</span>) </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">this</span>[sourceKey][key] = val</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="hljs-built_in">Object</span>.defineProperty(target, key, sharedPropertyDefinition)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>proxy函数的作用是通过<code>Object.defineProperty</code>，将<code>target[sourceKey][key]</code>的读写变成<code>target[key]</code>的读写。而<code>vm._prop.xxx</code>、<code>vm._data.xxx</code>可以访问到<code>props</code>、<code>data</code>里面的属性，因此通过proxy函数之后，<code>vm._prop.xxx</code>、<code>vm._data.xxx</code>就变成<code>vm.xxx</code>的读写了，这也是为什么props的属性和data的属性一样，可以通过<code>vm.xxx</code>来访问。</p>
-<h3 id="observe"><a href="#observe" class="headerlink" title="observe"></a>observe</h3><p><strong>observe</strong>的作用是监测数据的变化，代码路径<code>/src/core/observer/index.js</code></p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * Attempt to create an observer instance for a value,</span></span><br><span class="line"><span class="hljs-comment"> * returns the new observer if successfully observed,</span></span><br><span class="line"><span class="hljs-comment"> * or the existing observer if the value already has one.</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">observe</span> (<span class="hljs-params">value: any, asRootData: ?boolean</span>): <span class="hljs-title">Observer</span> | <span class="hljs-title">void</span> </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">if</span> (!isObject(value) || value <span class="hljs-keyword">instanceof</span> VNode) &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line">  <span class="hljs-keyword">let</span> ob: Observer | <span class="hljs-keyword">void</span></span><br><span class="line">  <span class="hljs-keyword">if</span> (hasOwn(value, <span class="hljs-string">'__ob__'</span>) &amp;&amp; value.__ob__ <span class="hljs-keyword">instanceof</span> Observer) &#123;</span><br><span class="line">    ob = value.__ob__</span><br><span class="line">  &#125; <span class="hljs-keyword">else</span> <span class="hljs-keyword">if</span> (</span><br><span class="line">    shouldObserve &amp;&amp;</span><br><span class="line">    !isServerRendering() &amp;&amp;</span><br><span class="line">    (<span class="hljs-built_in">Array</span>.isArray(value) || isPlainObject(value)) &amp;&amp;</span><br><span class="line">    <span class="hljs-built_in">Object</span>.isExtensible(value) &amp;&amp;</span><br><span class="line">    !value._isVue</span><br><span class="line">  ) &#123;</span><br><span class="line">    ob = <span class="hljs-keyword">new</span> Observer(value)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="hljs-keyword">if</span> (asRootData &amp;&amp; ob) &#123;</span><br><span class="line">    ob.vmCount++</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="hljs-keyword">return</span> ob</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<h3 id="Observer"><a href="#Observer" class="headerlink" title="Observer"></a>Observer</h3><p>代码路径<code>/src/core/observer/index.js</code></p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * Observer class that is attached to each observed</span></span><br><span class="line"><span class="hljs-comment"> * object. Once attached, the observer converts the target</span></span><br><span class="line"><span class="hljs-comment"> * object's property keys into getter/setters that</span></span><br><span class="line"><span class="hljs-comment"> * collect dependencies and dispatch updates.</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Observer</span> </span>&#123;</span><br><span class="line">  value: any;</span><br><span class="line">  dep: Dep;</span><br><span class="line">  vmCount: number; <span class="hljs-comment">// number of vms that have this object as root $data</span></span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">constructor</span> (value: any) &#123;</span><br><span class="line">    <span class="hljs-keyword">this</span>.value = value</span><br><span class="line">    <span class="hljs-comment">// 实例化Dep对象</span></span><br><span class="line">    <span class="hljs-keyword">this</span>.dep = <span class="hljs-keyword">new</span> Dep()</span><br><span class="line">    <span class="hljs-keyword">this</span>.vmCount = <span class="hljs-number">0</span></span><br><span class="line">    <span class="hljs-comment">// 将自身属性添加到value对象的__ob__属性  </span></span><br><span class="line">    def(value, <span class="hljs-string">'__ob__'</span>, <span class="hljs-keyword">this</span>)</span><br><span class="line">    <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Array</span>.isArray(value)) &#123;</span><br><span class="line">      <span class="hljs-keyword">if</span> (hasProto) &#123;</span><br><span class="line">        protoAugment(value, arrayMethods)</span><br><span class="line">      &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">        copyAugment(value, arrayMethods, arrayKeys)</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="hljs-keyword">this</span>.observeArray(value)</span><br><span class="line">    &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">      <span class="hljs-keyword">this</span>.walk(value)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">   * Walk through all properties and convert them into</span></span><br><span class="line"><span class="hljs-comment">   * getter/setters. This method should only be called when</span></span><br><span class="line"><span class="hljs-comment">   * value type is Object.</span></span><br><span class="line"><span class="hljs-comment">   */</span></span><br><span class="line">  walk (obj: <span class="hljs-built_in">Object</span>) &#123;</span><br><span class="line">    <span class="hljs-keyword">const</span> keys = <span class="hljs-built_in">Object</span>.keys(obj)</span><br><span class="line">    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>; i &lt; keys.length; i++) &#123;</span><br><span class="line">      defineReactive(obj, keys[i])</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment">   * Observe a list of Array items.</span></span><br><span class="line"><span class="hljs-comment">   */</span></span><br><span class="line">  observeArray (items: <span class="hljs-built_in">Array</span>&lt;any&gt;) &#123;</span><br><span class="line">    <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> i = <span class="hljs-number">0</span>, l = items.length; i &lt; l; i++) &#123;</span><br><span class="line">      observe(items[i])</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在<strong>Observer</strong>的构造函数里，先实例化一个<code>Dep</code>对象，用<code>def</code>函数（defineProperty的迷你版），将自身实例添加到value对象的<code>__ob__</code>属性，接下来判断value是数组还是对象，如果是数组，则调用<code>observeArray</code>，如果是对象，则调用<code>walk</code>函数。</p>
-<p>接下来看一下<code>defineReactive</code>这个函数，代码路径<code>/src/core/observer/index.js</code></p>
-<h3 id="defineReactive"><a href="#defineReactive" class="headerlink" title="defineReactive"></a>defineReactive</h3><figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * Define a reactive property on an Object.</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">defineReactive</span> (<span class="hljs-params"></span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">  obj: Object,</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">  key: string,</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">  val: any,</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">  customSetter?: ?Function,</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">  shallow?: boolean</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">  <span class="hljs-comment">// 实例化Dep对象</span></span><br><span class="line">  <span class="hljs-keyword">const</span> dep = <span class="hljs-keyword">new</span> Dep()</span><br><span class="line">  <span class="hljs-comment">// 获取对象属性描述符</span></span><br><span class="line">  <span class="hljs-keyword">const</span> property = <span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor(obj, key)</span><br><span class="line">  <span class="hljs-keyword">if</span> (property &amp;&amp; property.configurable === <span class="hljs-literal">false</span>) &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="hljs-comment">// cater for pre-defined getter/setters</span></span><br><span class="line">  <span class="hljs-keyword">const</span> getter = property &amp;&amp; property.get</span><br><span class="line">  <span class="hljs-keyword">const</span> setter = property &amp;&amp; property.set</span><br><span class="line">  <span class="hljs-keyword">if</span> ((!getter || setter) &amp;&amp; <span class="hljs-built_in">arguments</span>.length === <span class="hljs-number">2</span>) &#123;</span><br><span class="line">    val = obj[key]</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">let</span> childOb = !shallow &amp;&amp; observe(val)</span><br><span class="line">  <span class="hljs-built_in">Object</span>.defineProperty(obj, key, &#123;</span><br><span class="line">    enumerable: <span class="hljs-literal">true</span>,</span><br><span class="line">    configurable: <span class="hljs-literal">true</span>,</span><br><span class="line">    <span class="hljs-keyword">get</span>: function reactiveGetter () &#123;</span><br><span class="line">      <span class="hljs-keyword">const</span> value = getter ? getter.call(obj) : val</span><br><span class="line">      <span class="hljs-keyword">if</span> (Dep.target) &#123;</span><br><span class="line">        dep.depend()</span><br><span class="line">        <span class="hljs-keyword">if</span> (childOb) &#123;</span><br><span class="line">          childOb.dep.depend()</span><br><span class="line">          <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Array</span>.isArray(value)) &#123;</span><br><span class="line">            dependArray(value)</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="hljs-keyword">return</span> value</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="hljs-keyword">set</span>: function reactiveSetter (newVal) &#123;</span><br><span class="line">      <span class="hljs-keyword">const</span> value = getter ? getter.call(obj) : val</span><br><span class="line">      <span class="hljs-comment">/* eslint-disable no-self-compare */</span></span><br><span class="line">      <span class="hljs-keyword">if</span> (newVal === value || (newVal !== newVal &amp;&amp; value !== value)) &#123;</span><br><span class="line">        <span class="hljs-keyword">return</span></span><br><span class="line">      &#125;</span><br><span class="line">      <span class="hljs-comment">/* eslint-enable no-self-compare */</span></span><br><span class="line">      <span class="hljs-keyword">if</span> (process.env.NODE_ENV !== <span class="hljs-string">'production'</span> &amp;&amp; customSetter) &#123;</span><br><span class="line">        customSetter()</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="hljs-comment">// #7981: for accessor properties without setter</span></span><br><span class="line">      <span class="hljs-keyword">if</span> (getter &amp;&amp; !setter) <span class="hljs-keyword">return</span></span><br><span class="line">      <span class="hljs-keyword">if</span> (setter) &#123;</span><br><span class="line">        setter.call(obj, newVal)</span><br><span class="line">      &#125; <span class="hljs-keyword">else</span> &#123;</span><br><span class="line">        val = newVal</span><br><span class="line">      &#125;</span><br><span class="line">      childOb = !shallow &amp;&amp; observe(newVal)</span><br><span class="line">      dep.notify()</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>从代码可以看到，<strong>defineReactive</strong>先实例化一个<code>Dep</code>对象，之后拿到对象属性的描述符，如果对象存在子对象，将会递归调用<code>observe</code>方法，确保每个属性都能被监测到，最后通过<code>defineProperty</code>给属性加上用于<strong>收集依赖</strong>的<code>getter</code>和<strong>派发更新</strong>的<code>setter</code>。</p>
-<p>到了这里，<strong>data</strong>的初始化已经完成，后面接着对<strong>收集依赖</strong>和<strong>派发更新</strong>做分析。</p>
+<p>骚操作：属性不存在时可抛出错误，而不是返回<code>undefined</code></p>
+<h3 id="has"><a href="#has" class="headerlink" title="has"></a>has</h3><p>拦截对象：<code>in</code>操作符。成功返回<code>true</code>，失败返回<code>false</code>。</p>
+<p>默认行为实现：<code>Reflect.has()</code></p>
+<p>接收参数：</p>
+<ol>
+<li><strong>trapTarget</strong>：读取属性的对象（代理的目标对象）</li>
+<li><strong>key</strong>：需要检查的属性的键</li>
+</ol>
+<p>骚操作：通过返回<code>false</code>，隐藏属性</p>
+<h3 id="deleteProperty"><a href="#deleteProperty" class="headerlink" title="deleteProperty"></a>deleteProperty</h3><p>拦截对象：<code>delete</code>操作符。成功返回<code>true</code>，失败返回<code>false</code>。</p>
+<p>默认行为实现：<code>Reflect.deleteProperty()</code></p>
+<p>接收参数：</p>
+<ol>
+<li><strong>trapTarget</strong>：删除属性的对象（代理的目标对象）</li>
+<li><strong>key</strong>：需要删除的属性的键</li>
+</ol>
+<p>骚操作：通过返回<code>false</code>，设置属性不可删除</p>
+<h3 id="getPrototypeOf"><a href="#getPrototypeOf" class="headerlink" title="getPrototypeOf"></a>getPrototypeOf</h3><p>拦截对象：<code>Object.getPrototypeOf()</code>。返回值必须是一个对象或者是<code>null</code>，其它类型返回值会引发错误。</p>
+<p>默认行为实现：<code>Reflect.getPrototypeOf()</code></p>
+<p>接收参数：</p>
+<ol>
+<li><strong>trapTarget</strong>：需要获取原型的对象</li>
+</ol>
+<p>骚操作：可通过返回<code>null</code>来隐藏对象原型</p>
+<h3 id="setPrototypeOf"><a href="#setPrototypeOf" class="headerlink" title="setPrototypeOf"></a>setPrototypeOf</h3><p>拦截对象：<code>Object.setPrototypeOf()</code>。操作不成功时应返回<code>false</code>以让<code>Object.setPrototypeOf()</code>抛出错误，若返回不为<code>false</code>，则认为操作成功。</p>
+<p>默认行为实现：<code>Reflect.setPrototypeOf()</code></p>
+<p>接受参数：</p>
+<ol>
+<li><strong>trapTarget</strong>：需要设置原型的对象</li>
+<li><strong>proto</strong>：被用作原型的对象</li>
+</ol>
+<p>骚操作：可通过返回<code>false</code>使对象原型不可被设置</p>
+<p><strong>为何存在<code>Reflect.getPrototypeOf()</code>、<code>Reflect.setPrototypeOf()</code>与<code>Object.getPrototypeOf()</code>、<code>Object.setPrototypeOf()</code>两组方法？</strong></p>
+<p>两组方法作用虽然相似，但还是存在一些比较显著的差别：</p>
+<ol>
+<li>前者属于JS引擎底层操作，后者属于高级操作；</li>
+<li><code>Reflect.getPrototypeOf()</code>接收的参数不是对象时会抛出错误；而<code>Object.getPrototypeOf()</code>操作前会先将参数转换为对象；</li>
+<li><code>Reflect.setPrototypeOf()</code>会返回布尔值<code>true</code>或<code>false</code>表示成功或失败，<code>Object.setPrototypeOf()</code>操作失败时会报错，成功时会将第一个参数作为返回值；</li>
+</ol>
+<p>因此，Object两个原型操作方法并不适合用来实现代理陷阱的默认行为。</p>
+<h3 id="ownKeys"><a href="#ownKeys" class="headerlink" title="ownKeys"></a>ownKeys</h3><p>拦截对象：内部方法<code>[[OwnPropertyKeys]]</code>，返回一个数组重写该行为。数组被用于四个方法：<code>Object.keys()</code>、<code>Object.getOwnPropertyNames()</code>、<code>Object.getOwnPropertySymbols()</code>、<code>Object.assign()</code></p>
+<p>默认行为实现：<code>Reflect.ownKeys()</code>，返回一个由全部自有属性的键构成的数组，无论键的类型是<strong>字符串</strong>还是<strong>符号</strong>。</p>
+<h3 id="apply和construct"><a href="#apply和construct" class="headerlink" title="apply和construct"></a>apply和construct</h3><p>拦截对象：内部方法<code>[[Call]]</code>和<code>[[Construct]]</code>，前者会在函数被直接调用时执行，而后者会在函数被使用<code>new</code>运算符调用时执行。</p>
+<p>apply陷阱函数(Reflect.apply()同样)接收参数：</p>
+<ol>
+<li><strong>trapTarget</strong> ：被执行的函数（即代理的目标对象）；</li>
+<li><strong>thisArg</strong> ：调用过程中函数内部的 this 值；</li>
+<li><strong>argumentsList</strong> ：被传递给函数的参数数组。</li>
+</ol>
+<p>construct陷阱函数(Reflect.construct()同样)接收参数：</p>
+<ol>
+<li><strong>trapTarget</strong> ：被执行的函数（即代理的目标对象）；</li>
+<li><strong>argumentsList</strong> ：被传递给函数的参数数组。</li>
+</ol>
 
         </div>
         
@@ -228,7 +260,7 @@
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/vue/">vue</a>, <a class="has-link-grey -link" href="/tags/源码/">源码</a>
+                    <a class="has-link-grey -link" href="/tags/总结/">总结</a>
                 </div>
             </div>
         </div>
@@ -245,17 +277,10 @@
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
         
-        <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/10/14/响应式原理-2.x版本（下）/">
-                <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">响应式原理-2.x版本（下）</span>
-            </a>
-        </div>
-        
         
         <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2019/10/07/Vue3.0它来了，带着Pre-Alpha来了/">
-                <span class="level-item">Vue3.0，它来了</span>
+            <a class="level level-item has-link-grey  article-nav-next" href="/2019/12/14/JavaScript整理总结(持续更新)/">
+                <span class="level-item">JavaScript整理总结(持续更新)</span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
         </div>
@@ -930,7 +955,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo-3.png" alt="响应式原理-vue2.x版（上）" height="28">
+                    <img src="/images/logo-3.png" alt="ES6 -- Proxy" height="28">
                 
                 </a>
                 <p class="is-size-7">

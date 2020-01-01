@@ -160,6 +160,122 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-01-01T12:51:56.617Z">2020-01-01</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    7 分钟 读完 (大约 1032 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2020/01/01/ES6----Proxy/">ES6 -- Proxy</a>
+            
+        </h1>
+        <div class="content">
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本文总结了<code>Proxy</code>代理的陷阱函数和对应的<code>Reflect</code>接口默认行为函数的用法。因为目前用的最多的技术栈是<code>Vue</code>，而<code>Vue3.0</code>版本其中关于响应式原理的核心是<code>Proxy</code>，因此有必要对<code>Proxy</code>做进一步的理解和总结。</p>
+<h3 id="set"><a href="#set" class="headerlink" title="set"></a>set</h3><p>拦截对象：设置属性值行为。成功返回<code>true</code>，失败返回<code>false</code>。</p>
+<p>默认行为实现：<code>Reflect.set()</code></p>
+<p>接收参数：</p>
+<ol>
+<li><strong>trapTarget</strong>：设置属性的对象（代理的目标对象）</li>
+<li><strong>key</strong>：属性的键</li>
+<li><strong>value</strong>：属性的值</li>
+<li><strong>receiver</strong>：操作发生的对象（通常指代理对象）</li>
+</ol>
+<h3 id="get"><a href="#get" class="headerlink" title="get"></a>get</h3><p>拦截对象：获取属性值行为。</p>
+<p>默认行为实现：<code>Reflect.get()</code></p>
+<p>接收参数：</p>
+<ol>
+<li><strong>trapTarget</strong>：获取属性的对象（代理的目标对象）</li>
+<li><strong>key</strong>：属性的键</li>
+<li><strong>receiver</strong>：操作发生的对象（通常指代理对象）</li>
+</ol>
+<p>骚操作：属性不存在时可抛出错误，而不是返回<code>undefined</code></p>
+<h3 id="has"><a href="#has" class="headerlink" title="has"></a>has</h3><p>拦截对象：<code>in</code>操作符。成功返回<code>true</code>，失败返回<code>false</code>。</p>
+<p>默认行为实现：<code>Reflect.has()</code></p>
+<p>接收参数：</p>
+<ol>
+<li><strong>trapTarget</strong>：读取属性的对象（代理的目标对象）</li>
+<li><strong>key</strong>：需要检查的属性的键</li>
+</ol>
+<p>骚操作：通过返回<code>false</code>，隐藏属性</p>
+<h3 id="deleteProperty"><a href="#deleteProperty" class="headerlink" title="deleteProperty"></a>deleteProperty</h3><p>拦截对象：<code>delete</code>操作符。成功返回<code>true</code>，失败返回<code>false</code>。</p>
+<p>默认行为实现：<code>Reflect.deleteProperty()</code></p>
+<p>接收参数：</p>
+<ol>
+<li><strong>trapTarget</strong>：删除属性的对象（代理的目标对象）</li>
+<li><strong>key</strong>：需要删除的属性的键</li>
+</ol>
+<p>骚操作：通过返回<code>false</code>，设置属性不可删除</p>
+<h3 id="getPrototypeOf"><a href="#getPrototypeOf" class="headerlink" title="getPrototypeOf"></a>getPrototypeOf</h3><p>拦截对象：<code>Object.getPrototypeOf()</code>。返回值必须是一个对象或者是<code>null</code>，其它类型返回值会引发错误。</p>
+<p>默认行为实现：<code>Reflect.getPrototypeOf()</code></p>
+<p>接收参数：</p>
+<ol>
+<li><strong>trapTarget</strong>：需要获取原型的对象</li>
+</ol>
+<p>骚操作：可通过返回<code>null</code>来隐藏对象原型</p>
+<h3 id="setPrototypeOf"><a href="#setPrototypeOf" class="headerlink" title="setPrototypeOf"></a>setPrototypeOf</h3><p>拦截对象：<code>Object.setPrototypeOf()</code>。操作不成功时应返回<code>false</code>以让<code>Object.setPrototypeOf()</code>抛出错误，若返回不为<code>false</code>，则认为操作成功。</p>
+<p>默认行为实现：<code>Reflect.setPrototypeOf()</code></p>
+<p>接受参数：</p>
+<ol>
+<li><strong>trapTarget</strong>：需要设置原型的对象</li>
+<li><strong>proto</strong>：被用作原型的对象</li>
+</ol>
+<p>骚操作：可通过返回<code>false</code>使对象原型不可被设置</p>
+<p><strong>为何存在<code>Reflect.getPrototypeOf()</code>、<code>Reflect.setPrototypeOf()</code>与<code>Object.getPrototypeOf()</code>、<code>Object.setPrototypeOf()</code>两组方法？</strong></p>
+<p>两组方法作用虽然相似，但还是存在一些比较显著的差别：</p>
+<ol>
+<li>前者属于JS引擎底层操作，后者属于高级操作；</li>
+<li><code>Reflect.getPrototypeOf()</code>接收的参数不是对象时会抛出错误；而<code>Object.getPrototypeOf()</code>操作前会先将参数转换为对象；</li>
+<li><code>Reflect.setPrototypeOf()</code>会返回布尔值<code>true</code>或<code>false</code>表示成功或失败，<code>Object.setPrototypeOf()</code>操作失败时会报错，成功时会将第一个参数作为返回值；</li>
+</ol>
+<p>因此，Object两个原型操作方法并不适合用来实现代理陷阱的默认行为。</p>
+<h3 id="ownKeys"><a href="#ownKeys" class="headerlink" title="ownKeys"></a>ownKeys</h3><p>拦截对象：内部方法<code>[[OwnPropertyKeys]]</code>，返回一个数组重写该行为。数组被用于四个方法：<code>Object.keys()</code>、<code>Object.getOwnPropertyNames()</code>、<code>Object.getOwnPropertySymbols()</code>、<code>Object.assign()</code></p>
+<p>默认行为实现：<code>Reflect.ownKeys()</code>，返回一个由全部自有属性的键构成的数组，无论键的类型是<strong>字符串</strong>还是<strong>符号</strong>。</p>
+<h3 id="apply和construct"><a href="#apply和construct" class="headerlink" title="apply和construct"></a>apply和construct</h3><p>拦截对象：内部方法<code>[[Call]]</code>和<code>[[Construct]]</code>，前者会在函数被直接调用时执行，而后者会在函数被使用<code>new</code>运算符调用时执行。</p>
+<p>apply陷阱函数(Reflect.apply()同样)接收参数：</p>
+<ol>
+<li><strong>trapTarget</strong> ：被执行的函数（即代理的目标对象）；</li>
+<li><strong>thisArg</strong> ：调用过程中函数内部的 this 值；</li>
+<li><strong>argumentsList</strong> ：被传递给函数的参数数组。</li>
+</ol>
+<p>construct陷阱函数(Reflect.construct()同样)接收参数：</p>
+<ol>
+<li><strong>trapTarget</strong> ：被执行的函数（即代理的目标对象）；</li>
+<li><strong>argumentsList</strong> ：被传递给函数的参数数组。</li>
+</ol>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2019-12-14T15:15:30.858Z">2019-12-14</time>
                 
                 <div class="level-item">
@@ -630,7 +746,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        9
+                        10
                     </p>
                 </div>
             </div>
@@ -769,7 +885,7 @@
                 <span class="level-item">前端</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">7</span>
+                <span class="level-item tag">8</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/生活/">
@@ -805,6 +921,25 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/01/01/ES6----Proxy/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ES6 -- Proxy">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-01T12:51:56.617Z">2020-01-01</time></div>
+                    <a href="/2020/01/01/ES6----Proxy/" class="title has-link-black-ter is-size-6 has-text-weight-normal">ES6 -- Proxy</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -882,25 +1017,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/10/14/响应式原理-2.x版本（下）/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="响应式原理-2.x版本（下）">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-14T05:41:22.699Z">2019-10-14</time></div>
-                    <a href="/2019/10/14/响应式原理-2.x版本（下）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">响应式原理-2.x版本（下）</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -912,6 +1028,17 @@
             归档
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2019/12/">
@@ -980,7 +1107,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/总结/">
                         <span class="tag">总结</span>
-                        <span class="tag is-grey">4</span>
+                        <span class="tag is-grey">5</span>
                     </a>
                 </div>
                 
@@ -1023,6 +1150,25 @@
         
         <article class="media">
             
+            <a href="/2020/01/01/ES6----Proxy/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ES6 -- Proxy">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-01T12:51:56.617Z">2020-01-01</time></div>
+                    <a href="/2020/01/01/ES6----Proxy/" class="title has-link-black-ter is-size-6 has-text-weight-normal">ES6 -- Proxy</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2019/12/14/JavaScript整理总结(持续更新)/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="JavaScript整理总结(持续更新)">
@@ -1097,25 +1243,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/10/14/响应式原理-2.x版本（下）/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="响应式原理-2.x版本（下）">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-10-14T05:41:22.699Z">2019-10-14</time></div>
-                    <a href="/2019/10/14/响应式原理-2.x版本（下）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">响应式原理-2.x版本（下）</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1127,6 +1254,17 @@
             归档
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2019/12/">
@@ -1195,7 +1333,7 @@
                 <div class="control">
                     <a class="tags has-addons" href="/tags/总结/">
                         <span class="tag">总结</span>
-                        <span class="tag is-grey">4</span>
+                        <span class="tag is-grey">5</span>
                     </a>
                 </div>
                 
@@ -1234,7 +1372,7 @@
                 
                 </a>
                 <p class="is-size-7">
-                &copy; 2019 Ysom&nbsp;
+                &copy; 2020 Ysom&nbsp;
                 Powered by <a href="https://hexo.io/" target="_blank">Hexo</a> & <a
                         href="https://github.com/ppoffice/hexo-theme-icarus" target="_blank">Icarus</a>
                 
