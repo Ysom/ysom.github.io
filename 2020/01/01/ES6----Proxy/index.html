@@ -19,7 +19,7 @@
 <meta property="og:description" content="前言本文总结了Proxy代理的陷阱函数和对应的Reflect接口默认行为函数的用法。因为目前用的最多的技术栈是Vue，而Vue3.0版本其中关于响应式原理的核心是Proxy，因此有必要对Proxy做进一步的理解和总结。 set拦截对象：设置属性值行为。成功返回true，失败返回false。 默认行为实现：Reflect.set() 接收参数：  trapTarget：设置属性的对象（代理的目标对象">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="og:updated_time" content="2020-01-02T05:55:53.410Z">
+<meta property="og:updated_time" content="2020-01-02T07:55:00.134Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6 -- Proxy">
 <meta name="twitter:description" content="前言本文总结了Proxy代理的陷阱函数和对应的Reflect接口默认行为函数的用法。因为目前用的最多的技术栈是Vue，而Vue3.0版本其中关于响应式原理的核心是Proxy，因此有必要对Proxy做进一步的理解和总结。 set拦截对象：设置属性值行为。成功返回true，失败返回false。 默认行为实现：Reflect.set() 接收参数：  trapTarget：设置属性的对象（代理的目标对象">
@@ -163,7 +163,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    12 分钟 读完 (大约 1779 个字)
+                    13 分钟 读完 (大约 1919 个字)
                 </span>
                 
                 
@@ -206,7 +206,7 @@
 <p>默认行为实现：<code>Reflect.has()</code></p>
 <p>接收参数：</p>
 <ol>
-<li><strong>trapTarget</strong>：读取属性的对象（代理的目标对象）</li>
+<li><strong>trapTarget</strong>：读取属性的对象</li>
 <li><strong>key</strong>：需要检查的属性的键</li>
 </ol>
 <p>骚操作：通过返回<code>false</code>，隐藏属性</p>
@@ -214,7 +214,7 @@
 <p>默认行为实现：<code>Reflect.deleteProperty()</code></p>
 <p>接收参数：</p>
 <ol>
-<li><strong>trapTarget</strong>：删除属性的对象（代理的目标对象）</li>
+<li><strong>trapTarget</strong>：删除属性的对象</li>
 <li><strong>key</strong>：需要删除的属性的键</li>
 </ol>
 <p>骚操作：通过返回<code>false</code>，设置属性不可删除</p>
@@ -305,6 +305,17 @@
 </ol>
 <p><code>Reflect.construct()</code>除了上述两个参数，还有第三个可选参数<code>newTarget</code>，此参数指定了函数内部<code>new.target</code>的值。</p>
 <p>骚操作：可以验证函数的类型；还可以不使用<code>new</code>来调用构造器；还可以限制函数只能通过<code>new</code>来调用等等。。。</p>
+<h3 id="撤销代理"><a href="#撤销代理" class="headerlink" title="撤销代理"></a>撤销代理</h3><p>一般代理创建之后不会被解绑，如果想要创建一个可被撤销的代理，可通过<code>Proxy.revocable()</code>方法，该方法跟<code>Proxy</code>构造器一样接收两个参数：</p>
+<ol>
+<li><strong>trapTarget</strong>：被代理的目标对象</li>
+<li><strong>handler</strong>：代理处理器</li>
+</ol>
+<p>然后会返回一个包含以下属性的对象：</p>
+<ol>
+<li><strong>proxy</strong>：可被撤销的代理对象</li>
+<li><strong>revoke</strong>：用于撤销代理的函数</li>
+</ol>
+<p>通过调用<code>revoke()</code>，就无法再对<code>proxy</code>进行更多的操作，任何跟<code>proxy</code>的交互都会触发陷阱函数，从而抛出错误。</p>
 
         </div>
         
