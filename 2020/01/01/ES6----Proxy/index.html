@@ -19,7 +19,7 @@
 <meta property="og:description" content="前言本文总结了Proxy代理的陷阱函数和对应的Reflect接口默认行为函数的用法。因为目前用的最多的技术栈是Vue，而Vue3.0版本其中关于响应式原理的核心是Proxy，因此有必要对Proxy做进一步的理解和总结。 set拦截对象：设置属性值行为。成功返回true，失败返回false。 默认行为实现：Reflect.set() 接收参数：  trapTarget：设置属性的对象（代理的目标对象">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="og:updated_time" content="2020-01-02T07:55:00.134Z">
+<meta property="og:updated_time" content="2020-01-06T15:21:56.225Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6 -- Proxy">
 <meta name="twitter:description" content="前言本文总结了Proxy代理的陷阱函数和对应的Reflect接口默认行为函数的用法。因为目前用的最多的技术栈是Vue，而Vue3.0版本其中关于响应式原理的核心是Proxy，因此有必要对Proxy做进一步的理解和总结。 set拦截对象：设置属性值行为。成功返回true，失败返回false。 默认行为实现：Reflect.set() 接收参数：  trapTarget：设置属性的对象（代理的目标对象">
@@ -163,7 +163,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    13 分钟 读完 (大约 1919 个字)
+                    13 分钟 读完 (大约 2017 个字)
                 </span>
                 
                 
@@ -201,7 +201,9 @@
 <li><strong>key</strong>：属性的键</li>
 <li><strong>receiver</strong>：操作发生的对象（通常指代理对象）</li>
 </ol>
-<p>骚操作：属性不存在时可抛出错误，而不是返回<code>undefined</code></p>
+<p>骚操作：属性不存在时可明确抛出错误，而不是返回<code>undefined</code></p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> target = &#123;&#125;</span><br><span class="line"><span class="hljs-keyword">let</span> proxyTar = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(target, &#123;</span><br><span class="line">    <span class="hljs-keyword">get</span> (trapTarget, key, receiver) &#123;</span><br><span class="line">        <span class="hljs-keyword">if</span> (!(key <span class="hljs-keyword">in</span> receiver)) &#123;</span><br><span class="line">            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">`property <span class="hljs-subst">$&#123;key&#125;</span> is not exist`</span>)</span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Reflect</span>.get(trapTarget, key, receiver)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
 <h3 id="has"><a href="#has" class="headerlink" title="has"></a>has</h3><p>拦截对象：<code>in</code>操作符。成功返回<code>true</code>，失败返回<code>false</code>。</p>
 <p>默认行为实现：<code>Reflect.has()</code></p>
 <p>接收参数：</p>
@@ -210,6 +212,8 @@
 <li><strong>key</strong>：需要检查的属性的键</li>
 </ol>
 <p>骚操作：通过返回<code>false</code>，隐藏属性</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> target = &#123;</span><br><span class="line">    name: <span class="hljs-string">'小叮当'</span>,</span><br><span class="line">    _age: <span class="hljs-number">18</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-keyword">let</span> proxyTar = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(target, &#123;</span><br><span class="line">    has (trapTarget, key) &#123;</span><br><span class="line">        <span class="hljs-comment">// 隐藏_age属性</span></span><br><span class="line">        <span class="hljs-keyword">if</span> (key === <span class="hljs-string">'_age'</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Reflect</span>.has(trapTarget, key)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
 <h3 id="deleteProperty"><a href="#deleteProperty" class="headerlink" title="deleteProperty"></a>deleteProperty</h3><p>拦截对象：<code>delete</code>操作符。成功返回<code>true</code>，失败返回<code>false</code>。</p>
 <p>默认行为实现：<code>Reflect.deleteProperty()</code></p>
 <p>接收参数：</p>
@@ -218,6 +222,8 @@
 <li><strong>key</strong>：需要删除的属性的键</li>
 </ol>
 <p>骚操作：通过返回<code>false</code>，设置属性不可删除</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> target = &#123;</span><br><span class="line">    name: <span class="hljs-string">'小叮当'</span>,</span><br><span class="line">    age: <span class="hljs-number">18</span>,</span><br><span class="line">    idCard: <span class="hljs-string">'75423546574xxx'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-keyword">let</span> proxyTar = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(target, &#123;</span><br><span class="line">    deleteProperty (trapTarget, key) &#123;</span><br><span class="line">        <span class="hljs-comment">// idCard属性不可删除</span></span><br><span class="line">        <span class="hljs-keyword">if</span> (key === <span class="hljs-string">'idCard'</span>) &#123;</span><br><span class="line">            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span></span><br><span class="line">        &#125;</span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Reflect</span>.deleteProperty(trapTarget, key)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
 <h3 id="getPrototypeOf"><a href="#getPrototypeOf" class="headerlink" title="getPrototypeOf"></a>getPrototypeOf</h3><p>拦截对象：<code>Object.getPrototypeOf()</code>。返回值必须是一个对象或者是<code>null</code>，其它类型返回值会引发错误。</p>
 <p>默认行为实现：<code>Reflect.getPrototypeOf()</code></p>
 <p>接收参数：</p>
