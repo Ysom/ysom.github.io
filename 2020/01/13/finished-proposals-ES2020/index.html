@@ -7,17 +7,22 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>标签: 源码 - Ysom &#39;s Blog</title>
+<title>振奋人心的ES2020新特性！ - Ysom &#39;s Blog</title>
 
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Ysom &#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/tags/源码/index.html">
+    <meta name="description" content="ES2020已完成的提案中，有了比较振奋人心的新特性。下面来看看几个比较有意思的特性 Promise.allSettled用过Promise.all的都知道，这方法有一个比较明显的缺陷，只要其中一个Promise被reject，整个Promise.all就会挂掉，剩下的Promise都会停止执行。例如在一个用户模块中，通过并发异步请求多个版块的数据，只要其中一个服务挂了，其它的版块也就不会拿到数据">
+<meta name="keywords" content="JS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="振奋人心的ES2020新特性！">
+<meta property="og:url" content="http://yoursite.com/2020/01/13/finished-proposals-ES2020/index.html">
 <meta property="og:site_name" content="Ysom &#39;s Blog">
+<meta property="og:description" content="ES2020已完成的提案中，有了比较振奋人心的新特性。下面来看看几个比较有意思的特性 Promise.allSettled用过Promise.all的都知道，这方法有一个比较明显的缺陷，只要其中一个Promise被reject，整个Promise.all就会挂掉，剩下的Promise都会停止执行。例如在一个用户模块中，通过并发异步请求多个版块的数据，只要其中一个服务挂了，其它的版块也就不会拿到数据">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
+<meta property="og:updated_time" content="2020-01-13T15:06:40.812Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Ysom &#39;s Blog">
+<meta name="twitter:title" content="振奋人心的ES2020新特性！">
+<meta name="twitter:description" content="ES2020已完成的提案中，有了比较振奋人心的新特性。下面来看看几个比较有意思的特性 Promise.allSettled用过Promise.all的都知道，这方法有一个比较明显的缺陷，只要其中一个Promise被reject，整个Promise.all就会挂掉，剩下的Promise都会停止执行。例如在一个用户模块中，通过并发异步请求多个版块的数据，只要其中一个服务挂了，其它的版块也就不会拿到数据">
 <meta name="twitter:image" content="http://yoursite.com/images/og_image.png">
 
 
@@ -92,7 +97,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo-3.png" alt="Ysom &#39;s Blog" height="28">
+                <img src="/images/logo-3.png" alt="振奋人心的ES2020新特性！" height="28">
             
             </a>
         </div>
@@ -143,23 +148,12 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
-    <div class="card-content">
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-            <li><a href="/tags">标签</a></li>
-            <li class="is-active"><a href="#" aria-current="page">源码</a></li>
-        </ul>
-        </nav>
-    </div>
-</div>
-
-    <div class="card">
     
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-10-14T05:41:22.699Z">2019-10-14</time>
+                <time class="level-item has-text-grey" datetime="2020-01-13T15:05:15.051Z">2020-01-13</time>
                 
                 <div class="level-item">
                 <a class="has-link-grey -link" href="/categories/前端/">前端</a>
@@ -169,34 +163,58 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    14 分钟 读完 (大约 2031 个字)
+                    5 分钟 读完 (大约 821 个字)
                 </span>
                 
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span>次访问
+                </span>
                 
             </div>
         </div>
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/10/14/响应式原理-2.x版本（下）/">响应式原理-2.x版本（下）</a>
+                振奋人心的ES2020新特性！
             
         </h1>
         <div class="content">
-            <p>上一篇分析了<strong>data</strong>的初始化过程以及做的一些操作，这一篇分析<strong>依赖收集</strong>和<strong>派发更新</strong>。</p>
-<h2 id="依赖收集"><a href="#依赖收集" class="headerlink" title="依赖收集"></a>依赖收集</h2><p>先看下<code>getter</code>的代码</p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">defineReactive</span> (<span class="hljs-params"></span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">  obj: Object,</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">  key: string,</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">  val: any,</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">  customSetter?: ?Function,</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">  shallow?: boolean</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">const</span> dep = <span class="hljs-keyword">new</span> Dep()</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">const</span> property = <span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor(obj, key)</span><br><span class="line">  <span class="hljs-keyword">if</span> (property &amp;&amp; property.configurable === <span class="hljs-literal">false</span>) &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="hljs-comment">// cater for pre-defined getter/setters</span></span><br><span class="line">  <span class="hljs-keyword">const</span> getter = property &amp;&amp; property.get</span><br><span class="line">  <span class="hljs-keyword">const</span> setter = property &amp;&amp; property.set</span><br><span class="line">  <span class="hljs-keyword">if</span> ((!getter || setter) &amp;&amp; <span class="hljs-built_in">arguments</span>.length === <span class="hljs-number">2</span>) &#123;</span><br><span class="line">    val = obj[key]</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">let</span> childOb = !shallow &amp;&amp; observe(val)</span><br><span class="line">  <span class="hljs-built_in">Object</span>.defineProperty(obj, key, &#123;</span><br><span class="line">    enumerable: <span class="hljs-literal">true</span>,</span><br><span class="line">    configurable: <span class="hljs-literal">true</span>,</span><br><span class="line">    <span class="hljs-comment">// 重点看get这部分  </span></span><br><span class="line">    <span class="hljs-keyword">get</span>: function reactiveGetter () &#123;</span><br><span class="line">      <span class="hljs-keyword">const</span> value = getter ? getter.call(obj) : val</span><br><span class="line">      <span class="hljs-keyword">if</span> (Dep.target) &#123;</span><br><span class="line">        dep.depend()</span><br><span class="line">        <span class="hljs-keyword">if</span> (childOb) &#123;</span><br><span class="line">          childOb.dep.depend()</span><br><span class="line">          <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Array</span>.isArray(value)) &#123;</span><br><span class="line">            dependArray(value)</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="hljs-keyword">return</span> value</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="hljs-comment">// ...</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+            <p>ES2020已完成的<a href="https://github.com/tc39/proposals/blob/master/finished-proposals.md" target="_blank" rel="noopener">提案</a>中，有了比较振奋人心的新特性。下面来看看几个比较有意思的特性</p>
+<h3 id="Promise-allSettled"><a href="#Promise-allSettled" class="headerlink" title="Promise.allSettled"></a>Promise.allSettled</h3><p>用过<code>Promise.all</code>的都知道，这方法有一个比较明显的缺陷，只要其中一个Promise被<code>reject</code>，整个<code>Promise.all</code>就会挂掉，剩下的Promise都会停止执行。例如在一个用户模块中，通过并发异步请求多个版块的数据，只要其中一个服务挂了，其它的版块也就不会拿到数据。很明显，这并不是我们想要的，我们希望并发的任务，不管是异常还是正常，都可以返回对应的状态和值，这样就可以最大限度地保证服务的可访问性。新特性<code>Promise.allSettled</code>就是来满足这一要求的</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">Promise</span>.allSettled([</span><br><span class="line">    <span class="hljs-built_in">Promise</span>.reject(&#123;<span class="hljs-attr">status</span>: <span class="hljs-string">'fail'</span>, <span class="hljs-attr">msg</span>: <span class="hljs-string">'服务异常'</span>&#125;),</span><br><span class="line">    <span class="hljs-built_in">Promise</span>.resolve(&#123;<span class="hljs-attr">status</span>: <span class="hljs-string">'suc'</span>, <span class="hljs-attr">data</span>: &#123;&#125;&#125;),</span><br><span class="line">    <span class="hljs-built_in">Promise</span>.resolve(&#123;<span class="hljs-attr">status</span>: <span class="hljs-string">'suc'</span>, <span class="hljs-attr">data</span>: &#123;&#125;&#125;)</span><br><span class="line">]).then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="hljs-comment">/*</span></span><br><span class="line"><span class="hljs-comment">    * 0: &#123;status: 'rejected', reason: &#123;&#125;&#125;,</span></span><br><span class="line"><span class="hljs-comment">    * 1: &#123;status: 'fulfilled', value: &#123;&#125;&#125;,</span></span><br><span class="line"><span class="hljs-comment">    * 2: &#123;status: 'fulfilled', value: &#123;&#125;&#125;</span></span><br><span class="line"><span class="hljs-comment">    */</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
-<p>在<code>getter</code>的逻辑里面，关键的两步是<code>const dep = new Dep()</code>和<code>dep.depend()</code>，第一步是实例化一个<code>Dep</code>实例，第二步就是实现依赖收集。</p>
+<a id="more"></a>
+
+<p>当服务异常时，会返回status和reason字段，reason值为reject的值，而当服务正常时，会返回status和value字段。可以通过filter函数来过滤出fulfilled状态的数据，从而实现服务正常的数据渲染</p>
+<h3 id="globalThis"><a href="#globalThis" class="headerlink" title="globalThis"></a>globalThis</h3><p>一般我们很难写出可移植的js代码来访问全局对象，因为在不用的环境全局对象也不同。在web中，全局对象为<code>window</code>、<code>self</code>，在node中，为<code>global</code>，甚至很多时候会使用<code>this</code>来访问全局对象，但是<code>this</code>严重依赖上下文，还会存在各种改变<code>this</code>指向的情况，这会导致更加复杂。而现在，通过一个<code>globalThis</code>就可以轻松获取到当前环境下的全局对象，是不是很清爽？</p>
+<h3 id="optional-Chaining"><a href="#optional-Chaining" class="headerlink" title="optional Chaining"></a>optional Chaining</h3><p>如果我们要使用到多层级对象中的某个属性，为了避免属性不存在时抛出错误，需要经过一系列前置的繁琐的判断</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> data = &#123;&#125;</span><br><span class="line"><span class="hljs-keyword">if</span> (data &amp;&amp; data.options &amp;&amp; data.options.name) &#123;</span><br><span class="line">    <span class="hljs-keyword">let</span> name = data.options.name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>看起来很麻烦。有了<strong>可选链</strong>新特性后，只需简单一句代码</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> name = data?.options?.name</span><br></pre></td></tr></table></figure>
+
+<p>判断<code>?</code>前的属性是否存在，存在才会继续查询<code>.</code>后面的属性。简化了大量前置校验，且更为安全</p>
+<h3 id="Nullish-coalescing-Operator"><a href="#Nullish-coalescing-Operator" class="headerlink" title="Nullish coalescing Operator"></a>Nullish coalescing Operator</h3><p>在对某个变量或对象的属性赋值时，我们会经常做以下类似的操作</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> defaultFlag = <span class="hljs-string">'default'</span></span><br><span class="line"><span class="hljs-keyword">let</span> obj = &#123;</span><br><span class="line">    name: defaultFlag || <span class="hljs-string">'obj'</span>,</span><br><span class="line">    value: <span class="hljs-number">18</span>,</span><br><span class="line">    level: <span class="hljs-number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>当<code>defaultFlag</code>转换为布尔值是true的时候，就会采用<code>defaultFlag</code>代表的值，否则采用值<code>obj</code>，但是这会有一些问题，比如值为0的时候，<code>defaultFlag</code>的值就为false，这会跳过0直接赋值为后面的值，如果我们允许0的存在，那这里就会出现预想中的误差。再看新特性<strong>空值合并运算符</strong> <code>??</code></p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> level = obj.level ?? <span class="hljs-string">'暂无等级'</span></span><br></pre></td></tr></table></figure>
+
+<p>使用空值合并运算符之后，只有当值为<code>undefined</code>、<code>null</code>的时候，才会跳过，赋值为后面的值</p>
+
         </div>
         
-        
-        <div class="level is-mobile">
+        <div class="level is-size-7 is-uppercase">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/10/14/响应式原理-2.x版本（下）/#more">阅读更多</a>
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/JS/">JS</a>
                 </div>
             </div>
         </div>
+        
         
         
     </div>
@@ -206,134 +224,19 @@
 
 
 
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
         
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-10-11T02:24:10.505Z">2019-10-11</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    9 分钟 读完 (大约 1288 个字)
-                </span>
-                
-                
-            </div>
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/01/01/ES6----Proxy/">
+                <span class="level-item">ES6 -- Proxy</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
         </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/10/11/响应式原理-2.x版本（上）/">响应式原理-vue2.x版（上）</a>
-            
-        </h1>
-        <div class="content">
-            <blockquote>
-<p>10.5尤大大发布了vue3.0 pre-alpha版本的源码，vue3.0之前，大家基本都知道响应式核心是用<strong>ES5</strong>的<code>Object.defineProperty</code>，而新版本3.0则是使用<strong>ES6</strong>的<code>proxy</code></p>
-</blockquote>
-<h2 id="2-x实现原理"><a href="#2-x实现原理" class="headerlink" title="2.x实现原理"></a>2.x实现原理</h2><p>在理解3.0的proxy实现之前，先回顾一下2.x版本基本实现原理：</p>
-<ol>
-<li><p>将一个对象作为data选项（组件是data函数返回对象）</p>
-</li>
-<li><p>遍历data里面所有的属性，通过<code>Object.defineProperty</code>将属性转为<strong>getter/setter</strong></p>
-</li>
-<li><p>每个组件都有一个<code>watcher</code>，它用来记录接触过的属性，并将其收集为依赖，当依赖的<strong>setter</strong>变更时，通知<code>watcher</code>，使与其有关联的组件更新</p>
-</li>
-<li><p>异步更新</p>
-</li>
-</ol>
-<h2 id="初始化data"><a href="#初始化data" class="headerlink" title="初始化data"></a>初始化data</h2><p>首先对<strong>data</strong>进行初始化<code>initData</code>，代码路径<code>/src/core/instance/state.js</code></p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/10/11/响应式原理-2.x版本（上）/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
         
     </div>
 </div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-10-07T14:18:39.581Z">2019-10-07</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    3 分钟 读完 (大约 464 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/10/07/Vue3.0它来了，带着Pre-Alpha来了/">Vue3.0，它来了</a>
-            
-        </h1>
-        <div class="content">
-            <blockquote>
-<p>10月5号凌晨，尤雨溪大大发布了<a href="https://github.com/vuejs/vue-next" target="_blank" rel="noopener">vue3.0源码</a></p>
-</blockquote>
-<p><img src="/images/sina_yyx.jpg" alt="尤雨溪sina微博"></p>
-<p>现在抓住国庆的小尾巴，来看一看vue3.0到底有啥东西</p>
-<h3 id="整体状态"><a href="#整体状态" class="headerlink" title="整体状态"></a>整体状态</h3><ul>
-<li>目前发布的vue3.0是<code>Pre-Alpha</code>版本，后续还有<code>Alpha</code>、<code>Beta</code>版本</li>
-<li>打包后的代码是ES2015+，不支持IE11</li>
-<li>拥抱TypeScript，98%代码使用了TypeScript编写</li>
-</ul>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/10/07/Vue3.0它来了，带着Pre-Alpha来了/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
 
 
 </div>
@@ -1016,7 +919,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo-3.png" alt="Ysom &#39;s Blog" height="28">
+                    <img src="/images/logo-3.png" alt="振奋人心的ES2020新特性！" height="28">
                 
                 </a>
                 <p class="is-size-7">
