@@ -10,19 +10,19 @@
 <title>振奋人心的ES2020新特性！ - Ysom &#39;s Blog</title>
 
 
-    <meta name="description" content="ES2020已完成的提案中，有了比较振奋人心的新特性。下面来看看几个比较有意思的特性 Promise.allSettled用过Promise.all的都知道，这方法有一个比较明显的缺陷，只要其中一个Promise被reject，整个Promise.all就会挂掉，剩下的Promise都会停止执行。例如在一个用户模块中，通过并发异步请求多个版块的数据，只要其中一个服务挂了，其它的版块也就不会拿到数据">
+    <meta name="description" content="ES2020已完成的提案中，有了比较振奋人心的新特性。下面来看看几个比较有意思的特性 BigInt在JS的Number类型中，安全值的范围为Number.MIN_SAFE_INTEGERNumber.MAX_SAFE_INTEGER，即-(253-1)253-1，超出该范围整数计算或表示将会丢失精度 123let max_num = Number.MAX_SAFE_INTEGER // 90071">
 <meta name="keywords" content="JS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="振奋人心的ES2020新特性！">
 <meta property="og:url" content="http://yoursite.com/2020/01/13/finished-proposals-ES2020/index.html">
 <meta property="og:site_name" content="Ysom &#39;s Blog">
-<meta property="og:description" content="ES2020已完成的提案中，有了比较振奋人心的新特性。下面来看看几个比较有意思的特性 Promise.allSettled用过Promise.all的都知道，这方法有一个比较明显的缺陷，只要其中一个Promise被reject，整个Promise.all就会挂掉，剩下的Promise都会停止执行。例如在一个用户模块中，通过并发异步请求多个版块的数据，只要其中一个服务挂了，其它的版块也就不会拿到数据">
+<meta property="og:description" content="ES2020已完成的提案中，有了比较振奋人心的新特性。下面来看看几个比较有意思的特性 BigInt在JS的Number类型中，安全值的范围为Number.MIN_SAFE_INTEGERNumber.MAX_SAFE_INTEGER，即-(253-1)253-1，超出该范围整数计算或表示将会丢失精度 123let max_num = Number.MAX_SAFE_INTEGER // 90071">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="og:updated_time" content="2020-01-13T15:06:40.812Z">
+<meta property="og:updated_time" content="2020-01-14T15:38:09.044Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="振奋人心的ES2020新特性！">
-<meta name="twitter:description" content="ES2020已完成的提案中，有了比较振奋人心的新特性。下面来看看几个比较有意思的特性 Promise.allSettled用过Promise.all的都知道，这方法有一个比较明显的缺陷，只要其中一个Promise被reject，整个Promise.all就会挂掉，剩下的Promise都会停止执行。例如在一个用户模块中，通过并发异步请求多个版块的数据，只要其中一个服务挂了，其它的版块也就不会拿到数据">
+<meta name="twitter:description" content="ES2020已完成的提案中，有了比较振奋人心的新特性。下面来看看几个比较有意思的特性 BigInt在JS的Number类型中，安全值的范围为Number.MIN_SAFE_INTEGERNumber.MAX_SAFE_INTEGER，即-(253-1)253-1，超出该范围整数计算或表示将会丢失精度 123let max_num = Number.MAX_SAFE_INTEGER // 90071">
 <meta name="twitter:image" content="http://yoursite.com/images/og_image.png">
 
 
@@ -163,7 +163,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    5 分钟 读完 (大约 821 个字)
+                    7 分钟 读完 (大约 1053 个字)
                 </span>
                 
                 
@@ -182,6 +182,16 @@
         </h1>
         <div class="content">
             <p>ES2020已完成的<a href="https://github.com/tc39/proposals/blob/master/finished-proposals.md" target="_blank" rel="noopener">提案</a>中，有了比较振奋人心的新特性。下面来看看几个比较有意思的特性</p>
+<h3 id="BigInt"><a href="#BigInt" class="headerlink" title="BigInt"></a>BigInt</h3><p>在JS的<code>Number</code>类型中，安全值的范围为<code>Number.MIN_SAFE_INTEGER</code><del><code>Number.MAX_SAFE_INTEGER</code>，即-(2<sup>53</sup>-1)</del>2<sup>53</sup>-1，超出该范围整数计算或表示将会丢失精度</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> max_num = <span class="hljs-built_in">Number</span>.MAX_SAFE_INTEGER <span class="hljs-comment">// 9007199254740991</span></span><br><span class="line"><span class="hljs-keyword">let</span> more_num = max_num + <span class="hljs-number">1</span> <span class="hljs-comment">// 9007199254740992</span></span><br><span class="line"><span class="hljs-keyword">let</span> more_max_num = max_num + <span class="hljs-number">2</span> <span class="hljs-comment">// 9007199254740992</span></span><br></pre></td></tr></table></figure>
+
+<p>可以看到，当数值超过安全范围时，就不会正确表示，甚至还有如下情况</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-number">9007199254740992</span> === <span class="hljs-number">9007199254740993</span> <span class="hljs-comment">// true</span></span><br></pre></td></tr></table></figure>
+
+<p>新规范<code>BigInt</code>就是用来解决大数计算问题，同时它也属于原始类型。可以在整数后面加上n或者BigInt函数来实现</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 直接在整数后面加n</span></span><br><span class="line"><span class="hljs-keyword">let</span> bigNum = <span class="hljs-number">9007199254740993</span>n</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 使用BigInt函数</span></span><br><span class="line"><span class="hljs-keyword">let</span> bigNum = BigInt(<span class="hljs-number">9007199254740993</span>)</span><br><span class="line"><span class="hljs-comment">// or </span></span><br><span class="line"><span class="hljs-keyword">let</span> bigNum = BigInt(<span class="hljs-string">'9007199254740993'</span>)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 大数运算</span></span><br><span class="line"><span class="hljs-keyword">let</span> superNum = <span class="hljs-number">9007199254740993</span>n + <span class="hljs-number">9007199254740993</span>n </span><br><span class="line"><span class="hljs-comment">// 18014398509481986n</span></span><br><span class="line"><span class="hljs-keyword">typeof</span> superNum <span class="hljs-comment">// 'bigInt'</span></span><br></pre></td></tr></table></figure>
+
+<p>需要注意的是，使用<code>BigInt</code>函数实例化大数时，会将参数进行Number类型的实例化，超出安全范围的数字可能会引起精度丢失</p>
 <h3 id="Promise-allSettled"><a href="#Promise-allSettled" class="headerlink" title="Promise.allSettled"></a>Promise.allSettled</h3><p>用过<code>Promise.all</code>的都知道，这方法有一个比较明显的缺陷，只要其中一个Promise被<code>reject</code>，整个<code>Promise.all</code>就会挂掉，剩下的Promise都会停止执行。例如在一个用户模块中，通过并发异步请求多个版块的数据，只要其中一个服务挂了，其它的版块也就不会拿到数据。很明显，这并不是我们想要的，我们希望并发的任务，不管是异常还是正常，都可以返回对应的状态和值，这样就可以最大限度地保证服务的可访问性。新特性<code>Promise.allSettled</code>就是来满足这一要求的</p>
 <figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">Promise</span>.allSettled([</span><br><span class="line">    <span class="hljs-built_in">Promise</span>.reject(&#123;<span class="hljs-attr">status</span>: <span class="hljs-string">'fail'</span>, <span class="hljs-attr">msg</span>: <span class="hljs-string">'服务异常'</span>&#125;),</span><br><span class="line">    <span class="hljs-built_in">Promise</span>.resolve(&#123;<span class="hljs-attr">status</span>: <span class="hljs-string">'suc'</span>, <span class="hljs-attr">data</span>: &#123;&#125;&#125;),</span><br><span class="line">    <span class="hljs-built_in">Promise</span>.resolve(&#123;<span class="hljs-attr">status</span>: <span class="hljs-string">'suc'</span>, <span class="hljs-attr">data</span>: &#123;&#125;&#125;)</span><br><span class="line">]).then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="hljs-comment">/*</span></span><br><span class="line"><span class="hljs-comment">    * 0: &#123;status: 'rejected', reason: &#123;&#125;&#125;,</span></span><br><span class="line"><span class="hljs-comment">    * 1: &#123;status: 'fulfilled', value: &#123;&#125;&#125;,</span></span><br><span class="line"><span class="hljs-comment">    * 2: &#123;status: 'fulfilled', value: &#123;&#125;&#125;</span></span><br><span class="line"><span class="hljs-comment">    */</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
