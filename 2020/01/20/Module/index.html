@@ -7,17 +7,22 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>标签: 源码 - Ysom &#39;s Blog</title>
+<title>ES6 -- Module - Ysom &#39;s Blog</title>
 
 
-    <meta property="og:type" content="website">
-<meta property="og:title" content="Ysom &#39;s Blog">
-<meta property="og:url" content="http://yoursite.com/tags/源码/index.html">
+    <meta name="description" content="前言讲到模块化，大家可能对CommonJs、AMD、CMD等规范都比较熟悉，ES6也有Module的规范。本文是对Module理解的整理。那依然先是问题三连：ES6的Module是什么？用来解决什么问题？优点是什么？ 是什么？使用不同方式加载的JS文件，与原先脚本（script）加载方式相对。模块的真正力量在于按需导出和导入，而不在于将所有内容放在同一个文件 解决什么问题（切入点） 命名冲突（作用">
+<meta name="keywords" content="JS">
+<meta property="og:type" content="article">
+<meta property="og:title" content="ES6 -- Module">
+<meta property="og:url" content="http://yoursite.com/2020/01/20/Module/index.html">
 <meta property="og:site_name" content="Ysom &#39;s Blog">
+<meta property="og:description" content="前言讲到模块化，大家可能对CommonJs、AMD、CMD等规范都比较熟悉，ES6也有Module的规范。本文是对Module理解的整理。那依然先是问题三连：ES6的Module是什么？用来解决什么问题？优点是什么？ 是什么？使用不同方式加载的JS文件，与原先脚本（script）加载方式相对。模块的真正力量在于按需导出和导入，而不在于将所有内容放在同一个文件 解决什么问题（切入点） 命名冲突（作用">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
+<meta property="og:updated_time" content="2020-01-20T06:02:57.027Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Ysom &#39;s Blog">
+<meta name="twitter:title" content="ES6 -- Module">
+<meta name="twitter:description" content="前言讲到模块化，大家可能对CommonJs、AMD、CMD等规范都比较熟悉，ES6也有Module的规范。本文是对Module理解的整理。那依然先是问题三连：ES6的Module是什么？用来解决什么问题？优点是什么？ 是什么？使用不同方式加载的JS文件，与原先脚本（script）加载方式相对。模块的真正力量在于按需导出和导入，而不在于将所有内容放在同一个文件 解决什么问题（切入点） 命名冲突（作用">
 <meta name="twitter:image" content="http://yoursite.com/images/og_image.png">
 
 
@@ -92,7 +97,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo-3.png" alt="Ysom &#39;s Blog" height="28">
+                <img src="/images/logo-3.png" alt="ES6 -- Module" height="28">
             
             </a>
         </div>
@@ -143,23 +148,12 @@
         <div class="container">
             <div class="columns">
                 <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
-    <div class="card-content">
-        <nav class="breadcrumb" aria-label="breadcrumbs">
-        <ul>
-            <li><a href="/tags">标签</a></li>
-            <li class="is-active"><a href="#" aria-current="page">源码</a></li>
-        </ul>
-        </nav>
-    </div>
-</div>
-
-    <div class="card">
     
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-10-14T05:41:22.699Z">2019-10-14</time>
+                <time class="level-item has-text-grey" datetime="2020-01-20T05:55:02.582Z">2020-01-20</time>
                 
                 <div class="level-item">
                 <a class="has-link-grey -link" href="/categories/前端/">前端</a>
@@ -169,161 +163,82 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    14 分钟 读完 (大约 2031 个字)
+                    9 分钟 读完 (大约 1331 个字)
                 </span>
                 
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span>次访问
+                </span>
                 
             </div>
         </div>
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                <a class="has-link-black-ter" href="/2019/10/14/响应式原理-2.x版本（下）/">响应式原理-2.x版本（下）</a>
+                ES6 -- Module
             
         </h1>
         <div class="content">
-            <p>上一篇分析了<strong>data</strong>的初始化过程以及做的一些操作，这一篇分析<strong>依赖收集</strong>和<strong>派发更新</strong>。</p>
-<h2 id="依赖收集"><a href="#依赖收集" class="headerlink" title="依赖收集"></a>依赖收集</h2><p>先看下<code>getter</code>的代码</p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">defineReactive</span> (<span class="hljs-params"></span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">  obj: Object,</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">  key: string,</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">  val: any,</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">  customSetter?: ?Function,</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">  shallow?: boolean</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">const</span> dep = <span class="hljs-keyword">new</span> Dep()</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">const</span> property = <span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor(obj, key)</span><br><span class="line">  <span class="hljs-keyword">if</span> (property &amp;&amp; property.configurable === <span class="hljs-literal">false</span>) &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="hljs-comment">// cater for pre-defined getter/setters</span></span><br><span class="line">  <span class="hljs-keyword">const</span> getter = property &amp;&amp; property.get</span><br><span class="line">  <span class="hljs-keyword">const</span> setter = property &amp;&amp; property.set</span><br><span class="line">  <span class="hljs-keyword">if</span> ((!getter || setter) &amp;&amp; <span class="hljs-built_in">arguments</span>.length === <span class="hljs-number">2</span>) &#123;</span><br><span class="line">    val = obj[key]</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">let</span> childOb = !shallow &amp;&amp; observe(val)</span><br><span class="line">  <span class="hljs-built_in">Object</span>.defineProperty(obj, key, &#123;</span><br><span class="line">    enumerable: <span class="hljs-literal">true</span>,</span><br><span class="line">    configurable: <span class="hljs-literal">true</span>,</span><br><span class="line">    <span class="hljs-comment">// 重点看get这部分  </span></span><br><span class="line">    <span class="hljs-keyword">get</span>: function reactiveGetter () &#123;</span><br><span class="line">      <span class="hljs-keyword">const</span> value = getter ? getter.call(obj) : val</span><br><span class="line">      <span class="hljs-keyword">if</span> (Dep.target) &#123;</span><br><span class="line">        dep.depend()</span><br><span class="line">        <span class="hljs-keyword">if</span> (childOb) &#123;</span><br><span class="line">          childOb.dep.depend()</span><br><span class="line">          <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Array</span>.isArray(value)) &#123;</span><br><span class="line">            dependArray(value)</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="hljs-keyword">return</span> value</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="hljs-comment">// ...</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在<code>getter</code>的逻辑里面，关键的两步是<code>const dep = new Dep()</code>和<code>dep.depend()</code>，第一步是实例化一个<code>Dep</code>实例，第二步就是实现依赖收集。</p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/10/14/响应式原理-2.x版本（下）/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-10-11T02:24:10.505Z">2019-10-11</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    9 分钟 读完 (大约 1288 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/10/11/响应式原理-2.x版本（上）/">响应式原理-vue2.x版（上）</a>
-            
-        </h1>
-        <div class="content">
-            <blockquote>
-<p>10.5尤大大发布了vue3.0 pre-alpha版本的源码，vue3.0之前，大家基本都知道响应式核心是用<strong>ES5</strong>的<code>Object.defineProperty</code>，而新版本3.0则是使用<strong>ES6</strong>的<code>proxy</code></p>
-</blockquote>
-<h2 id="2-x实现原理"><a href="#2-x实现原理" class="headerlink" title="2.x实现原理"></a>2.x实现原理</h2><p>在理解3.0的proxy实现之前，先回顾一下2.x版本基本实现原理：</p>
-<ol>
-<li><p>将一个对象作为data选项（组件是data函数返回对象）</p>
-</li>
-<li><p>遍历data里面所有的属性，通过<code>Object.defineProperty</code>将属性转为<strong>getter/setter</strong></p>
-</li>
-<li><p>每个组件都有一个<code>watcher</code>，它用来记录接触过的属性，并将其收集为依赖，当依赖的<strong>setter</strong>变更时，通知<code>watcher</code>，使与其有关联的组件更新</p>
-</li>
-<li><p>异步更新</p>
-</li>
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>讲到模块化，大家可能对CommonJs、AMD、CMD等规范都比较熟悉，ES6也有Module的规范。本文是对Module理解的整理。那依然先是问题三连：ES6的Module是什么？用来解决什么问题？优点是什么？</p>
+<h3 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h3><p>使用不同方式加载的JS文件，与原先脚本（script）加载方式相对。模块的真正力量在于按需导出和导入，而不在于将所有内容放在同一个文件</p>
+<h3 id="解决什么问题（切入点）"><a href="#解决什么问题（切入点）" class="headerlink" title="解决什么问题（切入点）"></a>解决什么问题（切入点）</h3><ol>
+<li>命名冲突（作用域）</li>
+<li>让JS应用变得更加有条理</li>
+<li>安全问题</li>
 </ol>
-<h2 id="初始化data"><a href="#初始化data" class="headerlink" title="初始化data"></a>初始化data</h2><p>首先对<strong>data</strong>进行初始化<code>initData</code>，代码路径<code>/src/core/instance/state.js</code></p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/10/11/响应式原理-2.x版本（上）/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
+<a id="more"></a>
 
+<h3 id="优点是什么"><a href="#优点是什么" class="headerlink" title="优点是什么"></a>优点是什么</h3><ol>
+<li>自动运行在严格模式下，且无法跳出严格模式；</li>
+<li>在模块的顶级作用域创建的变量，不会自动添加到共享的全局作用域，只存在于模块顶级作用域的内部；</li>
+<li>模块顶级作用域的<code>this</code>为<code>undefined</code>；</li>
+<li>模块中不允许<code>HTML</code>风格的注释，该问题是早期浏览器历史遗留特性；</li>
+<li>要提供给外部访问的代码，模块必须导出它们；</li>
+<li>模块可以由别的模块导入绑定。</li>
+</ol>
+<h3 id="基本导出"><a href="#基本导出" class="headerlink" title="基本导出"></a>基本导出</h3><h4 id="export"><a href="#export" class="headerlink" title="export"></a>export</h4><p>我们可以在任意变量、函数、类声明之前加上<code>export</code>导出它们，没有被显式导出的将会在模块中保持私有</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// module.js</span></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> name = <span class="hljs-string">'Ysom'</span></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sum</span> (<span class="hljs-params">num1, num2</span>) </span>&#123;</span><br><span class="line">    <span class="hljs-keyword">return</span> num1 + num2</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>&#123;</span><br><span class="line">    constrcutor (name, sex) &#123;</span><br><span class="line">        <span class="hljs-keyword">this</span>.name = name</span><br><span class="line">        <span class="hljs-keyword">this</span>.sex = sex</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sayHello</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">'hello world'</span>)</span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-comment">// 导出引用</span></span><br><span class="line"><span class="hljs-keyword">export</span> &#123; sayHello &#125;</span><br></pre></td></tr></table></figure>
 
+<h3 id="基本导入"><a href="#基本导入" class="headerlink" title="基本导入"></a>基本导入</h3><h4 id="import"><a href="#import" class="headerlink" title="import"></a>import</h4><p>可以通过<code>import</code>来导入被导出的模块，<code>import</code>语句由两部分组成，被导入的<strong>标识符</strong>和导入标识符的<strong>来源</strong>：<code>import { identifier1, identifier2 } from &#39;./module1.js&#39;</code></p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 导入单个绑定</span></span><br><span class="line"><span class="hljs-keyword">import</span> &#123; sum &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'./module.js'</span></span><br><span class="line"><span class="hljs-comment">// 导入多个绑定</span></span><br><span class="line"><span class="hljs-keyword">import</span> &#123; sum, sayHello &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'./module.js'</span></span><br><span class="line"><span class="hljs-comment">// 完全导入一个模块 module所有的导出绑定在example 属于命名空间导入(namespace import)</span></span><br><span class="line"><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> example <span class="hljs-keyword">from</span> <span class="hljs-string">'./module.js'</span></span><br></pre></td></tr></table></figure>
 
+<p>需要注意的一点：无论使用多少次<code>import</code>引入模块，该模块只会执行一次。在导出的模块执行之后，已被实例化的模块会保留在内存中，随时可被其它<code>import</code>使用。同应用的其它模块，如使用<code>import</code>引入该模块，使用的也是同一个实例模块</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> &#123; sum &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'./module.js'</span></span><br><span class="line"><span class="hljs-keyword">import</span> &#123; sayHello &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'./module.js'</span></span><br><span class="line"><span class="hljs-comment">// 在这里modules.js只会执行一次，之后保留在内存中</span></span><br></pre></td></tr></table></figure>
 
+<p>import和export有一个限制：无法在其它语句或表达式的内部使用，即必须在顶部作用域</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">if</span> (<span class="hljs-literal">true</span>) &#123;</span><br><span class="line">    <span class="hljs-comment">// error</span></span><br><span class="line">    <span class="hljs-keyword">import</span> xx <span class="hljs-keyword">from</span> <span class="hljs-string">'./xxx'</span></span><br><span class="line">&#125;</span><br><span class="line"><span class="hljs-keyword">if</span> (<span class="hljs-literal">true</span>) &#123;</span><br><span class="line">    <span class="hljs-comment">// error</span></span><br><span class="line">    <span class="hljs-keyword">export</span> xx</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-10-07T14:18:39.581Z">2019-10-07</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    3 分钟 读完 (大约 464 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/10/07/Vue3.0它来了，带着Pre-Alpha来了/">Vue3.0，它来了</a>
-            
-        </h1>
-        <div class="content">
-            <blockquote>
-<p>10月5号凌晨，尤雨溪大大发布了<a href="https://github.com/vuejs/vue-next" target="_blank" rel="noopener">vue3.0源码</a></p>
+<blockquote>
+<p>题外话：在已完成的ES2020的提案中，有了新特性动态导入<a href="https://github.com/tc39/proposal-dynamic-import" target="_blank" rel="noopener">dynamic-import</a>，可根据条件判断支持按需导入</p>
 </blockquote>
-<p><img src="/images/sina_yyx.jpg" alt="尤雨溪sina微博"></p>
-<p>现在抓住国庆的小尾巴，来看一看vue3.0到底有啥东西</p>
-<h3 id="整体状态"><a href="#整体状态" class="headerlink" title="整体状态"></a>整体状态</h3><ul>
-<li>目前发布的vue3.0是<code>Pre-Alpha</code>版本，后续还有<code>Alpha</code>、<code>Beta</code>版本</li>
-<li>打包后的代码是ES2015+，不支持IE11</li>
-<li>拥抱TypeScript，98%代码使用了TypeScript编写</li>
-</ul>
+<h3 id="默认导入-模块的默认值"><a href="#默认导入-模块的默认值" class="headerlink" title="默认导入-模块的默认值"></a>默认导入-模块的默认值</h3><p>我们可以通过<code>default</code>为每一个模块设置一个且只能一个默认值</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 普通导出</span></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> name = <span class="hljs-string">'export'</span></span><br><span class="line"><span class="hljs-comment">// 1 默认导出可以不用给声明加上名称 因为代表整个模块导出</span></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">num1, num2</span>) </span>&#123;&#125;</span><br><span class="line"><span class="hljs-comment">// 2 也可先声明 再导出</span></span><br><span class="line"><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sum</span> (<span class="hljs-params">num1, num2</span>) </span>&#123;&#125;</span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> sum</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 导入模块默认值 默认值无需加上花括号&#123;&#125;</span></span><br><span class="line"><span class="hljs-keyword">import</span> sum <span class="hljs-keyword">from</span> <span class="hljs-string">'./module.js'</span></span><br><span class="line">sum(<span class="hljs-number">1</span>, <span class="hljs-number">11</span>)</span><br><span class="line"><span class="hljs-comment">// 导入默认值及其它导出功能 默认名称需在位于非默认名称之前</span></span><br><span class="line"><span class="hljs-keyword">import</span> sum, &#123; name &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'./module.js'</span></span><br><span class="line"><span class="hljs-built_in">console</span>.log(name) <span class="hljs-comment">// export</span></span><br><span class="line">sum(<span class="hljs-number">1</span>, <span class="hljs-number">11</span>)</span><br><span class="line"><span class="hljs-comment">// 重命名</span></span><br><span class="line"><span class="hljs-keyword">import</span> &#123; <span class="hljs-keyword">default</span> <span class="hljs-keyword">as</span> sum, name &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'./module.js'</span></span><br></pre></td></tr></table></figure>
+
+<h3 id="绑定导入，再导出"><a href="#绑定导入，再导出" class="headerlink" title="绑定导入，再导出"></a>绑定导入，再导出</h3><p>有时候我们会需要将导入的部分功能，再导出去作为另一个模块，比如作为库，这时候可以这样操作</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// new-module.js</span></span><br><span class="line"><span class="hljs-comment">// 1 先导入 再导出</span></span><br><span class="line"><span class="hljs-keyword">import</span> &#123; identifier1, identifier2 &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'./m1.js'</span></span><br><span class="line"><span class="hljs-keyword">export</span> &#123; identifier1, identifier2 &#125;</span><br><span class="line"><span class="hljs-comment">// 2 会进入模块查看sum, sayHello的定义，并导出</span></span><br><span class="line"><span class="hljs-keyword">export</span> &#123; sum, sayHello &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'./module.js'</span></span><br><span class="line"><span class="hljs-comment">// 3 完全导出</span></span><br><span class="line"><span class="hljs-keyword">export</span> * <span class="hljs-keyword">from</span> <span class="hljs-string">'./module.js'</span></span><br></pre></td></tr></table></figure>
+
+<p>完全导出需要注意一个问题，如果目标模块<code>module</code>包含了默认值，那么就无法在当前模块<code>new-module</code>再定义一个默认导出，始终遵守一个模块只能有一个默认导出的原则</p>
+<h3 id="无绑定的导入"><a href="#无绑定的导入" class="headerlink" title="无绑定的导入"></a>无绑定的导入</h3><p>有时候我们会对全局作用域对象进行一些附加操作，虽然模块中的代码不会自动共享到全局，但是我们还是可以在模块中对一些JS内置对象如<code>Array</code>、<code>Object</code>等进行访问，并且对这些对象的修改，可以反映到其它模块中</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// extendArray.js</span></span><br><span class="line"><span class="hljs-comment">// 给数组添加一个pushAll的方法</span></span><br><span class="line"><span class="hljs-built_in">Array</span>.prototype.pushAll = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">items</span>) </span>&#123;</span><br><span class="line">    <span class="hljs-comment">// 判断items是否为数组</span></span><br><span class="line">    <span class="hljs-keyword">if</span> (!<span class="hljs-built_in">Array</span>.isArray(items)) &#123;</span><br><span class="line">        <span class="hljs-keyword">throw</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">`arguments must be an array`</span>)</span><br><span class="line">    &#125;</span><br><span class="line">    <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.push(...items)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>再通过<code>import &#39;./extendArray.js&#39;</code>将模块引入，这里虽然没有绑定的导出与导入，但依然是一个有效的模块，在引入该模块的模块中，所有的数组都可以使用<code>pushAll()</code>方法</p>
+<p>这种无绑定的导入，最有可能创建用于在旧环境运行新语法时做向下兼容的<code>polyfill</code>和<code>shim</code></p>
+<h3 id="加载方式（待完善）"><a href="#加载方式（待完善）" class="headerlink" title="加载方式（待完善）"></a>加载方式（待完善）</h3>
         </div>
         
-        
-        <div class="level is-mobile">
+        <div class="level is-size-7 is-uppercase">
             <div class="level-start">
                 <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/10/07/Vue3.0它来了，带着Pre-Alpha来了/#more">阅读更多</a>
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/JS/">JS</a>
                 </div>
             </div>
         </div>
+        
         
         
     </div>
@@ -333,7 +248,19 @@
 
 
 
-
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/01/13/finished-proposals-ES2020/">
+                <span class="level-item">振奋人心的ES2020新特性！</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
 
 
 </div>
@@ -1016,7 +943,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo-3.png" alt="Ysom &#39;s Blog" height="28">
+                    <img src="/images/logo-3.png" alt="ES6 -- Module" height="28">
                 
                 </a>
                 <p class="is-size-7">
