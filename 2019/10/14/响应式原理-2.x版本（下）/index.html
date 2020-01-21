@@ -10,19 +10,19 @@
 <title>响应式原理-2.x版本（下） - Ysom &#39;s Blog</title>
 
 
-    <meta name="description" content="上一篇分析了data的初始化过程以及做的一些操作，这一篇分析依赖收集和派发更新。 依赖收集先看下getter的代码 123456789101112131415161718192021222324252627282930313233343536373839404142export function defineReactive (  obj: Object,  key: string,  val:">
+    <meta name="description" content="上一篇分析了data的初始化过程以及做的一些操作，这一篇分析依赖收集和派发更新。 依赖收集先看下getter的代码">
 <meta name="keywords" content="源码,vue">
 <meta property="og:type" content="article">
 <meta property="og:title" content="响应式原理-2.x版本（下）">
 <meta property="og:url" content="http://yoursite.com/2019/10/14/响应式原理-2.x版本（下）/index.html">
 <meta property="og:site_name" content="Ysom &#39;s Blog">
-<meta property="og:description" content="上一篇分析了data的初始化过程以及做的一些操作，这一篇分析依赖收集和派发更新。 依赖收集先看下getter的代码 123456789101112131415161718192021222324252627282930313233343536373839404142export function defineReactive (  obj: Object,  key: string,  val:">
+<meta property="og:description" content="上一篇分析了data的初始化过程以及做的一些操作，这一篇分析依赖收集和派发更新。 依赖收集先看下getter的代码">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="og:updated_time" content="2019-10-21T09:40:08.193Z">
+<meta property="og:updated_time" content="2020-01-21T03:25:32.975Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="响应式原理-2.x版本（下）">
-<meta name="twitter:description" content="上一篇分析了data的初始化过程以及做的一些操作，这一篇分析依赖收集和派发更新。 依赖收集先看下getter的代码 123456789101112131415161718192021222324252627282930313233343536373839404142export function defineReactive (  obj: Object,  key: string,  val:">
+<meta name="twitter:description" content="上一篇分析了data的初始化过程以及做的一些操作，这一篇分析依赖收集和派发更新。 依赖收集先看下getter的代码">
 <meta name="twitter:image" content="http://yoursite.com/images/og_image.png">
 
 
@@ -144,10 +144,11 @@
     </div>
 </nav>
     
+	
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+                <div class="column is-6-tablet is-6-desktop is-9-widescreen has-order-2 column-main"><div class="card">
     
     <div class="card-content article ">
         
@@ -183,11 +184,11 @@
         <div class="content">
             <p>上一篇分析了<strong>data</strong>的初始化过程以及做的一些操作，这一篇分析<strong>依赖收集</strong>和<strong>派发更新</strong>。</p>
 <h2 id="依赖收集"><a href="#依赖收集" class="headerlink" title="依赖收集"></a>依赖收集</h2><p>先看下<code>getter</code>的代码</p>
+<a id="more"></a>
+
 <figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">defineReactive</span> (<span class="hljs-params"></span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">  obj: Object,</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">  key: string,</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">  val: any,</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">  customSetter?: ?Function,</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">  shallow?: boolean</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">const</span> dep = <span class="hljs-keyword">new</span> Dep()</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">const</span> property = <span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor(obj, key)</span><br><span class="line">  <span class="hljs-keyword">if</span> (property &amp;&amp; property.configurable === <span class="hljs-literal">false</span>) &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="hljs-comment">// cater for pre-defined getter/setters</span></span><br><span class="line">  <span class="hljs-keyword">const</span> getter = property &amp;&amp; property.get</span><br><span class="line">  <span class="hljs-keyword">const</span> setter = property &amp;&amp; property.set</span><br><span class="line">  <span class="hljs-keyword">if</span> ((!getter || setter) &amp;&amp; <span class="hljs-built_in">arguments</span>.length === <span class="hljs-number">2</span>) &#123;</span><br><span class="line">    val = obj[key]</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">let</span> childOb = !shallow &amp;&amp; observe(val)</span><br><span class="line">  <span class="hljs-built_in">Object</span>.defineProperty(obj, key, &#123;</span><br><span class="line">    enumerable: <span class="hljs-literal">true</span>,</span><br><span class="line">    configurable: <span class="hljs-literal">true</span>,</span><br><span class="line">    <span class="hljs-comment">// 重点看get这部分  </span></span><br><span class="line">    <span class="hljs-keyword">get</span>: function reactiveGetter () &#123;</span><br><span class="line">      <span class="hljs-keyword">const</span> value = getter ? getter.call(obj) : val</span><br><span class="line">      <span class="hljs-keyword">if</span> (Dep.target) &#123;</span><br><span class="line">        dep.depend()</span><br><span class="line">        <span class="hljs-keyword">if</span> (childOb) &#123;</span><br><span class="line">          childOb.dep.depend()</span><br><span class="line">          <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Array</span>.isArray(value)) &#123;</span><br><span class="line">            dependArray(value)</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="hljs-keyword">return</span> value</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="hljs-comment">// ...</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>在<code>getter</code>的逻辑里面，关键的两步是<code>const dep = new Dep()</code>和<code>dep.depend()</code>，第一步是实例化一个<code>Dep</code>实例，第二步就是实现依赖收集。</p>
-<a id="more"></a>
-
 <p>先看第一步，<code>Dep</code>的实现，代码路径<code>/src/core/observer/dep.js</code></p>
 <h3 id="Dep"><a href="#Dep" class="headerlink" title="Dep"></a>Dep</h3><figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">import</span> type Watcher <span class="hljs-keyword">from</span> <span class="hljs-string">'./watcher'</span></span><br><span class="line"><span class="hljs-keyword">import</span> &#123; remove &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">'../util/index'</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">let</span> uid = <span class="hljs-number">0</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">/**</span></span><br><span class="line"><span class="hljs-comment"> * A dep is an observable that can have multiple</span></span><br><span class="line"><span class="hljs-comment"> * directives subscribing to it.</span></span><br><span class="line"><span class="hljs-comment"> */</span></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-keyword">default</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Dep</span> </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">static</span> target: ?Watcher;</span><br><span class="line">  id: number;</span><br><span class="line">  subs: <span class="hljs-built_in">Array</span>&lt;Watcher&gt;;</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">constructor</span> () &#123;</span><br><span class="line">    <span class="hljs-keyword">this</span>.id = uid++</span><br><span class="line">    <span class="hljs-keyword">this</span>.subs = []</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="hljs-comment">// 添加观察者</span></span><br><span class="line">  addSub (sub: Watcher) &#123;</span><br><span class="line">    <span class="hljs-keyword">this</span>.subs.push(sub)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="hljs-comment">// 移除观察者</span></span><br><span class="line">  removeSub (sub: Watcher) &#123;</span><br><span class="line">    remove(<span class="hljs-keyword">this</span>.subs, sub)</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="hljs-comment">// 依赖收集 存在target时添加观察者对象</span></span><br><span class="line">  depend () &#123;</span><br><span class="line">    <span class="hljs-keyword">if</span> (Dep.target) &#123;</span><br><span class="line">      Dep.target.addDep(<span class="hljs-keyword">this</span>)</span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">  <span class="hljs-comment">// 派发更新 省略 下面有用到</span></span><br><span class="line">  notify () &#123;</span><br><span class="line">    <span class="hljs-comment">// ...</span></span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// the current target watcher being evaluated.</span></span><br><span class="line"><span class="hljs-comment">// this is globally unique because there could be only one</span></span><br><span class="line"><span class="hljs-comment">// watcher being evaluated at any time.</span></span><br><span class="line">Dep.target = <span class="hljs-literal">null</span></span><br><span class="line"><span class="hljs-keyword">const</span> targetStack = []</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">pushTarget</span> (<span class="hljs-params">_target: ?Watcher</span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">if</span> (Dep.target) targetStack.push(Dep.target)</span><br><span class="line">  Dep.target = _target</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">popTarget</span> (<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">  Dep.target = targetStack.pop()</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -270,7 +271,11 @@
 
 
 </div>
-                
+                <!-- 新增的复制配置项 -->
+
+
+<!-- 粘贴的部分 -->
+                          <!-- 修改，可选保留的栏 -->
 
 
 
@@ -344,45 +349,6 @@
         </div>
         
         
-        <div class="level is-mobile">
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="Github" href="https://github.com/Ysom">
-                
-                <i class="fab fa-github"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="Facebook" href="https://facebook.com">
-                
-                <i class="fab fa-facebook"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="Twitter" href="https://twitter.com">
-                
-                <i class="fab fa-twitter"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="Dribbble" href="https://dribbble.com">
-                
-                <i class="fab fa-dribbble"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="RSS" href="/">
-                
-                <i class="fas fa-rss"></i>
-                
-            </a>
-            
-        </div>
-        
     </div>
 </div>
     
@@ -410,9 +376,9 @@
             </li>
         
             <li>
-                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                <a class="level is-mobile" href="https://github.com/Ysom" target="_blank">
                     <span class="level-left">
-                        <span class="level-item">PPOffice</span>
+                        <span class="level-item">Github</span>
                     </span>
                     <span class="level-right">
                         <span class="level-item tag">github.com</span>
@@ -493,7 +459,7 @@
             
             <a href="/2020/01/20/Module/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ES6 -- Module">
+                    <img class="thumbnail" src="/images/1.jpg" alt="ES6 -- Module">
                 </p>
             </a>
             
@@ -708,237 +674,10 @@
     
 </div>
 
-                
+                <!-- 新增的复制配置项 -->
 
 
-
-
-<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
-    
-        
-<div class="card widget">
-    <div class="card-content">
-        <h3 class="menu-label">
-            最新文章
-        </h3>
-        
-        <article class="media">
-            
-            <a href="/2020/01/20/Module/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ES6 -- Module">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-20T05:55:02.582Z">2020-01-20</time></div>
-                    <a href="/2020/01/20/Module/" class="title has-link-black-ter is-size-6 has-text-weight-normal">ES6 -- Module</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2020/01/13/finished-proposals-ES2020/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="振奋人心的ES2020新特性！">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-13T15:05:15.051Z">2020-01-13</time></div>
-                    <a href="/2020/01/13/finished-proposals-ES2020/" class="title has-link-black-ter is-size-6 has-text-weight-normal">振奋人心的ES2020新特性！</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2020/01/01/ES6----Proxy/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ES6 -- Proxy">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-01T12:51:56.617Z">2020-01-01</time></div>
-                    <a href="/2020/01/01/ES6----Proxy/" class="title has-link-black-ter is-size-6 has-text-weight-normal">ES6 -- Proxy</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/12/14/JavaScript整理总结(持续更新)/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="JavaScript整理总结(持续更新)">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-14T15:15:30.858Z">2019-12-14</time></div>
-                    <a href="/2019/12/14/JavaScript整理总结(持续更新)/" class="title has-link-black-ter is-size-6 has-text-weight-normal">JavaScript整理总结(持续更新)</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/12/09/2020快到了，面对复盘的疾风吧！！！/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="2020快到了，面对复盘的疾风吧！！！">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-09T13:58:09.231Z">2019-12-09</time></div>
-                    <a href="/2019/12/09/2020快到了，面对复盘的疾风吧！！！/" class="title has-link-black-ter is-size-6 has-text-weight-normal">2020快到了，面对复盘的疾风吧！！！</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-    </div>
-</div>
-
-    
-        <div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-        <h3 class="menu-label">
-            归档
-        </h3>
-        <ul class="menu-list">
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2020/01/">
-                <span class="level-start">
-                    <span class="level-item">一月 2020</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">3</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/12/">
-                <span class="level-start">
-                    <span class="level-item">十二月 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">2</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/11/">
-                <span class="level-start">
-                    <span class="level-item">十一月 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">2</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/10/">
-                <span class="level-start">
-                    <span class="level-item">十月 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">4</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/09/">
-                <span class="level-start">
-                    <span class="level-item">九月 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">1</span>
-                </span>
-            </a>
-        </li>
-        
-        </ul>
-        </div>
-    </div>
-</div>
-    
-        <div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-            <h3 class="menu-label">
-                标签
-            </h3>
-            <div class="field is-grouped is-grouped-multiline">
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/JS/">
-                        <span class="tag">JS</span>
-                        <span class="tag is-grey">2</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/vue/">
-                        <span class="tag">vue</span>
-                        <span class="tag is-grey">3</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/总结/">
-                        <span class="tag">总结</span>
-                        <span class="tag is-grey">5</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/感想/">
-                        <span class="tag">感想</span>
-                        <span class="tag is-grey">2</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/源码/">
-                        <span class="tag">源码</span>
-                        <span class="tag is-grey">3</span>
-                    </a>
-                </div>
-                
-            </div>
-        </div>
-    </div>
-</div>
-    
-    
-</div>
+<!-- 粘贴的部分 -->
 
             </div>
         </div>

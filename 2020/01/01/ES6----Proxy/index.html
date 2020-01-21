@@ -10,19 +10,19 @@
 <title>ES6 -- Proxy - Ysom &#39;s Blog</title>
 
 
-    <meta name="description" content="前言本文总结了Proxy代理的陷阱函数和对应的Reflect接口默认行为函数的用法。因为目前用的最多的技术栈是Vue，而Vue3.0版本其中关于响应式原理的核心是Proxy，因此有必要对Proxy做进一步的理解和总结。 set拦截对象：设置属性值行为。成功返回true，失败返回false。 默认行为实现：Reflect.set() 接收参数：  trapTarget：设置属性的对象（代理的目标对象">
+    <meta name="description" content="前言本文总结了Proxy代理的陷阱函数和对应的Reflect接口默认行为函数的用法。因为目前用的最多的技术栈是Vue，而Vue3.0版本其中关于响应式原理的核心是Proxy，因此有必要对Proxy做进一步的理解和总结。 set拦截对象：设置属性值行为。成功返回true，失败返回false。 默认行为实现：Reflect.set()">
 <meta name="keywords" content="总结">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES6 -- Proxy">
 <meta property="og:url" content="http://yoursite.com/2020/01/01/ES6----Proxy/index.html">
 <meta property="og:site_name" content="Ysom &#39;s Blog">
-<meta property="og:description" content="前言本文总结了Proxy代理的陷阱函数和对应的Reflect接口默认行为函数的用法。因为目前用的最多的技术栈是Vue，而Vue3.0版本其中关于响应式原理的核心是Proxy，因此有必要对Proxy做进一步的理解和总结。 set拦截对象：设置属性值行为。成功返回true，失败返回false。 默认行为实现：Reflect.set() 接收参数：  trapTarget：设置属性的对象（代理的目标对象">
+<meta property="og:description" content="前言本文总结了Proxy代理的陷阱函数和对应的Reflect接口默认行为函数的用法。因为目前用的最多的技术栈是Vue，而Vue3.0版本其中关于响应式原理的核心是Proxy，因此有必要对Proxy做进一步的理解和总结。 set拦截对象：设置属性值行为。成功返回true，失败返回false。 默认行为实现：Reflect.set()">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="og:updated_time" content="2020-01-06T15:21:56.225Z">
+<meta property="og:updated_time" content="2020-01-21T03:23:59.102Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6 -- Proxy">
-<meta name="twitter:description" content="前言本文总结了Proxy代理的陷阱函数和对应的Reflect接口默认行为函数的用法。因为目前用的最多的技术栈是Vue，而Vue3.0版本其中关于响应式原理的核心是Proxy，因此有必要对Proxy做进一步的理解和总结。 set拦截对象：设置属性值行为。成功返回true，失败返回false。 默认行为实现：Reflect.set() 接收参数：  trapTarget：设置属性的对象（代理的目标对象">
+<meta name="twitter:description" content="前言本文总结了Proxy代理的陷阱函数和对应的Reflect接口默认行为函数的用法。因为目前用的最多的技术栈是Vue，而Vue3.0版本其中关于响应式原理的核心是Proxy，因此有必要对Proxy做进一步的理解和总结。 set拦截对象：设置属性值行为。成功返回true，失败返回false。 默认行为实现：Reflect.set()">
 <meta name="twitter:image" content="http://yoursite.com/images/og_image.png">
 
 
@@ -144,10 +144,11 @@
     </div>
 </nav>
     
+	
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+                <div class="column is-6-tablet is-6-desktop is-9-widescreen has-order-2 column-main"><div class="card">
     
     <div class="card-content article ">
         
@@ -184,6 +185,8 @@
             <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本文总结了<code>Proxy</code>代理的陷阱函数和对应的<code>Reflect</code>接口默认行为函数的用法。因为目前用的最多的技术栈是<code>Vue</code>，而<code>Vue3.0</code>版本其中关于响应式原理的核心是<code>Proxy</code>，因此有必要对<code>Proxy</code>做进一步的理解和总结。</p>
 <h3 id="set"><a href="#set" class="headerlink" title="set"></a>set</h3><p>拦截对象：设置属性值行为。成功返回<code>true</code>，失败返回<code>false</code>。</p>
 <p>默认行为实现：<code>Reflect.set()</code></p>
+<a id="more"></a>
+
 <p>接收参数：</p>
 <ol>
 <li><strong>trapTarget</strong>：设置属性的对象（代理的目标对象）</li>
@@ -191,8 +194,6 @@
 <li><strong>value</strong>：属性的值</li>
 <li><strong>receiver</strong>：操作发生的对象（通常指代理对象）</li>
 </ol>
-<a id="more"></a>
-
 <h3 id="get"><a href="#get" class="headerlink" title="get"></a>get</h3><p>拦截对象：获取属性值行为。</p>
 <p>默认行为实现：<code>Reflect.get()</code></p>
 <p>接收参数：</p>
@@ -366,7 +367,11 @@
 
 
 </div>
-                
+                <!-- 新增的复制配置项 -->
+
+
+<!-- 粘贴的部分 -->
+                          <!-- 修改，可选保留的栏 -->
 
 
 
@@ -440,45 +445,6 @@
         </div>
         
         
-        <div class="level is-mobile">
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="Github" href="https://github.com/Ysom">
-                
-                <i class="fab fa-github"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="Facebook" href="https://facebook.com">
-                
-                <i class="fab fa-facebook"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="Twitter" href="https://twitter.com">
-                
-                <i class="fab fa-twitter"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="Dribbble" href="https://dribbble.com">
-                
-                <i class="fab fa-dribbble"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="RSS" href="/">
-                
-                <i class="fas fa-rss"></i>
-                
-            </a>
-            
-        </div>
-        
     </div>
 </div>
     
@@ -506,9 +472,9 @@
             </li>
         
             <li>
-                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                <a class="level is-mobile" href="https://github.com/Ysom" target="_blank">
                     <span class="level-left">
-                        <span class="level-item">PPOffice</span>
+                        <span class="level-item">Github</span>
                     </span>
                     <span class="level-right">
                         <span class="level-item tag">github.com</span>
@@ -589,7 +555,7 @@
             
             <a href="/2020/01/20/Module/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ES6 -- Module">
+                    <img class="thumbnail" src="/images/1.jpg" alt="ES6 -- Module">
                 </p>
             </a>
             
@@ -804,237 +770,10 @@
     
 </div>
 
-                
+                <!-- 新增的复制配置项 -->
 
 
-
-
-<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
-    
-        
-<div class="card widget">
-    <div class="card-content">
-        <h3 class="menu-label">
-            最新文章
-        </h3>
-        
-        <article class="media">
-            
-            <a href="/2020/01/20/Module/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ES6 -- Module">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-20T05:55:02.582Z">2020-01-20</time></div>
-                    <a href="/2020/01/20/Module/" class="title has-link-black-ter is-size-6 has-text-weight-normal">ES6 -- Module</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2020/01/13/finished-proposals-ES2020/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="振奋人心的ES2020新特性！">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-13T15:05:15.051Z">2020-01-13</time></div>
-                    <a href="/2020/01/13/finished-proposals-ES2020/" class="title has-link-black-ter is-size-6 has-text-weight-normal">振奋人心的ES2020新特性！</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2020/01/01/ES6----Proxy/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ES6 -- Proxy">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-01T12:51:56.617Z">2020-01-01</time></div>
-                    <a href="/2020/01/01/ES6----Proxy/" class="title has-link-black-ter is-size-6 has-text-weight-normal">ES6 -- Proxy</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/12/14/JavaScript整理总结(持续更新)/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="JavaScript整理总结(持续更新)">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-14T15:15:30.858Z">2019-12-14</time></div>
-                    <a href="/2019/12/14/JavaScript整理总结(持续更新)/" class="title has-link-black-ter is-size-6 has-text-weight-normal">JavaScript整理总结(持续更新)</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/12/09/2020快到了，面对复盘的疾风吧！！！/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="2020快到了，面对复盘的疾风吧！！！">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-09T13:58:09.231Z">2019-12-09</time></div>
-                    <a href="/2019/12/09/2020快到了，面对复盘的疾风吧！！！/" class="title has-link-black-ter is-size-6 has-text-weight-normal">2020快到了，面对复盘的疾风吧！！！</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-    </div>
-</div>
-
-    
-        <div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-        <h3 class="menu-label">
-            归档
-        </h3>
-        <ul class="menu-list">
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2020/01/">
-                <span class="level-start">
-                    <span class="level-item">一月 2020</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">3</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/12/">
-                <span class="level-start">
-                    <span class="level-item">十二月 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">2</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/11/">
-                <span class="level-start">
-                    <span class="level-item">十一月 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">2</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/10/">
-                <span class="level-start">
-                    <span class="level-item">十月 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">4</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/09/">
-                <span class="level-start">
-                    <span class="level-item">九月 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">1</span>
-                </span>
-            </a>
-        </li>
-        
-        </ul>
-        </div>
-    </div>
-</div>
-    
-        <div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-            <h3 class="menu-label">
-                标签
-            </h3>
-            <div class="field is-grouped is-grouped-multiline">
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/JS/">
-                        <span class="tag">JS</span>
-                        <span class="tag is-grey">2</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/vue/">
-                        <span class="tag">vue</span>
-                        <span class="tag is-grey">3</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/总结/">
-                        <span class="tag">总结</span>
-                        <span class="tag is-grey">5</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/感想/">
-                        <span class="tag">感想</span>
-                        <span class="tag is-grey">2</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/源码/">
-                        <span class="tag">源码</span>
-                        <span class="tag is-grey">3</span>
-                    </a>
-                </div>
-                
-            </div>
-        </div>
-    </div>
-</div>
-    
-    
-</div>
+<!-- 粘贴的部分 -->
 
             </div>
         </div>

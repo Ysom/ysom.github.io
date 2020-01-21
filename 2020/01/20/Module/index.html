@@ -10,20 +10,20 @@
 <title>ES6 -- Module - Ysom &#39;s Blog</title>
 
 
-    <meta name="description" content="前言讲到模块化，大家可能对CommonJs、AMD、CMD等规范都比较熟悉，ES6也有Module的规范。本文是对Module理解的整理。那依然先是问题三连：ES6的Module是什么？用来解决什么问题？优点是什么？ 是什么？使用不同方式加载的JS文件，与原先脚本（script）加载方式相对。模块的真正力量在于按需导出和导入，而不在于将所有内容放在同一个文件 解决什么问题（切入点） 命名冲突（作用">
+    <meta name="description" content="前言讲到模块化，大家可能对CommonJs、AMD、CMD等规范都比较熟悉，ES6也有Module的规范。本文是对Module理解的整理。那依然先是问题三连：ES6的Module是什么？用来解决什么问题？优点是什么？">
 <meta name="keywords" content="JS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="ES6 -- Module">
 <meta property="og:url" content="http://yoursite.com/2020/01/20/Module/index.html">
 <meta property="og:site_name" content="Ysom &#39;s Blog">
-<meta property="og:description" content="前言讲到模块化，大家可能对CommonJs、AMD、CMD等规范都比较熟悉，ES6也有Module的规范。本文是对Module理解的整理。那依然先是问题三连：ES6的Module是什么？用来解决什么问题？优点是什么？ 是什么？使用不同方式加载的JS文件，与原先脚本（script）加载方式相对。模块的真正力量在于按需导出和导入，而不在于将所有内容放在同一个文件 解决什么问题（切入点） 命名冲突（作用">
+<meta property="og:description" content="前言讲到模块化，大家可能对CommonJs、AMD、CMD等规范都比较熟悉，ES6也有Module的规范。本文是对Module理解的整理。那依然先是问题三连：ES6的Module是什么？用来解决什么问题？优点是什么？">
 <meta property="og:locale" content="zh-CN">
-<meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="og:updated_time" content="2020-01-20T06:02:57.027Z">
+<meta property="og:image" content="http://yoursite.com/images/1.jpg">
+<meta property="og:updated_time" content="2020-01-21T03:39:55.347Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6 -- Module">
-<meta name="twitter:description" content="前言讲到模块化，大家可能对CommonJs、AMD、CMD等规范都比较熟悉，ES6也有Module的规范。本文是对Module理解的整理。那依然先是问题三连：ES6的Module是什么？用来解决什么问题？优点是什么？ 是什么？使用不同方式加载的JS文件，与原先脚本（script）加载方式相对。模块的真正力量在于按需导出和导入，而不在于将所有内容放在同一个文件 解决什么问题（切入点） 命名冲突（作用">
-<meta name="twitter:image" content="http://yoursite.com/images/og_image.png">
+<meta name="twitter:description" content="前言讲到模块化，大家可能对CommonJs、AMD、CMD等规范都比较熟悉，ES6也有Module的规范。本文是对Module理解的整理。那依然先是问题三连：ES6的Module是什么？用来解决什么问题？优点是什么？">
+<meta name="twitter:image" content="http://yoursite.com/images/1.jpg">
 
 
 
@@ -144,10 +144,17 @@
     </div>
 </nav>
     
+	
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+                <div class="column is-6-tablet is-6-desktop is-9-widescreen has-order-2 column-main"><div class="card">
+    
+    <div class="card-image">
+        <span  class="image is-7by1">
+            <img class="thumbnail" src="/images/1.jpg" alt="ES6 -- Module">
+        </span>
+    </div>
     
     <div class="card-content article ">
         
@@ -182,14 +189,14 @@
         </h1>
         <div class="content">
             <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>讲到模块化，大家可能对CommonJs、AMD、CMD等规范都比较熟悉，ES6也有Module的规范。本文是对Module理解的整理。那依然先是问题三连：ES6的Module是什么？用来解决什么问题？优点是什么？</p>
+<a id="more"></a>
+
 <h3 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h3><p>使用不同方式加载的JS文件，与原先脚本（script）加载方式相对。模块的真正力量在于按需导出和导入，而不在于将所有内容放在同一个文件</p>
 <h3 id="解决什么问题（切入点）"><a href="#解决什么问题（切入点）" class="headerlink" title="解决什么问题（切入点）"></a>解决什么问题（切入点）</h3><ol>
 <li>命名冲突（作用域）</li>
 <li>让JS应用变得更加有条理</li>
 <li>安全问题</li>
 </ol>
-<a id="more"></a>
-
 <h3 id="优点是什么"><a href="#优点是什么" class="headerlink" title="优点是什么"></a>优点是什么</h3><ol>
 <li>自动运行在严格模式下，且无法跳出严格模式；</li>
 <li>在模块的顶级作用域创建的变量，不会自动添加到共享的全局作用域，只存在于模块顶级作用域的内部；</li>
@@ -264,7 +271,11 @@
 
 
 </div>
-                
+                <!-- 新增的复制配置项 -->
+
+
+<!-- 粘贴的部分 -->
+                          <!-- 修改，可选保留的栏 -->
 
 
 
@@ -338,45 +349,6 @@
         </div>
         
         
-        <div class="level is-mobile">
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="Github" href="https://github.com/Ysom">
-                
-                <i class="fab fa-github"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="Facebook" href="https://facebook.com">
-                
-                <i class="fab fa-facebook"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="Twitter" href="https://twitter.com">
-                
-                <i class="fab fa-twitter"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="Dribbble" href="https://dribbble.com">
-                
-                <i class="fab fa-dribbble"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="RSS" href="/">
-                
-                <i class="fas fa-rss"></i>
-                
-            </a>
-            
-        </div>
-        
     </div>
 </div>
     
@@ -404,9 +376,9 @@
             </li>
         
             <li>
-                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                <a class="level is-mobile" href="https://github.com/Ysom" target="_blank">
                     <span class="level-left">
-                        <span class="level-item">PPOffice</span>
+                        <span class="level-item">Github</span>
                     </span>
                     <span class="level-right">
                         <span class="level-item tag">github.com</span>
@@ -487,7 +459,7 @@
             
             <a href="/2020/01/20/Module/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ES6 -- Module">
+                    <img class="thumbnail" src="/images/1.jpg" alt="ES6 -- Module">
                 </p>
             </a>
             
@@ -702,237 +674,10 @@
     
 </div>
 
-                
+                <!-- 新增的复制配置项 -->
 
 
-
-
-<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
-    
-        
-<div class="card widget">
-    <div class="card-content">
-        <h3 class="menu-label">
-            最新文章
-        </h3>
-        
-        <article class="media">
-            
-            <a href="/2020/01/20/Module/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ES6 -- Module">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-20T05:55:02.582Z">2020-01-20</time></div>
-                    <a href="/2020/01/20/Module/" class="title has-link-black-ter is-size-6 has-text-weight-normal">ES6 -- Module</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2020/01/13/finished-proposals-ES2020/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="振奋人心的ES2020新特性！">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-13T15:05:15.051Z">2020-01-13</time></div>
-                    <a href="/2020/01/13/finished-proposals-ES2020/" class="title has-link-black-ter is-size-6 has-text-weight-normal">振奋人心的ES2020新特性！</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2020/01/01/ES6----Proxy/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ES6 -- Proxy">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-01T12:51:56.617Z">2020-01-01</time></div>
-                    <a href="/2020/01/01/ES6----Proxy/" class="title has-link-black-ter is-size-6 has-text-weight-normal">ES6 -- Proxy</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/12/14/JavaScript整理总结(持续更新)/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="JavaScript整理总结(持续更新)">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-14T15:15:30.858Z">2019-12-14</time></div>
-                    <a href="/2019/12/14/JavaScript整理总结(持续更新)/" class="title has-link-black-ter is-size-6 has-text-weight-normal">JavaScript整理总结(持续更新)</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/12/09/2020快到了，面对复盘的疾风吧！！！/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="2020快到了，面对复盘的疾风吧！！！">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-09T13:58:09.231Z">2019-12-09</time></div>
-                    <a href="/2019/12/09/2020快到了，面对复盘的疾风吧！！！/" class="title has-link-black-ter is-size-6 has-text-weight-normal">2020快到了，面对复盘的疾风吧！！！</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-    </div>
-</div>
-
-    
-        <div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-        <h3 class="menu-label">
-            归档
-        </h3>
-        <ul class="menu-list">
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2020/01/">
-                <span class="level-start">
-                    <span class="level-item">一月 2020</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">3</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/12/">
-                <span class="level-start">
-                    <span class="level-item">十二月 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">2</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/11/">
-                <span class="level-start">
-                    <span class="level-item">十一月 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">2</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/10/">
-                <span class="level-start">
-                    <span class="level-item">十月 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">4</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/09/">
-                <span class="level-start">
-                    <span class="level-item">九月 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">1</span>
-                </span>
-            </a>
-        </li>
-        
-        </ul>
-        </div>
-    </div>
-</div>
-    
-        <div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-            <h3 class="menu-label">
-                标签
-            </h3>
-            <div class="field is-grouped is-grouped-multiline">
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/JS/">
-                        <span class="tag">JS</span>
-                        <span class="tag is-grey">2</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/vue/">
-                        <span class="tag">vue</span>
-                        <span class="tag is-grey">3</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/总结/">
-                        <span class="tag">总结</span>
-                        <span class="tag is-grey">5</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/感想/">
-                        <span class="tag">感想</span>
-                        <span class="tag is-grey">2</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/源码/">
-                        <span class="tag">源码</span>
-                        <span class="tag is-grey">3</span>
-                    </a>
-                </div>
-                
-            </div>
-        </div>
-    </div>
-</div>
-    
-    
-</div>
+<!-- 粘贴的部分 -->
 
             </div>
         </div>

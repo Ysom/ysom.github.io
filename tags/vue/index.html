@@ -139,6 +139,7 @@
     </div>
 </nav>
     
+	
     <section class="section">
         <div class="container">
             <div class="columns">
@@ -184,9 +185,6 @@
         <div class="content">
             <p>上一篇分析了<strong>data</strong>的初始化过程以及做的一些操作，这一篇分析<strong>依赖收集</strong>和<strong>派发更新</strong>。</p>
 <h2 id="依赖收集"><a href="#依赖收集" class="headerlink" title="依赖收集"></a>依赖收集</h2><p>先看下<code>getter</code>的代码</p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">defineReactive</span> (<span class="hljs-params"></span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">  obj: Object,</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">  key: string,</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">  val: any,</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">  customSetter?: ?Function,</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">  shallow?: boolean</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">const</span> dep = <span class="hljs-keyword">new</span> Dep()</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">const</span> property = <span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor(obj, key)</span><br><span class="line">  <span class="hljs-keyword">if</span> (property &amp;&amp; property.configurable === <span class="hljs-literal">false</span>) &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="hljs-comment">// cater for pre-defined getter/setters</span></span><br><span class="line">  <span class="hljs-keyword">const</span> getter = property &amp;&amp; property.get</span><br><span class="line">  <span class="hljs-keyword">const</span> setter = property &amp;&amp; property.set</span><br><span class="line">  <span class="hljs-keyword">if</span> ((!getter || setter) &amp;&amp; <span class="hljs-built_in">arguments</span>.length === <span class="hljs-number">2</span>) &#123;</span><br><span class="line">    val = obj[key]</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">let</span> childOb = !shallow &amp;&amp; observe(val)</span><br><span class="line">  <span class="hljs-built_in">Object</span>.defineProperty(obj, key, &#123;</span><br><span class="line">    enumerable: <span class="hljs-literal">true</span>,</span><br><span class="line">    configurable: <span class="hljs-literal">true</span>,</span><br><span class="line">    <span class="hljs-comment">// 重点看get这部分  </span></span><br><span class="line">    <span class="hljs-keyword">get</span>: function reactiveGetter () &#123;</span><br><span class="line">      <span class="hljs-keyword">const</span> value = getter ? getter.call(obj) : val</span><br><span class="line">      <span class="hljs-keyword">if</span> (Dep.target) &#123;</span><br><span class="line">        dep.depend()</span><br><span class="line">        <span class="hljs-keyword">if</span> (childOb) &#123;</span><br><span class="line">          childOb.dep.depend()</span><br><span class="line">          <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Array</span>.isArray(value)) &#123;</span><br><span class="line">            dependArray(value)</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="hljs-keyword">return</span> value</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="hljs-comment">// ...</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在<code>getter</code>的逻辑里面，关键的两步是<code>const dep = new Dep()</code>和<code>dep.depend()</code>，第一步是实例化一个<code>Dep</code>实例，第二步就是实现依赖收集。</p>
         </div>
         
         
@@ -337,7 +335,8 @@
 
 
 </div>
-                
+                <!-- 新增的复制配置项 -->
+        <!-- 修改 -->
 
 
 
@@ -411,45 +410,6 @@
         </div>
         
         
-        <div class="level is-mobile">
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="Github" href="https://github.com/Ysom">
-                
-                <i class="fab fa-github"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="Facebook" href="https://facebook.com">
-                
-                <i class="fab fa-facebook"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="Twitter" href="https://twitter.com">
-                
-                <i class="fab fa-twitter"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="Dribbble" href="https://dribbble.com">
-                
-                <i class="fab fa-dribbble"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="RSS" href="/">
-                
-                <i class="fas fa-rss"></i>
-                
-            </a>
-            
-        </div>
-        
     </div>
 </div>
     
@@ -477,9 +437,9 @@
             </li>
         
             <li>
-                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                <a class="level is-mobile" href="https://github.com/Ysom" target="_blank">
                     <span class="level-left">
-                        <span class="level-item">PPOffice</span>
+                        <span class="level-item">Github</span>
                     </span>
                     <span class="level-right">
                         <span class="level-item tag">github.com</span>
@@ -560,7 +520,7 @@
             
             <a href="/2020/01/20/Module/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ES6 -- Module">
+                    <img class="thumbnail" src="/images/1.jpg" alt="ES6 -- Module">
                 </p>
             </a>
             
@@ -775,7 +735,11 @@
     
 </div>
 
-                
+
+<!-- 粘贴的部分 -->
+
+                <!-- 新增的复制配置项 -->
+        <!-- 修改 -->
 
 
 
@@ -793,7 +757,7 @@
             
             <a href="/2020/01/20/Module/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ES6 -- Module">
+                    <img class="thumbnail" src="/images/1.jpg" alt="ES6 -- Module">
                 </p>
             </a>
             
@@ -1006,6 +970,9 @@
     
     
 </div>
+
+
+<!-- 粘贴的部分 -->
 
             </div>
         </div>

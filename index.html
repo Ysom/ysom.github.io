@@ -139,11 +139,18 @@
     </div>
 </nav>
     
+	
     <section class="section">
         <div class="container">
             <div class="columns">
                 <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main">
     <div class="card">
+    
+    <div class="card-image">
+        <a href="/2020/01/20/Module/" class="image is-7by1">
+            <img class="thumbnail" src="/images/1.jpg" alt="ES6 -- Module">
+        </a>
+    </div>
     
     <div class="card-content article ">
         
@@ -173,12 +180,6 @@
         </h1>
         <div class="content">
             <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>讲到模块化，大家可能对CommonJs、AMD、CMD等规范都比较熟悉，ES6也有Module的规范。本文是对Module理解的整理。那依然先是问题三连：ES6的Module是什么？用来解决什么问题？优点是什么？</p>
-<h3 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h3><p>使用不同方式加载的JS文件，与原先脚本（script）加载方式相对。模块的真正力量在于按需导出和导入，而不在于将所有内容放在同一个文件</p>
-<h3 id="解决什么问题（切入点）"><a href="#解决什么问题（切入点）" class="headerlink" title="解决什么问题（切入点）"></a>解决什么问题（切入点）</h3><ol>
-<li>命名冲突（作用域）</li>
-<li>让JS应用变得更加有条理</li>
-<li>安全问题</li>
-</ol>
         </div>
         
         
@@ -234,11 +235,7 @@
 <h3 id="BigInt"><a href="#BigInt" class="headerlink" title="BigInt"></a>BigInt</h3><p>在JS的<code>Number</code>类型中，安全值的范围为<code>Number.MIN_SAFE_INTEGER</code>-<code>Number.MAX_SAFE_INTEGER</code>，即-(2<sup>53</sup>-1)~2<sup>53</sup>-1，超出该范围整数计算或表示将会丢失精度</p>
 <figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> max_num = <span class="hljs-built_in">Number</span>.MAX_SAFE_INTEGER <span class="hljs-comment">// 9007199254740991</span></span><br><span class="line"><span class="hljs-keyword">let</span> more_num = max_num + <span class="hljs-number">1</span> <span class="hljs-comment">// 9007199254740992</span></span><br><span class="line"><span class="hljs-keyword">let</span> more_max_num = max_num + <span class="hljs-number">2</span> <span class="hljs-comment">// 9007199254740992</span></span><br></pre></td></tr></table></figure>
 
-<p>可以看到，当数值超过安全范围时，就不会正确表示，甚至还有如下情况</p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-number">9007199254740992</span> === <span class="hljs-number">9007199254740993</span> <span class="hljs-comment">// true</span></span><br></pre></td></tr></table></figure>
-
-<p>新规范<code>BigInt</code>就是用来解决大数计算问题，同时它也属于原始类型。可以在整数后面加上n或者BigInt函数来实现</p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 直接在整数后面加n</span></span><br><span class="line"><span class="hljs-keyword">let</span> bigNum = <span class="hljs-number">9007199254740993</span>n</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 使用BigInt函数</span></span><br><span class="line"><span class="hljs-keyword">let</span> bigNum = BigInt(<span class="hljs-number">9007199254740993</span>)</span><br><span class="line"><span class="hljs-comment">// or </span></span><br><span class="line"><span class="hljs-keyword">let</span> bigNum = BigInt(<span class="hljs-string">'9007199254740993'</span>)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 大数运算</span></span><br><span class="line"><span class="hljs-keyword">let</span> superNum = <span class="hljs-number">9007199254740993</span>n + <span class="hljs-number">9007199254740993</span>n </span><br><span class="line"><span class="hljs-comment">// 18014398509481986n</span></span><br><span class="line"><span class="hljs-keyword">typeof</span> superNum <span class="hljs-comment">// 'bigInt'</span></span><br></pre></td></tr></table></figure>
+<p>可以看到，当数值超过安全范围时，就不会正确表示，甚至还有以下情况</p>
         </div>
         
         
@@ -293,13 +290,6 @@
             <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本文总结了<code>Proxy</code>代理的陷阱函数和对应的<code>Reflect</code>接口默认行为函数的用法。因为目前用的最多的技术栈是<code>Vue</code>，而<code>Vue3.0</code>版本其中关于响应式原理的核心是<code>Proxy</code>，因此有必要对<code>Proxy</code>做进一步的理解和总结。</p>
 <h3 id="set"><a href="#set" class="headerlink" title="set"></a>set</h3><p>拦截对象：设置属性值行为。成功返回<code>true</code>，失败返回<code>false</code>。</p>
 <p>默认行为实现：<code>Reflect.set()</code></p>
-<p>接收参数：</p>
-<ol>
-<li><strong>trapTarget</strong>：设置属性的对象（代理的目标对象）</li>
-<li><strong>key</strong>：属性的键</li>
-<li><strong>value</strong>：属性的值</li>
-<li><strong>receiver</strong>：操作发生的对象（通常指代理对象）</li>
-</ol>
         </div>
         
         
@@ -357,13 +347,7 @@
 <li><p>引用（复杂）类型，变量存储的是在栈内存中的指针（地址），指向存储的地址，地址所在的堆内存存放着值。引用类型都是<code>object</code></p>
 </li>
 </ul>
-<h3 id="typeof和instanceof"><a href="#typeof和instanceof" class="headerlink" title="typeof和instanceof"></a>typeof和instanceof</h3><h4 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h4><ul>
-<li><p>原始类型：除了<code>null</code>判断为<code>object</code>，其它的原始类型可以正确判断</p>
-</li>
-<li><p>对象类型：除了函数判断为<code>function</code>，其它的对象类型都为<code>object</code></p>
-</li>
-</ul>
-<h4 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h4><p>判断操作符右边的函数的原型是否存在于左边的对象的原型链上可以准确判断引用类型，无法正确判断原始类型</p>
+<h3 id="typeof和instanceof"><a href="#typeof和instanceof" class="headerlink" title="typeof和instanceof"></a>typeof和instanceof</h3>
         </div>
         
         
@@ -418,13 +402,6 @@
             <p>还有20来天就是2020年了，今年的你技术有提升吗？体重下降了多少？19年末的你是不是19年初想象中的你呢？</p>
 <p>对于我来说，“每逢佳节倍思亲，每到年底必操心”，最近本来想趁着年底，做一波基础技术复盘，优先选了js进行复盘，结果越复知识点越多，想整理成一篇博文篇幅又太长，想整成什么js知识点复盘上中下又太繁琐麻烦的样子，太难了，难于上青天啊~</p>
 <p>但是青天可以不上，复盘清单还是要列的，做一些知识点的复盘总结，计划尽量月底完成（maybe吧，哈哈哈~）</p>
-<p>第一个要复盘的，肯定是前端三剑客了</p>
-<ol>
-<li>HTML</li>
-<li>CSS</li>
-<li>JavaScript</li>
-</ol>
-<p>接下来就是工作中的技术栈和部分学习内容了</p>
         </div>
         
         
@@ -592,9 +569,6 @@
         <div class="content">
             <p>上一篇分析了<strong>data</strong>的初始化过程以及做的一些操作，这一篇分析<strong>依赖收集</strong>和<strong>派发更新</strong>。</p>
 <h2 id="依赖收集"><a href="#依赖收集" class="headerlink" title="依赖收集"></a>依赖收集</h2><p>先看下<code>getter</code>的代码</p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">defineReactive</span> (<span class="hljs-params"></span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">  obj: Object,</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">  key: string,</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">  val: any,</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">  customSetter?: ?Function,</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params">  shallow?: boolean</span></span></span><br><span class="line"><span class="hljs-function"><span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">  <span class="hljs-keyword">const</span> dep = <span class="hljs-keyword">new</span> Dep()</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">const</span> property = <span class="hljs-built_in">Object</span>.getOwnPropertyDescriptor(obj, key)</span><br><span class="line">  <span class="hljs-keyword">if</span> (property &amp;&amp; property.configurable === <span class="hljs-literal">false</span>) &#123;</span><br><span class="line">    <span class="hljs-keyword">return</span></span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="hljs-comment">// cater for pre-defined getter/setters</span></span><br><span class="line">  <span class="hljs-keyword">const</span> getter = property &amp;&amp; property.get</span><br><span class="line">  <span class="hljs-keyword">const</span> setter = property &amp;&amp; property.set</span><br><span class="line">  <span class="hljs-keyword">if</span> ((!getter || setter) &amp;&amp; <span class="hljs-built_in">arguments</span>.length === <span class="hljs-number">2</span>) &#123;</span><br><span class="line">    val = obj[key]</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">  <span class="hljs-keyword">let</span> childOb = !shallow &amp;&amp; observe(val)</span><br><span class="line">  <span class="hljs-built_in">Object</span>.defineProperty(obj, key, &#123;</span><br><span class="line">    enumerable: <span class="hljs-literal">true</span>,</span><br><span class="line">    configurable: <span class="hljs-literal">true</span>,</span><br><span class="line">    <span class="hljs-comment">// 重点看get这部分  </span></span><br><span class="line">    <span class="hljs-keyword">get</span>: function reactiveGetter () &#123;</span><br><span class="line">      <span class="hljs-keyword">const</span> value = getter ? getter.call(obj) : val</span><br><span class="line">      <span class="hljs-keyword">if</span> (Dep.target) &#123;</span><br><span class="line">        dep.depend()</span><br><span class="line">        <span class="hljs-keyword">if</span> (childOb) &#123;</span><br><span class="line">          childOb.dep.depend()</span><br><span class="line">          <span class="hljs-keyword">if</span> (<span class="hljs-built_in">Array</span>.isArray(value)) &#123;</span><br><span class="line">            dependArray(value)</span><br><span class="line">          &#125;</span><br><span class="line">        &#125;</span><br><span class="line">      &#125;</span><br><span class="line">      <span class="hljs-keyword">return</span> value</span><br><span class="line">    &#125;,</span><br><span class="line">    <span class="hljs-comment">// ...</span></span><br><span class="line">  &#125;)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>在<code>getter</code>的逻辑里面，关键的两步是<code>const dep = new Dep()</code>和<code>dep.depend()</code>，第一步是实例化一个<code>Dep</code>实例，第二步就是实现依赖收集。</p>
         </div>
         
         
@@ -764,7 +738,8 @@
     </nav>
 </div>
 </div>
-                
+                <!-- 新增的复制配置项 -->
+        <!-- 修改 -->
 
 
 
@@ -838,45 +813,6 @@
         </div>
         
         
-        <div class="level is-mobile">
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="Github" href="https://github.com/Ysom">
-                
-                <i class="fab fa-github"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="Facebook" href="https://facebook.com">
-                
-                <i class="fab fa-facebook"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="Twitter" href="https://twitter.com">
-                
-                <i class="fab fa-twitter"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="Dribbble" href="https://dribbble.com">
-                
-                <i class="fab fa-dribbble"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="RSS" href="/">
-                
-                <i class="fas fa-rss"></i>
-                
-            </a>
-            
-        </div>
-        
     </div>
 </div>
     
@@ -904,9 +840,9 @@
             </li>
         
             <li>
-                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                <a class="level is-mobile" href="https://github.com/Ysom" target="_blank">
                     <span class="level-left">
-                        <span class="level-item">PPOffice</span>
+                        <span class="level-item">Github</span>
                     </span>
                     <span class="level-right">
                         <span class="level-item tag">github.com</span>
@@ -987,7 +923,7 @@
             
             <a href="/2020/01/20/Module/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ES6 -- Module">
+                    <img class="thumbnail" src="/images/1.jpg" alt="ES6 -- Module">
                 </p>
             </a>
             
@@ -1202,7 +1138,11 @@
     
 </div>
 
-                
+
+<!-- 粘贴的部分 -->
+
+                <!-- 新增的复制配置项 -->
+        <!-- 修改 -->
 
 
 
@@ -1220,7 +1160,7 @@
             
             <a href="/2020/01/20/Module/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ES6 -- Module">
+                    <img class="thumbnail" src="/images/1.jpg" alt="ES6 -- Module">
                 </p>
             </a>
             
@@ -1433,6 +1373,9 @@
     
     
 </div>
+
+
+<!-- 粘贴的部分 -->
 
             </div>
         </div>

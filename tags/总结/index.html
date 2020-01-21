@@ -139,6 +139,7 @@
     </div>
 </nav>
     
+	
     <section class="section">
         <div class="container">
             <div class="columns">
@@ -185,13 +186,6 @@
             <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本文总结了<code>Proxy</code>代理的陷阱函数和对应的<code>Reflect</code>接口默认行为函数的用法。因为目前用的最多的技术栈是<code>Vue</code>，而<code>Vue3.0</code>版本其中关于响应式原理的核心是<code>Proxy</code>，因此有必要对<code>Proxy</code>做进一步的理解和总结。</p>
 <h3 id="set"><a href="#set" class="headerlink" title="set"></a>set</h3><p>拦截对象：设置属性值行为。成功返回<code>true</code>，失败返回<code>false</code>。</p>
 <p>默认行为实现：<code>Reflect.set()</code></p>
-<p>接收参数：</p>
-<ol>
-<li><strong>trapTarget</strong>：设置属性的对象（代理的目标对象）</li>
-<li><strong>key</strong>：属性的键</li>
-<li><strong>value</strong>：属性的值</li>
-<li><strong>receiver</strong>：操作发生的对象（通常指代理对象）</li>
-</ol>
         </div>
         
         
@@ -249,13 +243,7 @@
 <li><p>引用（复杂）类型，变量存储的是在栈内存中的指针（地址），指向存储的地址，地址所在的堆内存存放着值。引用类型都是<code>object</code></p>
 </li>
 </ul>
-<h3 id="typeof和instanceof"><a href="#typeof和instanceof" class="headerlink" title="typeof和instanceof"></a>typeof和instanceof</h3><h4 id="typeof"><a href="#typeof" class="headerlink" title="typeof"></a>typeof</h4><ul>
-<li><p>原始类型：除了<code>null</code>判断为<code>object</code>，其它的原始类型可以正确判断</p>
-</li>
-<li><p>对象类型：除了函数判断为<code>function</code>，其它的对象类型都为<code>object</code></p>
-</li>
-</ul>
-<h4 id="instanceof"><a href="#instanceof" class="headerlink" title="instanceof"></a>instanceof</h4><p>判断操作符右边的函数的原型是否存在于左边的对象的原型链上可以准确判断引用类型，无法正确判断原始类型</p>
+<h3 id="typeof和instanceof"><a href="#typeof和instanceof" class="headerlink" title="typeof和instanceof"></a>typeof和instanceof</h3>
         </div>
         
         
@@ -310,13 +298,6 @@
             <p>还有20来天就是2020年了，今年的你技术有提升吗？体重下降了多少？19年末的你是不是19年初想象中的你呢？</p>
 <p>对于我来说，“每逢佳节倍思亲，每到年底必操心”，最近本来想趁着年底，做一波基础技术复盘，优先选了js进行复盘，结果越复知识点越多，想整理成一篇博文篇幅又太长，想整成什么js知识点复盘上中下又太繁琐麻烦的样子，太难了，难于上青天啊~</p>
 <p>但是青天可以不上，复盘清单还是要列的，做一些知识点的复盘总结，计划尽量月底完成（maybe吧，哈哈哈~）</p>
-<p>第一个要复盘的，肯定是前端三剑客了</p>
-<ol>
-<li>HTML</li>
-<li>CSS</li>
-<li>JavaScript</li>
-</ol>
-<p>接下来就是工作中的技术栈和部分学习内容了</p>
         </div>
         
         
@@ -433,14 +414,7 @@
 <p>做前端开发已经有一年多了，前端这个职业，在很多人看来就是一个切图仔、页面仔，包括产品、UI或后端等同事，很多时候在他们看来，前端只需按照设计图做页面，做做交互，对接接口，工作比较简单没有难度。但是前端真的是这样简单吗？</p>
 </blockquote>
 <p>近年来前端需要学习的知识越来越多，从以前前端三剑客，到现在的各种框架、混合开发、各类小程序开发、打包工具、服务端知识等等，很多前端小伙伴直言学不动了，前端焦虑感也越来越强。那我们要如何在这种别人误解的目光下与焦虑感日渐强大的情况下，练就、保持前端幸福感呢？我总结了一年多以来的经历和经验，分成<strong>外在因素</strong>和<strong>内在因素（技巧、技术提升）</strong>两方面，这里分享<strong>外在因素</strong>。</p>
-<h3 id="重要的几个点"><a href="#重要的几个点" class="headerlink" title="重要的几个点"></a>重要的几个点</h3><p>在说外在因素之前，先看以下一些点：</p>
-<ul>
-<li>熟知业务，熟悉产品原型</li>
-<li>积极参加项目评审</li>
-<li>技术评估，了解技术实现的细节，确定技术边界</li>
-<li>全局视野，业务、技术拓展性</li>
-</ul>
-<p>不知道大家在日常开发中，有没有做到或关注到以上这些点。其实能够影响到我们对一种职业的幸福感的外在因素，基本就是对外合作沟通，而合作比较多的，从产品到UI，后端到测试，那这跟我们上面讲到的几个点有什么联系呢？</p>
+<h3 id="重要的几个点"><a href="#重要的几个点" class="headerlink" title="重要的几个点"></a>重要的几个点</h3>
         </div>
         
         
@@ -464,7 +438,8 @@
 
 
 </div>
-                
+                <!-- 新增的复制配置项 -->
+        <!-- 修改 -->
 
 
 
@@ -538,45 +513,6 @@
         </div>
         
         
-        <div class="level is-mobile">
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="Github" href="https://github.com/Ysom">
-                
-                <i class="fab fa-github"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="Facebook" href="https://facebook.com">
-                
-                <i class="fab fa-facebook"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="Twitter" href="https://twitter.com">
-                
-                <i class="fab fa-twitter"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="Dribbble" href="https://dribbble.com">
-                
-                <i class="fab fa-dribbble"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="RSS" href="/">
-                
-                <i class="fas fa-rss"></i>
-                
-            </a>
-            
-        </div>
-        
     </div>
 </div>
     
@@ -604,9 +540,9 @@
             </li>
         
             <li>
-                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                <a class="level is-mobile" href="https://github.com/Ysom" target="_blank">
                     <span class="level-left">
-                        <span class="level-item">PPOffice</span>
+                        <span class="level-item">Github</span>
                     </span>
                     <span class="level-right">
                         <span class="level-item tag">github.com</span>
@@ -687,7 +623,7 @@
             
             <a href="/2020/01/20/Module/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ES6 -- Module">
+                    <img class="thumbnail" src="/images/1.jpg" alt="ES6 -- Module">
                 </p>
             </a>
             
@@ -902,7 +838,11 @@
     
 </div>
 
-                
+
+<!-- 粘贴的部分 -->
+
+                <!-- 新增的复制配置项 -->
+        <!-- 修改 -->
 
 
 
@@ -920,7 +860,7 @@
             
             <a href="/2020/01/20/Module/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ES6 -- Module">
+                    <img class="thumbnail" src="/images/1.jpg" alt="ES6 -- Module">
                 </p>
             </a>
             
@@ -1133,6 +1073,9 @@
     
     
 </div>
+
+
+<!-- 粘贴的部分 -->
 
             </div>
         </div>

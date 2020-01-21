@@ -139,6 +139,7 @@
     </div>
 </nav>
     
+	
     <section class="section">
         <div class="container">
             <div class="columns">
@@ -154,6 +155,12 @@
 </div>
 
     <div class="card">
+    
+    <div class="card-image">
+        <a href="/2020/01/20/Module/" class="image is-7by1">
+            <img class="thumbnail" src="/images/1.jpg" alt="ES6 -- Module">
+        </a>
+    </div>
     
     <div class="card-content article ">
         
@@ -183,12 +190,6 @@
         </h1>
         <div class="content">
             <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>讲到模块化，大家可能对CommonJs、AMD、CMD等规范都比较熟悉，ES6也有Module的规范。本文是对Module理解的整理。那依然先是问题三连：ES6的Module是什么？用来解决什么问题？优点是什么？</p>
-<h3 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h3><p>使用不同方式加载的JS文件，与原先脚本（script）加载方式相对。模块的真正力量在于按需导出和导入，而不在于将所有内容放在同一个文件</p>
-<h3 id="解决什么问题（切入点）"><a href="#解决什么问题（切入点）" class="headerlink" title="解决什么问题（切入点）"></a>解决什么问题（切入点）</h3><ol>
-<li>命名冲突（作用域）</li>
-<li>让JS应用变得更加有条理</li>
-<li>安全问题</li>
-</ol>
         </div>
         
         
@@ -244,11 +245,7 @@
 <h3 id="BigInt"><a href="#BigInt" class="headerlink" title="BigInt"></a>BigInt</h3><p>在JS的<code>Number</code>类型中，安全值的范围为<code>Number.MIN_SAFE_INTEGER</code>-<code>Number.MAX_SAFE_INTEGER</code>，即-(2<sup>53</sup>-1)~2<sup>53</sup>-1，超出该范围整数计算或表示将会丢失精度</p>
 <figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> max_num = <span class="hljs-built_in">Number</span>.MAX_SAFE_INTEGER <span class="hljs-comment">// 9007199254740991</span></span><br><span class="line"><span class="hljs-keyword">let</span> more_num = max_num + <span class="hljs-number">1</span> <span class="hljs-comment">// 9007199254740992</span></span><br><span class="line"><span class="hljs-keyword">let</span> more_max_num = max_num + <span class="hljs-number">2</span> <span class="hljs-comment">// 9007199254740992</span></span><br></pre></td></tr></table></figure>
 
-<p>可以看到，当数值超过安全范围时，就不会正确表示，甚至还有如下情况</p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-number">9007199254740992</span> === <span class="hljs-number">9007199254740993</span> <span class="hljs-comment">// true</span></span><br></pre></td></tr></table></figure>
-
-<p>新规范<code>BigInt</code>就是用来解决大数计算问题，同时它也属于原始类型。可以在整数后面加上n或者BigInt函数来实现</p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 直接在整数后面加n</span></span><br><span class="line"><span class="hljs-keyword">let</span> bigNum = <span class="hljs-number">9007199254740993</span>n</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 使用BigInt函数</span></span><br><span class="line"><span class="hljs-keyword">let</span> bigNum = BigInt(<span class="hljs-number">9007199254740993</span>)</span><br><span class="line"><span class="hljs-comment">// or </span></span><br><span class="line"><span class="hljs-keyword">let</span> bigNum = BigInt(<span class="hljs-string">'9007199254740993'</span>)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 大数运算</span></span><br><span class="line"><span class="hljs-keyword">let</span> superNum = <span class="hljs-number">9007199254740993</span>n + <span class="hljs-number">9007199254740993</span>n </span><br><span class="line"><span class="hljs-comment">// 18014398509481986n</span></span><br><span class="line"><span class="hljs-keyword">typeof</span> superNum <span class="hljs-comment">// 'bigInt'</span></span><br></pre></td></tr></table></figure>
+<p>可以看到，当数值超过安全范围时，就不会正确表示，甚至还有以下情况</p>
         </div>
         
         
@@ -272,7 +269,8 @@
 
 
 </div>
-                
+                <!-- 新增的复制配置项 -->
+        <!-- 修改 -->
 
 
 
@@ -346,45 +344,6 @@
         </div>
         
         
-        <div class="level is-mobile">
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="Github" href="https://github.com/Ysom">
-                
-                <i class="fab fa-github"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="Facebook" href="https://facebook.com">
-                
-                <i class="fab fa-facebook"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="Twitter" href="https://twitter.com">
-                
-                <i class="fab fa-twitter"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="Dribbble" href="https://dribbble.com">
-                
-                <i class="fab fa-dribbble"></i>
-                
-            </a>
-            
-            <a class="level-item button is-white is-marginless" target="_blank"
-                title="RSS" href="/">
-                
-                <i class="fas fa-rss"></i>
-                
-            </a>
-            
-        </div>
-        
     </div>
 </div>
     
@@ -412,9 +371,9 @@
             </li>
         
             <li>
-                <a class="level is-mobile" href="https://github.com/ppoffice" target="_blank">
+                <a class="level is-mobile" href="https://github.com/Ysom" target="_blank">
                     <span class="level-left">
-                        <span class="level-item">PPOffice</span>
+                        <span class="level-item">Github</span>
                     </span>
                     <span class="level-right">
                         <span class="level-item tag">github.com</span>
@@ -495,7 +454,7 @@
             
             <a href="/2020/01/20/Module/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ES6 -- Module">
+                    <img class="thumbnail" src="/images/1.jpg" alt="ES6 -- Module">
                 </p>
             </a>
             
@@ -710,7 +669,11 @@
     
 </div>
 
-                
+
+<!-- 粘贴的部分 -->
+
+                <!-- 新增的复制配置项 -->
+        <!-- 修改 -->
 
 
 
@@ -728,7 +691,7 @@
             
             <a href="/2020/01/20/Module/" class="media-left">
                 <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ES6 -- Module">
+                    <img class="thumbnail" src="/images/1.jpg" alt="ES6 -- Module">
                 </p>
             </a>
             
@@ -941,6 +904,9 @@
     
     
 </div>
+
+
+<!-- 粘贴的部分 -->
 
             </div>
         </div>
