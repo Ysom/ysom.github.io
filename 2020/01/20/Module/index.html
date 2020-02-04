@@ -19,7 +19,7 @@
 <meta property="og:description" content="前言讲到模块化，大家可能对CommonJs、AMD、CMD等规范都比较熟悉，ES6也有Module的规范。本文是对Module理解的整理。那依然先是问题三连：ES6的Module是什么？用来解决什么问题？优点是什么？">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="og:updated_time" content="2020-01-22T12:23:24.367Z">
+<meta property="og:updated_time" content="2020-02-04T08:53:53.604Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="ES6 -- Module">
 <meta name="twitter:description" content="前言讲到模块化，大家可能对CommonJs、AMD、CMD等规范都比较熟悉，ES6也有Module的规范。本文是对Module理解的整理。那依然先是问题三连：ES6的Module是什么？用来解决什么问题？优点是什么？">
@@ -164,7 +164,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    9 分钟 读完 (大约 1331 个字)
+                    11 分钟 读完 (大约 1718 个字)
                 </span>
                 
                 
@@ -228,7 +228,25 @@
 
 <p>再通过<code>import &#39;./extendArray.js&#39;</code>将模块引入，这里虽然没有绑定的导出与导入，但依然是一个有效的模块，在引入该模块的模块中，所有的数组都可以使用<code>pushAll()</code>方法</p>
 <p>这种无绑定的导入，最有可能创建用于在旧环境运行新语法时做向下兼容的<code>polyfill</code>和<code>shim</code></p>
-<h3 id="加载方式（待完善）"><a href="#加载方式（待完善）" class="headerlink" title="加载方式（待完善）"></a>加载方式（待完善）</h3>
+<h3 id="加载方式"><a href="#加载方式" class="headerlink" title="加载方式"></a>加载方式</h3><blockquote>
+<p>ES6定义了模块的语法，但未定义如何加载。</p>
+</blockquote>
+<h4 id="在web浏览器中使用模块"><a href="#在web浏览器中使用模块" class="headerlink" title="在web浏览器中使用模块"></a>在web浏览器中使用模块</h4><p>在ES6之前，已经存在多种方式可以在web应用中加载JS</p>
+<ol>
+<li>使用<code>&lt;script&gt;</code>标签以及<code>src</code>属性指定加载的位置，加载JS文件；</li>
+<li>使用<code>&lt;script&gt;</code>标签但不使用<code>src</code>属性，嵌入内联的JS代码；</li>
+<li>加载JS代码文件并作为<code>Worker</code>（例如<code>Web Worker</code>或<code>Service Worker</code>）来执行</li>
+</ol>
+<h5 id="通过script加载模块"><a href="#通过script加载模块" class="headerlink" title="通过script加载模块"></a>通过script加载模块</h5><p>在使用script标签时，设置type属性为module，告诉浏览器将引入的代码作为模块。且会自动应用defer属性，将模块文件下载完后，等待网页文档全部解析完，再按照模块引入顺序依次执行。如果需要异步加载模块，则可以手动加上async属性</p>
+<h5 id="将模块作为Worker加载"><a href="#将模块作为Worker加载" class="headerlink" title="将模块作为Worker加载"></a>将模块作为Worker加载</h5><p>为了支持模块加载，HTML标准的开发者给worker添加了第二个参数，该参数时带有<code>type</code>属性的对象，默认值为<code>script</code>，可以设置为<code>module</code>，以此来加载模块</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 脚本方式</span></span><br><span class="line"><span class="hljs-keyword">let</span> worker = <span class="hljs-keyword">new</span> Worker(<span class="hljs-string">'script.js'</span>)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 模块方式</span></span><br><span class="line"><span class="hljs-keyword">let</span> worker = <span class="hljs-keyword">new</span> Worker(<span class="hljs-string">'module.js'</span>)</span><br></pre></td></tr></table></figure>
+
+<p>模块方式其中存在两点区别：</p>
+<ol>
+<li>worker脚本被限制只能从同源网页加载，worker模块不受限制；</li>
+<li>worker脚本可以使用<code>self.importScripts()</code>方法来将额外脚本引入worker，worker模块上的<code>self.importScripts()</code>总是失败，因为应当换用成<code>import</code></li>
+</ol>
+
         </div>
         
         <div class="level is-size-7 is-uppercase">
