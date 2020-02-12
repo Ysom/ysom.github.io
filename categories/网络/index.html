@@ -7,22 +7,17 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>Vue3.0，它来了 - Ysom &#39;s Blog</title>
+<title>分类: 网络 - Ysom &#39;s Blog</title>
 
 
-    <meta name="description" content="10月5号凌晨，尤雨溪大大发布了vue3.0源码   现在抓住国庆的小尾巴，来看一看vue3.0到底有啥东西 整体状态 目前发布的vue3.0是Pre-Alpha版本，后续还有Alpha、Beta版本 打包后的代码是ES2015+，不支持IE11 拥抱TypeScript，98%代码使用了TypeScript编写">
-<meta name="keywords" content="源码,vue">
-<meta property="og:type" content="article">
-<meta property="og:title" content="Vue3.0，它来了">
-<meta property="og:url" content="http://yoursite.com/2019/10/07/Vue3.0它来了，带着Pre-Alpha来了/index.html">
+    <meta property="og:type" content="website">
+<meta property="og:title" content="Ysom &#39;s Blog">
+<meta property="og:url" content="http://yoursite.com/categories/网络/index.html">
 <meta property="og:site_name" content="Ysom &#39;s Blog">
-<meta property="og:description" content="10月5号凌晨，尤雨溪大大发布了vue3.0源码   现在抓住国庆的小尾巴，来看一看vue3.0到底有啥东西 整体状态 目前发布的vue3.0是Pre-Alpha版本，后续还有Alpha、Beta版本 打包后的代码是ES2015+，不支持IE11 拥抱TypeScript，98%代码使用了TypeScript编写">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="og:updated_time" content="2019-10-08T09:05:49.163Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Vue3.0，它来了">
-<meta name="twitter:description" content="10月5号凌晨，尤雨溪大大发布了vue3.0源码   现在抓住国庆的小尾巴，来看一看vue3.0到底有啥东西 整体状态 目前发布的vue3.0是Pre-Alpha版本，后续还有Alpha、Beta版本 打包后的代码是ES2015+，不支持IE11 拥抱TypeScript，98%代码使用了TypeScript编写">
+<meta name="twitter:title" content="Ysom &#39;s Blog">
 <meta name="twitter:image" content="http://yoursite.com/images/og_image.png">
 
 
@@ -97,7 +92,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo-3.png" alt="Vue3.0，它来了" height="28">
+                <img src="/images/logo-3.png" alt="Ysom &#39;s Blog" height="28">
             
             </a>
         </div>
@@ -148,83 +143,62 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-6-tablet is-6-desktop is-9-widescreen has-order-2 column-main"><div class="card">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    <div class="card-content">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="/categories">分类</a></li>
+            
+            <li class="is-active"><a href="#" aria-current="page">网络</a></li>
+        </ul>
+        </nav>
+    </div>
+</div>
+
+    <div class="card">
     
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-10-07T14:18:39.581Z">2019-10-07</time>
+                <time class="level-item has-text-grey" datetime="2020-02-12T16:10:22.432Z">2020-02-13</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                <a class="has-link-grey -link" href="/categories/网络/">网络</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    3 分钟 读完 (大约 464 个字)
+                    9 分钟 读完 (大约 1280 个字)
                 </span>
                 
-                
-                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
-                    <i class="far fa-eye"></i>
-                    <span id="busuanzi_value_page_pv">0</span>次访问
-                </span>
                 
             </div>
         </div>
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                Vue3.0，它来了
+                <a class="has-link-black-ter" href="/2020/02/13/谈谈HTTP缓存/">谈谈HTTP缓存</a>
             
         </h1>
         <div class="content">
             <blockquote>
-<p>10月5号凌晨，尤雨溪大大发布了<a href="https://github.com/vuejs/vue-next" target="_blank" rel="noopener">vue3.0源码</a></p>
+<p>浏览器缓存机制有<strong>四个方面</strong>，按照资源获取优先级排列，分别是<code>Memory Cache</code>、<code>Service Worker Cache</code>、<code>HTTP Cache</code>、<code>Push Cache</code>。我们经常使用，也比较熟悉的是HTTP Cache。这里单独分析HTTP Cache。</p>
 </blockquote>
-<p><img src="/images/sina_yyx.jpg" alt="尤雨溪sina微博"></p>
-<p>现在抓住国庆的小尾巴，来看一看vue3.0到底有啥东西</p>
-<h3 id="整体状态"><a href="#整体状态" class="headerlink" title="整体状态"></a>整体状态</h3><ul>
-<li>目前发布的vue3.0是<code>Pre-Alpha</code>版本，后续还有<code>Alpha</code>、<code>Beta</code>版本</li>
-<li>打包后的代码是ES2015+，不支持IE11</li>
-<li>拥抱TypeScript，98%代码使用了TypeScript编写</li>
-</ul>
-<a id="more"></a>
-
-
-
-<h3 id="代码目录"><a href="#代码目录" class="headerlink" title="代码目录"></a>代码目录</h3><p><img src="/images/vue-next-code-tree.png" alt="目录树结构"></p>
-<p>由上图看到（安装了<code>Octotree</code>插件，浏览github时可以在浏览器左侧清晰展示项目结构），vue3.0仓库有一个<code>packages</code>目录，里面包含了vue3.0主要实现的功能：</p>
-<ul>
-<li><strong>compiler-core</strong>：平台无关的编译器. 它既包含可扩展的基础功能，也包含所有平台无关的插件</li>
-<li><strong>compiler-dom</strong>：针对浏览器而写的编译器</li>
-<li><strong>reactivity</strong>：数据响应式系统。一个单独的系统，可以与任何框架配合使用</li>
-<li><strong>runtime-core</strong>：与平台无关的运行时。其实现的功能有虚拟 DOM 渲染器、Vue 组件和 Vue 的各种API</li>
-<li><strong>runtime-dom</strong>： 针对浏览器的 runtime。其功能包括处理原生 DOM API、DOM 事件和 DOM 属性等</li>
-<li><strong>runtime-test</strong>：一个专门为了测试而写的轻量级 runtime</li>
-<li><strong>server-renderer</strong>：用于 SSR（还未实现）</li>
-<li><strong>shared</strong>：没有暴露任何 API，主要包含了一些平台无关的内部帮助方法</li>
-<li><strong>template-explorer</strong>：用于模板编译输出</li>
-<li><strong>vue</strong>： 用于构建「完整构建」版本</li>
-</ul>
-<p>由上可知，vue3.0 代码仓库结构比较清晰，代码也是模块化的。简单过一遍目录，了解vue3.0主要的内容，后面再对部分源码进行通读。</p>
-
         </div>
         
-        <div class="level is-size-7 is-uppercase">
+        
+        <div class="level is-mobile">
             <div class="level-start">
                 <div class="level-item">
-                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/vue/">vue</a>, <a class="has-link-grey -link" href="/tags/源码/">源码</a>
+                <a class="button is-size-7 is-light" href="/2020/02/13/谈谈HTTP缓存/#more">阅读更多</a>
                 </div>
             </div>
         </div>
         
         
-        
     </div>
 </div>
 
@@ -232,34 +206,12 @@
 
 
 
-<div class="card card-transparent">
-    <div class="level post-navigation is-flex-wrap is-mobile">
-        
-        <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/10/11/响应式原理-2.x版本（上）/">
-                <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">响应式原理-vue2.x版（上）</span>
-            </a>
-        </div>
-        
-        
-        <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2019/10/04/前端幸福感是如何炼成的/">
-                <span class="level-item">前端幸福感是如何炼成的（上）</span>
-                <i class="level-item fas fa-chevron-right"></i>
-            </a>
-        </div>
-        
-    </div>
-</div>
+
 
 
 </div>
                 <!-- 新增的复制配置项 -->
-
-
-<!-- 粘贴的部分 -->
-                          <!-- 修改，可选保留的栏 -->
+        <!-- 修改 -->
 
 
 
@@ -684,7 +636,259 @@
     
 </div>
 
+
+<!-- 粘贴的部分 -->
+
                 <!-- 新增的复制配置项 -->
+        <!-- 修改 -->
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/02/13/谈谈HTTP缓存/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="谈谈HTTP缓存">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-12T16:10:22.432Z">2020-02-13</time></div>
+                    <a href="/2020/02/13/谈谈HTTP缓存/" class="title has-link-black-ter is-size-6 has-text-weight-normal">谈谈HTTP缓存</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/网络/">网络</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/02/09/记这段时间的反思：技术与现实的联系/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-09T15:26:30.376Z">2020-02-09</time></div>
+                    <a href="/2020/02/09/记这段时间的反思：技术与现实的联系/" class="title has-link-black-ter is-size-6 has-text-weight-normal"></a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/01/20/Module/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ES6 -- Module">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-20T05:55:02.582Z">2020-01-20</time></div>
+                    <a href="/2020/01/20/Module/" class="title has-link-black-ter is-size-6 has-text-weight-normal">ES6 -- Module</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/01/13/finished-proposals-ES2020/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="振奋人心的ES2020新特性！">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-13T15:05:15.051Z">2020-01-13</time></div>
+                    <a href="/2020/01/13/finished-proposals-ES2020/" class="title has-link-black-ter is-size-6 has-text-weight-normal">振奋人心的ES2020新特性！</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/01/01/ES6----Proxy/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ES6 -- Proxy">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-01T12:51:56.617Z">2020-01-01</time></div>
+                    <a href="/2020/01/01/ES6----Proxy/" class="title has-link-black-ter is-size-6 has-text-weight-normal">ES6 -- Proxy</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/HTTP/">
+                        <span class="tag">HTTP</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/JS/">
+                        <span class="tag">JS</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vue/">
+                        <span class="tag">vue</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/总结/">
+                        <span class="tag">总结</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/感想/">
+                        <span class="tag">感想</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/源码/">
+                        <span class="tag">源码</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
 
 
 <!-- 粘贴的部分 -->
@@ -698,7 +902,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo-3.png" alt="Vue3.0，它来了" height="28">
+                    <img src="/images/logo-3.png" alt="Ysom &#39;s Blog" height="28">
                 
                 </a>
                 <p class="is-size-7">

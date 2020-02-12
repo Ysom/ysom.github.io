@@ -150,6 +150,102 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-02-12T16:10:22.432Z">2020-02-13</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/网络/">网络</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    9 分钟 读完 (大约 1280 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2020/02/13/谈谈HTTP缓存/">谈谈HTTP缓存</a>
+            
+        </h1>
+        <div class="content">
+            <blockquote>
+<p>浏览器缓存机制有<strong>四个方面</strong>，按照资源获取优先级排列，分别是<code>Memory Cache</code>、<code>Service Worker Cache</code>、<code>HTTP Cache</code>、<code>Push Cache</code>。我们经常使用，也比较熟悉的是HTTP Cache。这里单独分析HTTP Cache。</p>
+</blockquote>
+        </div>
+        
+        
+        <div class="level is-mobile">
+            <div class="level-start">
+                <div class="level-item">
+                <a class="button is-size-7 is-light" href="/2020/02/13/谈谈HTTP缓存/#more">阅读更多</a>
+                </div>
+            </div>
+        </div>
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-02-09T15:26:30.376Z">2020-02-09</time>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    1 分钟 读完 (大约 140 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2020/02/09/记这段时间的反思：技术与现实的联系/"></a>
+            
+        </h1>
+        <div class="content">
+            <p>记这段时间的反思：技术与现实的联系</p>
+<p>今年过了一个比较漫长的春节， 但相信很多人都不好受，原因我们都知道，这里不多说。从疫情暴露后的一段时间到现在，从多数互联网企业的支援行为中，我自己思考了很多，最后形成一个问题：“技术除了按照人类正常计划实现对社会的推进之外，技术还可以发挥什么作用”</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2020-01-20T05:55:02.582Z">2020-01-20</time>
                 
                 <div class="level-item">
@@ -585,133 +681,6 @@
 
 
 
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-10-11T02:24:10.505Z">2019-10-11</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    9 分钟 读完 (大约 1288 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/10/11/响应式原理-2.x版本（上）/">响应式原理-vue2.x版（上）</a>
-            
-        </h1>
-        <div class="content">
-            <blockquote>
-<p>10.5尤大大发布了vue3.0 pre-alpha版本的源码，vue3.0之前，大家基本都知道响应式核心是用<strong>ES5</strong>的<code>Object.defineProperty</code>，而新版本3.0则是使用<strong>ES6</strong>的<code>proxy</code></p>
-</blockquote>
-<h2 id="2-x实现原理"><a href="#2-x实现原理" class="headerlink" title="2.x实现原理"></a>2.x实现原理</h2><p>在理解3.0的proxy实现之前，先回顾一下2.x版本基本实现原理：</p>
-<ol>
-<li><p>将一个对象作为data选项（组件是data函数返回对象）</p>
-</li>
-<li><p>遍历data里面所有的属性，通过<code>Object.defineProperty</code>将属性转为<strong>getter/setter</strong></p>
-</li>
-<li><p>每个组件都有一个<code>watcher</code>，它用来记录接触过的属性，并将其收集为依赖，当依赖的<strong>setter</strong>变更时，通知<code>watcher</code>，使与其有关联的组件更新</p>
-</li>
-<li><p>异步更新</p>
-</li>
-</ol>
-<h2 id="初始化data"><a href="#初始化data" class="headerlink" title="初始化data"></a>初始化data</h2><p>首先对<strong>data</strong>进行初始化<code>initData</code>，代码路径<code>/src/core/instance/state.js</code></p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/10/11/响应式原理-2.x版本（上）/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-10-07T14:18:39.581Z">2019-10-07</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    3 分钟 读完 (大约 464 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/10/07/Vue3.0它来了，带着Pre-Alpha来了/">Vue3.0，它来了</a>
-            
-        </h1>
-        <div class="content">
-            <blockquote>
-<p>10月5号凌晨，尤雨溪大大发布了<a href="https://github.com/vuejs/vue-next" target="_blank" rel="noopener">vue3.0源码</a></p>
-</blockquote>
-<p><img src="/images/sina_yyx.jpg" alt="尤雨溪sina微博"></p>
-<p>现在抓住国庆的小尾巴，来看一看vue3.0到底有啥东西</p>
-<h3 id="整体状态"><a href="#整体状态" class="headerlink" title="整体状态"></a>整体状态</h3><ul>
-<li>目前发布的vue3.0是<code>Pre-Alpha</code>版本，后续还有<code>Alpha</code>、<code>Beta</code>版本</li>
-<li>打包后的代码是ES2015+，不支持IE11</li>
-<li>拥抱TypeScript，98%代码使用了TypeScript编写</li>
-</ul>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/10/07/Vue3.0它来了，带着Pre-Alpha来了/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
 
     
 <div class="card card-transparent">
@@ -776,7 +745,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        12
+                        14
                     </p>
                 </div>
             </div>
@@ -786,7 +755,7 @@
                         分类
                     </p>
                     <p class="title has-text-weight-normal">
-                        2
+                        3
                     </p>
                 </div>
             </div>
@@ -796,7 +765,7 @@
                         标签
                     </p>
                     <p class="title has-text-weight-normal">
-                        5
+                        6
                     </p>
                 </div>
             </div>
@@ -886,6 +855,14 @@
             <span class="level-end">
                 <span class="level-item tag">2</span>
             </span>
+        </a></li><li>
+        <a class="level is-marginless" href="/categories/网络/">
+            <span class="level-start">
+                <span class="level-item">网络</span>
+            </span>
+            <span class="level-end">
+                <span class="level-item tag">1</span>
+            </span>
         </a></li>
             </ul>
         </div>
@@ -898,7 +875,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/JS/" style="font-size: 10px;">JS</a> <a href="/tags/vue/" style="font-size: 15px;">vue</a> <a href="/tags/总结/" style="font-size: 20px;">总结</a> <a href="/tags/感想/" style="font-size: 10px;">感想</a> <a href="/tags/源码/" style="font-size: 15px;">源码</a>
+        <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/JS/" style="font-size: 13.33px;">JS</a> <a href="/tags/vue/" style="font-size: 16.67px;">vue</a> <a href="/tags/总结/" style="font-size: 20px;">总结</a> <a href="/tags/感想/" style="font-size: 13.33px;">感想</a> <a href="/tags/源码/" style="font-size: 16.67px;">源码</a>
     </div>
 </div>
 
@@ -912,6 +889,44 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/02/13/谈谈HTTP缓存/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="谈谈HTTP缓存">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-12T16:10:22.432Z">2020-02-13</time></div>
+                    <a href="/2020/02/13/谈谈HTTP缓存/" class="title has-link-black-ter is-size-6 has-text-weight-normal">谈谈HTTP缓存</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/网络/">网络</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/02/09/记这段时间的反思：技术与现实的联系/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-09T15:26:30.376Z">2020-02-09</time></div>
+                    <a href="/2020/02/09/记这段时间的反思：技术与现实的联系/" class="title has-link-black-ter is-size-6 has-text-weight-normal"></a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -970,44 +985,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/12/14/JavaScript整理总结(持续更新)/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="JavaScript整理总结(持续更新)">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-14T15:15:30.858Z">2019-12-14</time></div>
-                    <a href="/2019/12/14/JavaScript整理总结(持续更新)/" class="title has-link-black-ter is-size-6 has-text-weight-normal">JavaScript整理总结(持续更新)</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/12/09/2020快到了，面对复盘的疾风吧！！！/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="2020快到了，面对复盘的疾风吧！！！">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-09T13:58:09.231Z">2019-12-09</time></div>
-                    <a href="/2019/12/09/2020快到了，面对复盘的疾风吧！！！/" class="title has-link-black-ter is-size-6 has-text-weight-normal">2020快到了，面对复盘的疾风吧！！！</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1019,6 +996,17 @@
             归档
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2020/01/">
@@ -1087,6 +1075,13 @@
                 标签
             </h3>
             <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/HTTP/">
+                        <span class="tag">HTTP</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
                 
                 <div class="control">
                     <a class="tags has-addons" href="/tags/JS/">
@@ -1152,6 +1147,44 @@
         
         <article class="media">
             
+            <a href="/2020/02/13/谈谈HTTP缓存/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="谈谈HTTP缓存">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-12T16:10:22.432Z">2020-02-13</time></div>
+                    <a href="/2020/02/13/谈谈HTTP缓存/" class="title has-link-black-ter is-size-6 has-text-weight-normal">谈谈HTTP缓存</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/网络/">网络</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/02/09/记这段时间的反思：技术与现实的联系/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-09T15:26:30.376Z">2020-02-09</time></div>
+                    <a href="/2020/02/09/记这段时间的反思：技术与现实的联系/" class="title has-link-black-ter is-size-6 has-text-weight-normal"></a>
+                    <p class="is-size-7 is-uppercase">
+                        
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2020/01/20/Module/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="ES6 -- Module">
@@ -1207,44 +1240,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/12/14/JavaScript整理总结(持续更新)/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="JavaScript整理总结(持续更新)">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-14T15:15:30.858Z">2019-12-14</time></div>
-                    <a href="/2019/12/14/JavaScript整理总结(持续更新)/" class="title has-link-black-ter is-size-6 has-text-weight-normal">JavaScript整理总结(持续更新)</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2019/12/09/2020快到了，面对复盘的疾风吧！！！/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="2020快到了，面对复盘的疾风吧！！！">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-09T13:58:09.231Z">2019-12-09</time></div>
-                    <a href="/2019/12/09/2020快到了，面对复盘的疾风吧！！！/" class="title has-link-black-ter is-size-6 has-text-weight-normal">2020快到了，面对复盘的疾风吧！！！</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1256,6 +1251,17 @@
             归档
         </h3>
         <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
         
         <li>
             <a class="level is-marginless" href="/archives/2020/01/">
@@ -1324,6 +1330,13 @@
                 标签
             </h3>
             <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/HTTP/">
+                        <span class="tag">HTTP</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
                 
                 <div class="control">
                     <a class="tags has-addons" href="/tags/JS/">

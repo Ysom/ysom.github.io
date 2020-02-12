@@ -7,22 +7,22 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>Vue3.0，它来了 - Ysom &#39;s Blog</title>
+<title>谈谈HTTP缓存 - Ysom &#39;s Blog</title>
 
 
-    <meta name="description" content="10月5号凌晨，尤雨溪大大发布了vue3.0源码   现在抓住国庆的小尾巴，来看一看vue3.0到底有啥东西 整体状态 目前发布的vue3.0是Pre-Alpha版本，后续还有Alpha、Beta版本 打包后的代码是ES2015+，不支持IE11 拥抱TypeScript，98%代码使用了TypeScript编写">
-<meta name="keywords" content="源码,vue">
+    <meta name="description" content="浏览器缓存机制有四个方面，按照资源获取优先级排列，分别是Memory Cache、Service Worker Cache、HTTP Cache、Push Cache。我们经常使用，也比较熟悉的是HTTP Cache。这里单独分析HTTP Cache。">
+<meta name="keywords" content="HTTP">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Vue3.0，它来了">
-<meta property="og:url" content="http://yoursite.com/2019/10/07/Vue3.0它来了，带着Pre-Alpha来了/index.html">
+<meta property="og:title" content="谈谈HTTP缓存">
+<meta property="og:url" content="http://yoursite.com/2020/02/13/谈谈HTTP缓存/index.html">
 <meta property="og:site_name" content="Ysom &#39;s Blog">
-<meta property="og:description" content="10月5号凌晨，尤雨溪大大发布了vue3.0源码   现在抓住国庆的小尾巴，来看一看vue3.0到底有啥东西 整体状态 目前发布的vue3.0是Pre-Alpha版本，后续还有Alpha、Beta版本 打包后的代码是ES2015+，不支持IE11 拥抱TypeScript，98%代码使用了TypeScript编写">
+<meta property="og:description" content="浏览器缓存机制有四个方面，按照资源获取优先级排列，分别是Memory Cache、Service Worker Cache、HTTP Cache、Push Cache。我们经常使用，也比较熟悉的是HTTP Cache。这里单独分析HTTP Cache。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="og:updated_time" content="2019-10-08T09:05:49.163Z">
+<meta property="og:updated_time" content="2020-02-12T16:10:22.661Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Vue3.0，它来了">
-<meta name="twitter:description" content="10月5号凌晨，尤雨溪大大发布了vue3.0源码   现在抓住国庆的小尾巴，来看一看vue3.0到底有啥东西 整体状态 目前发布的vue3.0是Pre-Alpha版本，后续还有Alpha、Beta版本 打包后的代码是ES2015+，不支持IE11 拥抱TypeScript，98%代码使用了TypeScript编写">
+<meta name="twitter:title" content="谈谈HTTP缓存">
+<meta name="twitter:description" content="浏览器缓存机制有四个方面，按照资源获取优先级排列，分别是Memory Cache、Service Worker Cache、HTTP Cache、Push Cache。我们经常使用，也比较熟悉的是HTTP Cache。这里单独分析HTTP Cache。">
 <meta name="twitter:image" content="http://yoursite.com/images/og_image.png">
 
 
@@ -97,7 +97,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo-3.png" alt="Vue3.0，它来了" height="28">
+                <img src="/images/logo-3.png" alt="谈谈HTTP缓存" height="28">
             
             </a>
         </div>
@@ -154,17 +154,17 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-10-07T14:18:39.581Z">2019-10-07</time>
+                <time class="level-item has-text-grey" datetime="2020-02-12T16:10:22.432Z">2020-02-13</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                <a class="has-link-grey -link" href="/categories/网络/">网络</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    3 分钟 读完 (大约 464 个字)
+                    9 分钟 读完 (大约 1280 个字)
                 </span>
                 
                 
@@ -178,39 +178,50 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                Vue3.0，它来了
+                谈谈HTTP缓存
             
         </h1>
         <div class="content">
             <blockquote>
-<p>10月5号凌晨，尤雨溪大大发布了<a href="https://github.com/vuejs/vue-next" target="_blank" rel="noopener">vue3.0源码</a></p>
+<p>浏览器缓存机制有<strong>四个方面</strong>，按照资源获取优先级排列，分别是<code>Memory Cache</code>、<code>Service Worker Cache</code>、<code>HTTP Cache</code>、<code>Push Cache</code>。我们经常使用，也比较熟悉的是HTTP Cache。这里单独分析HTTP Cache。</p>
 </blockquote>
-<p><img src="/images/sina_yyx.jpg" alt="尤雨溪sina微博"></p>
-<p>现在抓住国庆的小尾巴，来看一看vue3.0到底有啥东西</p>
-<h3 id="整体状态"><a href="#整体状态" class="headerlink" title="整体状态"></a>整体状态</h3><ul>
-<li>目前发布的vue3.0是<code>Pre-Alpha</code>版本，后续还有<code>Alpha</code>、<code>Beta</code>版本</li>
-<li>打包后的代码是ES2015+，不支持IE11</li>
-<li>拥抱TypeScript，98%代码使用了TypeScript编写</li>
-</ul>
 <a id="more"></a>
 
+<h3 id="HTTP-Cache"><a href="#HTTP-Cache" class="headerlink" title="HTTP Cache"></a>HTTP Cache</h3><p>HTTP Cache又分为<strong>强缓存</strong>和<strong>协商缓存</strong>，强缓存优先级比较高，未命中强缓存时才走协商缓存。</p>
+<h4 id="强缓存"><a href="#强缓存" class="headerlink" title="强缓存"></a>强缓存</h4><p>强缓存是通过http头的<code>expires</code>和<code>cache-control</code>来实现控制。当再发出请求时，浏览器会根据<code>expires</code>和<code>cache-control</code>来判断是否命中强缓存，若命中直接从缓存中获取资源，而不再与服务端进行通信。</p>
+<p>在http1.0版本中，服务器响应时会返回一个缓存过期时间戳字段<code>expires</code>，再次发起请求时浏览器通过本地时间与<code>expires</code>时间戳对比，来判断缓存是否过期，这种依赖本地时间的方式会存在一个弊端，如果修改了本地时间，或者本地时间与服务端时间不同步，这将达不到我们预期的缓存效果。</p>
+<p>因此，在http1.1版本中，引入了<code>expires</code>的替代方案：<code>Cache-Control</code>。<code>Cache-Control</code>能做<code>expires</code>做的事，也能做<code>expires</code>做不到的事情，目前<code>expires</code>还存在是为了做向下兼容。</p>
+<p><code>Cache-Control</code>的格式为：</p>
+<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cache-Control: max-age=<span class="hljs-number">3600</span></span><br></pre></td></tr></table></figure>
 
+<p>在<code>Cache-Control</code>中，<code>max-age</code>字段表示资源最大缓存时间（秒），上面例子表示在3600秒内该资源都是有效的。<code>Cache-Control</code>表示的时间比<code>expires</code>时间戳更为准确，同时<code>Cache-Control</code>优先级更高，两者存在时以<code>Cache-Control</code>为准。</p>
+<p><code>Cache-Control</code>还有其它的缓存方式：<code>no-cache</code>和<code>no-store</code>。</p>
+<p>如果给资源设置了<code>no-cache</code>，则会绕开浏览器，直接询问服务器该资源是否过期，即走<strong>协商缓存</strong>。<code>no-store</code>顾名思义，就比较绝情了，不设置任何缓存，每次发起请求不经过浏览器与服务端缓存，直接想服务器发送请求，并下载完整的响应。</p>
+<h4 id="协商缓存"><a href="#协商缓存" class="headerlink" title="协商缓存"></a>协商缓存</h4><p>协商缓存，顾名思义就是浏览器与服务器合作的缓存策略，它依赖于浏览器与服务器之间的通信，浏览器需要向服务器询问缓存的相关信息，进而判断是读取本地缓存的资源还是重新发起请求，下载完整的响应。</p>
+<h5 id="协商缓存的实现"><a href="#协商缓存的实现" class="headerlink" title="协商缓存的实现"></a>协商缓存的实现</h5><p><strong>Last-Modified</strong></p>
+<p><code>Last-Modified</code>是一个时间戳，在启用协商缓存之后，会在首次请求的时候，随着Response Headers返回</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Last-Modified: Wed, <span class="hljs-number">12</span> Feb <span class="hljs-number">2020</span> <span class="hljs-number">09</span>:<span class="hljs-number">21</span>:<span class="hljs-number">28</span> GMT</span><br></pre></td></tr></table></figure>
 
-<h3 id="代码目录"><a href="#代码目录" class="headerlink" title="代码目录"></a>代码目录</h3><p><img src="/images/vue-next-code-tree.png" alt="目录树结构"></p>
-<p>由上图看到（安装了<code>Octotree</code>插件，浏览github时可以在浏览器左侧清晰展示项目结构），vue3.0仓库有一个<code>packages</code>目录，里面包含了vue3.0主要实现的功能：</p>
+<p>随后每次请求会带上<code>If-Modified-Since</code>时间戳字段，值为上一次Response返回的<code>Last-Modified</code>值</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">If-Modified-Since: Wed, <span class="hljs-number">12</span> Feb <span class="hljs-number">2020</span> <span class="hljs-number">09</span>:<span class="hljs-number">21</span>:<span class="hljs-number">28</span> GMT</span><br></pre></td></tr></table></figure>
+
+<p>服务器收到这个时间戳之后，会根据该时间戳与服务器的资源的最后修改时间对比，如果时间改变，则返回一个新的完整的响应，并在Response Headers返回新的<code>Last-Modified</code>值；如果时间没有变化，则返回一个304状态码，提示资源并未改动，然后重定向到浏览器缓存，Response Headers也不会再返回<code>Last-Modified</code>字段，如下图：</p>
+<p><img src="C:%5CUsers%5C86157%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200212174102907.png" alt="image-20200212174102907"></p>
+<p>但是使用<code>Last-Modified</code>也会存在弊端：</p>
 <ul>
-<li><strong>compiler-core</strong>：平台无关的编译器. 它既包含可扩展的基础功能，也包含所有平台无关的插件</li>
-<li><strong>compiler-dom</strong>：针对浏览器而写的编译器</li>
-<li><strong>reactivity</strong>：数据响应式系统。一个单独的系统，可以与任何框架配合使用</li>
-<li><strong>runtime-core</strong>：与平台无关的运行时。其实现的功能有虚拟 DOM 渲染器、Vue 组件和 Vue 的各种API</li>
-<li><strong>runtime-dom</strong>： 针对浏览器的 runtime。其功能包括处理原生 DOM API、DOM 事件和 DOM 属性等</li>
-<li><strong>runtime-test</strong>：一个专门为了测试而写的轻量级 runtime</li>
-<li><strong>server-renderer</strong>：用于 SSR（还未实现）</li>
-<li><strong>shared</strong>：没有暴露任何 API，主要包含了一些平台无关的内部帮助方法</li>
-<li><strong>template-explorer</strong>：用于模板编译输出</li>
-<li><strong>vue</strong>： 用于构建「完整构建」版本</li>
+<li>资源文件改动了，但是并没有改变内容，文件的最后修改时间会变化，导致该资源会被重新请求</li>
+<li><code>If-Modified-Since</code>是以秒为单位做检验，如果改动文件的时间小于1000ms，那么该资源有可能被认为是未改变的，导致无法重新请求</li>
 </ul>
-<p>由上可知，vue3.0 代码仓库结构比较清晰，代码也是模块化的。简单过一遍目录，了解vue3.0主要的内容，后面再对部分源码进行通读。</p>
+<p>这两种情况反映了一个问题，无法准确感知文件是否发生改变。</p>
+<p>为了解决该问题，<code>Etag</code>出现了。</p>
+<p><code>Etag</code>是服务器为每个资源生成的唯一的<strong>标识字符串</strong>，这个标识字符串是基于文件内容编码的，文件内容不同，对应的 <code>Etag</code> 就是不同的，因此<code>Etag</code> 能够精准地感知文件的变化。</p>
+<p><code>Etag</code> 和 <code>Last-Modified</code> 类似，当首次请求时，我们会在响应头里获取到一个最初的标识符字符串，它可以是这个样子</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ETag: W/<span class="hljs-string">"1q2w-108946715"</span></span><br></pre></td></tr></table></figure>
+
+<p>在下一次请求时，会带上与之相同值的字段<code>if-None-Match</code>，提供给服务器对比</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">If-None-Match: W/<span class="hljs-string">"1q2w-108946715"</span></span><br></pre></td></tr></table></figure>
+
+<p>很明显，<code>Etag</code>有利也有弊，它的生成需要服务器付出额外的开销，会影响服务器的性能，<code>Etag</code>并不能直接代替<code>Last-Modified</code>，而是作为补充，它的优先级比<code>Last-Modified</code>高，两者共存时，以<code>Etag</code>为准。</p>
 
         </div>
         
@@ -218,7 +229,7 @@
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/vue/">vue</a>, <a class="has-link-grey -link" href="/tags/源码/">源码</a>
+                    <a class="has-link-grey -link" href="/tags/HTTP/">HTTP</a>
                 </div>
             </div>
         </div>
@@ -235,17 +246,10 @@
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
         
-        <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/10/11/响应式原理-2.x版本（上）/">
-                <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">响应式原理-vue2.x版（上）</span>
-            </a>
-        </div>
-        
         
         <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2019/10/04/前端幸福感是如何炼成的/">
-                <span class="level-item">前端幸福感是如何炼成的（上）</span>
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/02/09/记这段时间的反思：技术与现实的联系/">
+                <span class="level-item"></span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
         </div>
@@ -698,7 +702,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo-3.png" alt="Vue3.0，它来了" height="28">
+                    <img src="/images/logo-3.png" alt="谈谈HTTP缓存" height="28">
                 
                 </a>
                 <p class="is-size-7">

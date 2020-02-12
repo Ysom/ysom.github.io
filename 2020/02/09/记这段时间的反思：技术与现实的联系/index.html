@@ -7,22 +7,21 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>Vue3.0，它来了 - Ysom &#39;s Blog</title>
+<title>Ysom &#39;s Blog</title>
 
 
-    <meta name="description" content="10月5号凌晨，尤雨溪大大发布了vue3.0源码   现在抓住国庆的小尾巴，来看一看vue3.0到底有啥东西 整体状态 目前发布的vue3.0是Pre-Alpha版本，后续还有Alpha、Beta版本 打包后的代码是ES2015+，不支持IE11 拥抱TypeScript，98%代码使用了TypeScript编写">
-<meta name="keywords" content="源码,vue">
+    <meta name="description" content="记这段时间的反思：技术与现实的联系 今年过了一个比较漫长的春节， 但相信很多人都不好受，原因我们都知道，这里不多说。从疫情暴露后的一段时间到现在，从多数互联网企业的支援行为中，我自己思考了很多，最后形成一个问题：“技术除了按照人类正常计划实现对社会的推进之外，技术还可以发挥什么作用”">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Vue3.0，它来了">
-<meta property="og:url" content="http://yoursite.com/2019/10/07/Vue3.0它来了，带着Pre-Alpha来了/index.html">
+<meta property="og:title" content="Ysom &#39;s Blog">
+<meta property="og:url" content="http://yoursite.com/2020/02/09/记这段时间的反思：技术与现实的联系/index.html">
 <meta property="og:site_name" content="Ysom &#39;s Blog">
-<meta property="og:description" content="10月5号凌晨，尤雨溪大大发布了vue3.0源码   现在抓住国庆的小尾巴，来看一看vue3.0到底有啥东西 整体状态 目前发布的vue3.0是Pre-Alpha版本，后续还有Alpha、Beta版本 打包后的代码是ES2015+，不支持IE11 拥抱TypeScript，98%代码使用了TypeScript编写">
+<meta property="og:description" content="记这段时间的反思：技术与现实的联系 今年过了一个比较漫长的春节， 但相信很多人都不好受，原因我们都知道，这里不多说。从疫情暴露后的一段时间到现在，从多数互联网企业的支援行为中，我自己思考了很多，最后形成一个问题：“技术除了按照人类正常计划实现对社会的推进之外，技术还可以发挥什么作用”">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="og:updated_time" content="2019-10-08T09:05:49.163Z">
+<meta property="og:updated_time" content="2020-02-09T15:26:30.580Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Vue3.0，它来了">
-<meta name="twitter:description" content="10月5号凌晨，尤雨溪大大发布了vue3.0源码   现在抓住国庆的小尾巴，来看一看vue3.0到底有啥东西 整体状态 目前发布的vue3.0是Pre-Alpha版本，后续还有Alpha、Beta版本 打包后的代码是ES2015+，不支持IE11 拥抱TypeScript，98%代码使用了TypeScript编写">
+<meta name="twitter:title" content="Ysom &#39;s Blog">
+<meta name="twitter:description" content="记这段时间的反思：技术与现实的联系 今年过了一个比较漫长的春节， 但相信很多人都不好受，原因我们都知道，这里不多说。从疫情暴露后的一段时间到现在，从多数互联网企业的支援行为中，我自己思考了很多，最后形成一个问题：“技术除了按照人类正常计划实现对社会的推进之外，技术还可以发挥什么作用”">
 <meta name="twitter:image" content="http://yoursite.com/images/og_image.png">
 
 
@@ -97,7 +96,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo-3.png" alt="Vue3.0，它来了" height="28">
+                <img src="/images/logo-3.png" alt="" height="28">
             
             </a>
         </div>
@@ -154,17 +153,13 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-10-07T14:18:39.581Z">2019-10-07</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                </div>
+                <time class="level-item has-text-grey" datetime="2020-02-09T15:26:30.376Z">2020-02-09</time>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    3 分钟 读完 (大约 464 个字)
+                    1 分钟 读完 (大约 140 个字)
                 </span>
                 
                 
@@ -178,49 +173,13 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                Vue3.0，它来了
+                
             
         </h1>
         <div class="content">
-            <blockquote>
-<p>10月5号凌晨，尤雨溪大大发布了<a href="https://github.com/vuejs/vue-next" target="_blank" rel="noopener">vue3.0源码</a></p>
-</blockquote>
-<p><img src="/images/sina_yyx.jpg" alt="尤雨溪sina微博"></p>
-<p>现在抓住国庆的小尾巴，来看一看vue3.0到底有啥东西</p>
-<h3 id="整体状态"><a href="#整体状态" class="headerlink" title="整体状态"></a>整体状态</h3><ul>
-<li>目前发布的vue3.0是<code>Pre-Alpha</code>版本，后续还有<code>Alpha</code>、<code>Beta</code>版本</li>
-<li>打包后的代码是ES2015+，不支持IE11</li>
-<li>拥抱TypeScript，98%代码使用了TypeScript编写</li>
-</ul>
-<a id="more"></a>
+            <p>记这段时间的反思：技术与现实的联系</p>
+<p>今年过了一个比较漫长的春节， 但相信很多人都不好受，原因我们都知道，这里不多说。从疫情暴露后的一段时间到现在，从多数互联网企业的支援行为中，我自己思考了很多，最后形成一个问题：“技术除了按照人类正常计划实现对社会的推进之外，技术还可以发挥什么作用”</p>
 
-
-
-<h3 id="代码目录"><a href="#代码目录" class="headerlink" title="代码目录"></a>代码目录</h3><p><img src="/images/vue-next-code-tree.png" alt="目录树结构"></p>
-<p>由上图看到（安装了<code>Octotree</code>插件，浏览github时可以在浏览器左侧清晰展示项目结构），vue3.0仓库有一个<code>packages</code>目录，里面包含了vue3.0主要实现的功能：</p>
-<ul>
-<li><strong>compiler-core</strong>：平台无关的编译器. 它既包含可扩展的基础功能，也包含所有平台无关的插件</li>
-<li><strong>compiler-dom</strong>：针对浏览器而写的编译器</li>
-<li><strong>reactivity</strong>：数据响应式系统。一个单独的系统，可以与任何框架配合使用</li>
-<li><strong>runtime-core</strong>：与平台无关的运行时。其实现的功能有虚拟 DOM 渲染器、Vue 组件和 Vue 的各种API</li>
-<li><strong>runtime-dom</strong>： 针对浏览器的 runtime。其功能包括处理原生 DOM API、DOM 事件和 DOM 属性等</li>
-<li><strong>runtime-test</strong>：一个专门为了测试而写的轻量级 runtime</li>
-<li><strong>server-renderer</strong>：用于 SSR（还未实现）</li>
-<li><strong>shared</strong>：没有暴露任何 API，主要包含了一些平台无关的内部帮助方法</li>
-<li><strong>template-explorer</strong>：用于模板编译输出</li>
-<li><strong>vue</strong>： 用于构建「完整构建」版本</li>
-</ul>
-<p>由上可知，vue3.0 代码仓库结构比较清晰，代码也是模块化的。简单过一遍目录，了解vue3.0主要的内容，后面再对部分源码进行通读。</p>
-
-        </div>
-        
-        <div class="level is-size-7 is-uppercase">
-            <div class="level-start">
-                <div class="level-item">
-                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/vue/">vue</a>, <a class="has-link-grey -link" href="/tags/源码/">源码</a>
-                </div>
-            </div>
         </div>
         
         
@@ -236,16 +195,16 @@
     <div class="level post-navigation is-flex-wrap is-mobile">
         
         <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2019/10/11/响应式原理-2.x版本（上）/">
+            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/02/13/谈谈HTTP缓存/">
                 <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">响应式原理-vue2.x版（上）</span>
+                <span class="level-item">谈谈HTTP缓存</span>
             </a>
         </div>
         
         
         <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2019/10/04/前端幸福感是如何炼成的/">
-                <span class="level-item">前端幸福感是如何炼成的（上）</span>
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/01/20/Module/">
+                <span class="level-item">ES6 -- Module</span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
         </div>
@@ -698,7 +657,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo-3.png" alt="Vue3.0，它来了" height="28">
+                    <img src="/images/logo-3.png" alt="" height="28">
                 
                 </a>
                 <p class="is-size-7">
