@@ -150,6 +150,56 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-02-18T09:56:49.303Z">2020-02-18</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    2 分钟 读完 (大约 321 个字)
+                </span>
+                
+                
+            </div>
+        </div>
+        
+        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
+            
+                <a class="has-link-black-ter" href="/2020/02/18/浅析浏览器另外三大缓存/">浅析浏览器另外三大缓存</a>
+            
+        </h1>
+        <div class="content">
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
+<p>上一篇分析了浏览器缓存类型之一：HTTP缓存，接下来简单分析一下浏览器另外的三大缓存机制：Memory Cache、Service Worker Cache以及Push Cache。</p>
+</blockquote>
+<h3 id="Memory-Cache"><a href="#Memory-Cache" class="headerlink" title="Memory Cache"></a>Memory Cache</h3><p>Memory Cache是指内存中的缓存，是浏览器尝试命中的优先级最高的缓存，其响应速度也是最快的。</p>
+<p>哪些资源会被放进内存缓存呢？这个没有明确的规定，因为内存本身就是有限的，对于内存来讲，很多时候需要考虑内存的即时余量以及资源本身大小，根据日常开发观察的结果，base64格式的图片几乎是被放到内存缓存，而文件体积较小的JS、CSS文件，也有很大的几率可以写进内存缓存，至于体积比较大的，用一句俗话来讲，就是“庙小容不了大佛”，几乎是不可能给写进内存缓存的。</p>
+<p>内存缓存的响应速度虽然很快，但是相应的，它的“寿命”是比较短的，当我们关闭tab之后，内存里的数据也将不复存在。</p>
+
+        </div>
+        
+        
+        
+    </div>
+</div>
+
+
+
+
+
+
+
+
+    <div class="card">
+    
+    <div class="card-content article ">
+        
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
                 <time class="level-item has-text-grey" datetime="2020-02-12T16:10:22.432Z">2020-02-13</time>
                 
                 <div class="level-item">
@@ -639,72 +689,6 @@
 
 
 
-    <div class="card">
-    
-    <div class="card-content article ">
-        
-        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
-            <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2019-10-11T02:24:10.505Z">2019-10-11</time>
-                
-                <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                </div>
-                
-                
-                <span class="level-item has-text-grey">
-                    
-                    
-                    9 分钟 读完 (大约 1288 个字)
-                </span>
-                
-                
-            </div>
-        </div>
-        
-        <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
-            
-                <a class="has-link-black-ter" href="/2019/10/11/响应式原理-2.x版本（上）/">响应式原理-vue2.x版（上）</a>
-            
-        </h1>
-        <div class="content">
-            <blockquote>
-<p>10.5尤大大发布了vue3.0 pre-alpha版本的源码，vue3.0之前，大家基本都知道响应式核心是用<strong>ES5</strong>的<code>Object.defineProperty</code>，而新版本3.0则是使用<strong>ES6</strong>的<code>proxy</code></p>
-</blockquote>
-<h2 id="2-x实现原理"><a href="#2-x实现原理" class="headerlink" title="2.x实现原理"></a>2.x实现原理</h2><p>在理解3.0的proxy实现之前，先回顾一下2.x版本基本实现原理：</p>
-<ol>
-<li><p>将一个对象作为data选项（组件是data函数返回对象）</p>
-</li>
-<li><p>遍历data里面所有的属性，通过<code>Object.defineProperty</code>将属性转为<strong>getter/setter</strong></p>
-</li>
-<li><p>每个组件都有一个<code>watcher</code>，它用来记录接触过的属性，并将其收集为依赖，当依赖的<strong>setter</strong>变更时，通知<code>watcher</code>，使与其有关联的组件更新</p>
-</li>
-<li><p>异步更新</p>
-</li>
-</ol>
-<h2 id="初始化data"><a href="#初始化data" class="headerlink" title="初始化data"></a>初始化data</h2><p>首先对<strong>data</strong>进行初始化<code>initData</code>，代码路径<code>/src/core/instance/state.js</code></p>
-        </div>
-        
-        
-        <div class="level is-mobile">
-            <div class="level-start">
-                <div class="level-item">
-                <a class="button is-size-7 is-light" href="/2019/10/11/响应式原理-2.x版本（上）/#more">阅读更多</a>
-                </div>
-            </div>
-        </div>
-        
-        
-    </div>
-</div>
-
-
-
-
-
-
-
-
 
     
 <div class="card card-transparent">
@@ -769,7 +753,7 @@
                         文章
                     </p>
                     <p class="title has-text-weight-normal">
-                        13
+                        14
                     </p>
                 </div>
             </div>
@@ -789,7 +773,7 @@
                         标签
                     </p>
                     <p class="title has-text-weight-normal">
-                        6
+                        7
                     </p>
                 </div>
             </div>
@@ -869,7 +853,7 @@
                 <span class="level-item">前端</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">10</span>
+                <span class="level-item tag">11</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/生活/">
@@ -899,7 +883,7 @@
         <h3 class="menu-label">
             标签云
         </h3>
-        <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/JS/" style="font-size: 13.33px;">JS</a> <a href="/tags/vue/" style="font-size: 16.67px;">vue</a> <a href="/tags/总结/" style="font-size: 20px;">总结</a> <a href="/tags/感想/" style="font-size: 13.33px;">感想</a> <a href="/tags/源码/" style="font-size: 16.67px;">源码</a>
+        <a href="/tags/HTTP/" style="font-size: 10px;">HTTP</a> <a href="/tags/JS/" style="font-size: 13.33px;">JS</a> <a href="/tags/vue/" style="font-size: 16.67px;">vue</a> <a href="/tags/总结/" style="font-size: 20px;">总结</a> <a href="/tags/感想/" style="font-size: 13.33px;">感想</a> <a href="/tags/源码/" style="font-size: 16.67px;">源码</a> <a href="/tags/缓存/" style="font-size: 10px;">缓存</a>
     </div>
 </div>
 
@@ -913,6 +897,25 @@
         <h3 class="menu-label">
             最新文章
         </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/02/18/浅析浏览器另外三大缓存/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浅析浏览器另外三大缓存">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-18T09:56:49.303Z">2020-02-18</time></div>
+                    <a href="/2020/02/18/浅析浏览器另外三大缓存/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浅析浏览器另外三大缓存</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
         
         <article class="media">
             
@@ -990,25 +993,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/12/14/JavaScript整理总结(持续更新)/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="JavaScript整理总结(持续更新)">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-14T15:15:30.858Z">2019-12-14</time></div>
-                    <a href="/2019/12/14/JavaScript整理总结(持续更新)/" class="title has-link-black-ter is-size-6 has-text-weight-normal">JavaScript整理总结(持续更新)</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1027,7 +1011,7 @@
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">1</span>
+                    <span class="level-item tag">2</span>
                 </span>
             </a>
         </li>
@@ -1139,6 +1123,13 @@
                     <a class="tags has-addons" href="/tags/源码/">
                         <span class="tag">源码</span>
                         <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/缓存/">
+                        <span class="tag">缓存</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 
@@ -1171,6 +1162,25 @@
         
         <article class="media">
             
+            <a href="/2020/02/18/浅析浏览器另外三大缓存/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浅析浏览器另外三大缓存">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-18T09:56:49.303Z">2020-02-18</time></div>
+                    <a href="/2020/02/18/浅析浏览器另外三大缓存/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浅析浏览器另外三大缓存</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
             <a href="/2020/02/13/浅析HTTP缓存/" class="media-left">
                 <p class="image is-64x64">
                     <img class="thumbnail" src="/images/thumbnail.svg" alt="浅析HTTP缓存">
@@ -1245,25 +1255,6 @@
             </div>
         </article>
         
-        <article class="media">
-            
-            <a href="/2019/12/14/JavaScript整理总结(持续更新)/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="JavaScript整理总结(持续更新)">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2019-12-14T15:15:30.858Z">2019-12-14</time></div>
-                    <a href="/2019/12/14/JavaScript整理总结(持续更新)/" class="title has-link-black-ter is-size-6 has-text-weight-normal">JavaScript整理总结(持续更新)</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
     </div>
 </div>
 
@@ -1282,7 +1273,7 @@
                     <span class="level-item">二月 2020</span>
                 </span>
                 <span class="level-end">
-                    <span class="level-item tag">1</span>
+                    <span class="level-item tag">2</span>
                 </span>
             </a>
         </li>
@@ -1394,6 +1385,13 @@
                     <a class="tags has-addons" href="/tags/源码/">
                         <span class="tag">源码</span>
                         <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/缓存/">
+                        <span class="tag">缓存</span>
+                        <span class="tag is-grey">1</span>
                     </a>
                 </div>
                 

@@ -7,22 +7,17 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>浅析HTTP缓存 - Ysom &#39;s Blog</title>
+<title>分类: 前端 - Ysom &#39;s Blog</title>
 
 
-    <meta name="description" content="前言 浏览器缓存机制有四个方面，按照资源获取优先级排列，分别是Memory Cache、Service Worker Cache、HTTP Cache、Push Cache。我们经常使用，也比较熟悉的是HTTP Cache。这里单独分析HTTP Cache。">
-<meta name="keywords" content="HTTP">
-<meta property="og:type" content="article">
-<meta property="og:title" content="浅析HTTP缓存">
-<meta property="og:url" content="http://yoursite.com/2020/02/13/浅析HTTP缓存/index.html">
+    <meta property="og:type" content="website">
+<meta property="og:title" content="Ysom &#39;s Blog">
+<meta property="og:url" content="http://yoursite.com/categories/前端/page/2/index.html">
 <meta property="og:site_name" content="Ysom &#39;s Blog">
-<meta property="og:description" content="前言 浏览器缓存机制有四个方面，按照资源获取优先级排列，分别是Memory Cache、Service Worker Cache、HTTP Cache、Push Cache。我们经常使用，也比较熟悉的是HTTP Cache。这里单独分析HTTP Cache。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="og:updated_time" content="2020-02-13T06:03:16.396Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="浅析HTTP缓存">
-<meta name="twitter:description" content="前言 浏览器缓存机制有四个方面，按照资源获取优先级排列，分别是Memory Cache、Service Worker Cache、HTTP Cache、Push Cache。我们经常使用，也比较熟悉的是HTTP Cache。这里单独分析HTTP Cache。">
+<meta name="twitter:title" content="Ysom &#39;s Blog">
 <meta name="twitter:image" content="http://yoursite.com/images/og_image.png">
 
 
@@ -97,7 +92,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo-3.png" alt="浅析HTTP缓存" height="28">
+                <img src="/images/logo-3.png" alt="Ysom &#39;s Blog" height="28">
             
             </a>
         </div>
@@ -148,95 +143,64 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-6-tablet is-6-desktop is-9-widescreen has-order-2 column-main"><div class="card">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    <div class="card-content">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="/categories">分类</a></li>
+            
+            <li class="is-active"><a href="#" aria-current="page">前端</a></li>
+        </ul>
+        </nav>
+    </div>
+</div>
+
+    <div class="card">
     
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-02-12T16:10:22.432Z">2020-02-13</time>
+                <time class="level-item has-text-grey" datetime="2019-10-04T14:58:44.900Z">2019-10-04</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/网络/">网络</a>
+                <a class="has-link-grey -link" href="/categories/前端/">前端</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    9 分钟 读完 (大约 1332 个字)
+                    10 分钟 读完 (大约 1487 个字)
                 </span>
                 
-                
-                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
-                    <i class="far fa-eye"></i>
-                    <span id="busuanzi_value_page_pv">0</span>次访问
-                </span>
                 
             </div>
         </div>
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                浅析HTTP缓存
+                <a class="has-link-black-ter" href="/2019/10/04/前端幸福感是如何炼成的/">前端幸福感是如何炼成的（上）</a>
             
         </h1>
         <div class="content">
             <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
-<p>浏览器缓存机制有<strong>四个方面</strong>，按照资源获取优先级排列，分别是<code>Memory Cache</code>、<code>Service Worker Cache</code>、<code>HTTP Cache</code>、<code>Push Cache</code>。我们经常使用，也比较熟悉的是HTTP Cache。这里单独分析HTTP Cache。</p>
+<p>做前端开发已经有一年多了，前端这个职业，在很多人看来就是一个切图仔、页面仔，包括产品、UI或后端等同事，很多时候在他们看来，前端只需按照设计图做页面，做做交互，对接接口，工作比较简单没有难度。但是前端真的是这样简单吗？</p>
 </blockquote>
-<a id="more"></a>
-
-<h3 id="HTTP-Cache"><a href="#HTTP-Cache" class="headerlink" title="HTTP Cache"></a>HTTP Cache</h3><p>HTTP Cache又分为<strong>强缓存</strong>和<strong>协商缓存</strong>，强缓存优先级比较高，未命中强缓存时才走协商缓存。</p>
-<h4 id="强缓存"><a href="#强缓存" class="headerlink" title="强缓存"></a>强缓存</h4><p>强缓存是通过http头的<code>expires</code>和<code>cache-control</code>来实现控制。当再发出请求时，浏览器会根据<code>expires</code>和<code>cache-control</code>来判断是否命中强缓存，若命中直接从缓存中获取资源，而不再与服务端进行通信。</p>
-<p>在http1.0版本中，服务器响应时会返回一个缓存过期时间戳字段<code>expires</code>，再次发起请求时浏览器通过本地时间与<code>expires</code>时间戳对比，来判断缓存是否过期，这种依赖本地时间的方式会存在一个弊端，如果修改了本地时间，或者本地时间与服务端时间不同步，这将达不到我们预期的缓存效果。</p>
-<p>因此，在http1.1版本中，引入了<code>expires</code>的替代方案：<code>Cache-Control</code>。<code>Cache-Control</code>能做<code>expires</code>做的事，也能做<code>expires</code>做不到的事情，目前<code>expires</code>还存在是为了做向下兼容。</p>
-<p><code>Cache-Control</code>的格式为：</p>
-<figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Cache-Control: max-age=<span class="hljs-number">3600</span></span><br></pre></td></tr></table></figure>
-
-<p>在<code>Cache-Control</code>中，<code>max-age</code>字段表示资源最大缓存时间（秒），上面例子表示在3600秒内该资源都是有效的。<code>Cache-Control</code>表示的时间比<code>expires</code>时间戳更为准确，同时<code>Cache-Control</code>优先级更高，两者存在时以<code>Cache-Control</code>为准。</p>
-<p><code>Cache-Control</code>还有其它的缓存方式：<code>no-cache</code>和<code>no-store</code>。</p>
-<p>如果给资源设置了<code>no-cache</code>，则会绕开浏览器，直接询问服务器该资源是否过期，即走<strong>协商缓存</strong>。<code>no-store</code>顾名思义，就比较绝情了，不设置任何缓存，每次发起请求不经过浏览器与服务端缓存，直接想服务器发送请求，并下载完整的响应。</p>
-<h4 id="协商缓存"><a href="#协商缓存" class="headerlink" title="协商缓存"></a>协商缓存</h4><p>协商缓存，顾名思义就是浏览器与服务器合作的缓存策略，它依赖于浏览器与服务器之间的通信，浏览器需要向服务器询问缓存的相关信息，进而判断是读取本地缓存的资源还是重新发起请求，下载完整的响应。</p>
-<h5 id="协商缓存的实现"><a href="#协商缓存的实现" class="headerlink" title="协商缓存的实现"></a>协商缓存的实现</h5><p><strong>Last-Modified</strong></p>
-<p><code>Last-Modified</code>是一个时间戳，在启用协商缓存之后，会在首次请求的时候，随着Response Headers返回</p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">Last-Modified: Wed, <span class="hljs-number">12</span> Feb <span class="hljs-number">2020</span> <span class="hljs-number">09</span>:<span class="hljs-number">21</span>:<span class="hljs-number">28</span> GMT</span><br></pre></td></tr></table></figure>
-
-<p>随后每次请求会带上<code>If-Modified-Since</code>时间戳字段，值为上一次Response返回的<code>Last-Modified</code>值</p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">If-Modified-Since: Wed, <span class="hljs-number">12</span> Feb <span class="hljs-number">2020</span> <span class="hljs-number">09</span>:<span class="hljs-number">21</span>:<span class="hljs-number">28</span> GMT</span><br></pre></td></tr></table></figure>
-
-<p>服务器收到这个时间戳之后，会根据该时间戳与服务器的资源的最后修改时间对比，如果时间改变，则返回一个新的完整的响应，并在Response Headers返回新的<code>Last-Modified</code>值；如果时间没有变化，则返回一个304状态码，提示资源并未改动，然后重定向到浏览器缓存，Response Headers也不会再返回<code>Last-Modified</code>字段，如下图：</p>
-<p><img src="C:%5CUsers%5C86157%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200212174102907.png" alt="image-20200212174102907"></p>
-<p>但是使用<code>Last-Modified</code>也会存在弊端：</p>
-<ul>
-<li>资源文件改动了，但是并没有改变内容，文件的最后修改时间会变化，导致该资源会被重新请求</li>
-<li><code>If-Modified-Since</code>是以秒为单位做检验，如果改动文件的时间小于1000ms，那么该资源有可能被认为是未改变的，导致无法重新请求</li>
-</ul>
-<p>这两种情况反映了一个问题，无法准确感知文件是否发生改变。</p>
-<p>为了解决该问题，<code>Etag</code>出现了。</p>
-<p><code>Etag</code>是服务器为每个资源生成的唯一的<strong>标识字符串</strong>，这个标识字符串是基于文件内容编码的，文件内容不同，对应的 <code>Etag</code> 就是不同的，因此<code>Etag</code> 能够精准地感知文件的变化。</p>
-<p><code>Etag</code> 和 <code>Last-Modified</code> 类似，当首次请求时，我们会在响应头里获取到一个最初的标识符字符串，它可以是这个样子</p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">ETag: W/<span class="hljs-string">"1q2w-108946715"</span></span><br></pre></td></tr></table></figure>
-
-<p>在下一次请求时，会带上与之相同值的字段<code>if-None-Match</code>，提供给服务器对比</p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">If-None-Match: W/<span class="hljs-string">"1q2w-108946715"</span></span><br></pre></td></tr></table></figure>
-
-<p>很明显，<code>Etag</code>有利也有弊，它的生成需要服务器付出额外的开销，会影响服务器的性能，<code>Etag</code>并不能直接代替<code>Last-Modified</code>，而是作为补充，它的优先级比<code>Last-Modified</code>高，两者共存时，以<code>Etag</code>为准。</p>
-<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>HTTP缓存的知识点比较琐碎，很多人过段时间很容易忘记。个人认为只有多分析多总结，才能够把握这些知识。</p>
-
+<p>近年来前端需要学习的知识越来越多，从以前前端三剑客，到现在的各种框架、混合开发、各类小程序开发、打包工具、服务端知识等等，很多前端小伙伴直言学不动了，前端焦虑感也越来越强。那我们要如何在这种别人误解的目光下与焦虑感日渐强大的情况下，练就、保持前端幸福感呢？我总结了一年多以来的经历和经验，分成<strong>外在因素</strong>和<strong>内在因素（技巧、技术提升）</strong>两方面，这里分享<strong>外在因素</strong>。</p>
+<h3 id="重要的几个点"><a href="#重要的几个点" class="headerlink" title="重要的几个点"></a>重要的几个点</h3>
         </div>
         
-        <div class="level is-size-7 is-uppercase">
+        
+        <div class="level is-mobile">
             <div class="level-start">
                 <div class="level-item">
-                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/HTTP/">HTTP</a>
+                <a class="button is-size-7 is-light" href="/2019/10/04/前端幸福感是如何炼成的/#more">阅读更多</a>
                 </div>
             </div>
         </div>
         
         
-        
     </div>
 </div>
 
@@ -244,34 +208,31 @@
 
 
 
+
+
+
+
+    
 <div class="card card-transparent">
-    <div class="level post-navigation is-flex-wrap is-mobile">
-        
-        <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/02/18/浅析浏览器另外三大缓存/">
-                <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">浅析浏览器另外三大缓存</span>
-            </a>
+    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+        <div class="pagination-previous">
+            <a class="is-flex-grow has-text-black-ter" href="/categories/前端/">上一页</a>
         </div>
-        
-        
-        <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2020/01/20/Module/">
-                <span class="level-item">ES6 -- Module</span>
-                <i class="level-item fas fa-chevron-right"></i>
-            </a>
+        <div class="pagination-next is-invisible is-hidden-mobile">
+            <a class="is-flex-grow has-text-black-ter" href="/categories/前端/page/3/">下一页</a>
         </div>
-        
-    </div>
+        <ul class="pagination-list is-hidden-mobile">
+            
+            <li><a class="pagination-link has-text-black-ter" href="/categories/前端/">1</a></li>
+            
+            <li><a class="pagination-link is-current" href="/categories/前端/page/2/">2</a></li>
+            
+        </ul>
+    </nav>
 </div>
-
-
 </div>
                 <!-- 新增的复制配置项 -->
-
-
-<!-- 粘贴的部分 -->
-                          <!-- 修改，可选保留的栏 -->
+        <!-- 修改 -->
 
 
 
@@ -703,7 +664,266 @@
     
 </div>
 
+
+<!-- 粘贴的部分 -->
+
                 <!-- 新增的复制配置项 -->
+        <!-- 修改 -->
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/02/18/浅析浏览器另外三大缓存/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浅析浏览器另外三大缓存">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-18T09:56:49.303Z">2020-02-18</time></div>
+                    <a href="/2020/02/18/浅析浏览器另外三大缓存/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浅析浏览器另外三大缓存</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/02/13/浅析HTTP缓存/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浅析HTTP缓存">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-12T16:10:22.432Z">2020-02-13</time></div>
+                    <a href="/2020/02/13/浅析HTTP缓存/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浅析HTTP缓存</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/网络/">网络</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/01/20/Module/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ES6 -- Module">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-20T05:55:02.582Z">2020-01-20</time></div>
+                    <a href="/2020/01/20/Module/" class="title has-link-black-ter is-size-6 has-text-weight-normal">ES6 -- Module</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/01/13/finished-proposals-ES2020/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="振奋人心的ES2020新特性！">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-13T15:05:15.051Z">2020-01-13</time></div>
+                    <a href="/2020/01/13/finished-proposals-ES2020/" class="title has-link-black-ter is-size-6 has-text-weight-normal">振奋人心的ES2020新特性！</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/01/01/ES6----Proxy/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ES6 -- Proxy">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-01T12:51:56.617Z">2020-01-01</time></div>
+                    <a href="/2020/01/01/ES6----Proxy/" class="title has-link-black-ter is-size-6 has-text-weight-normal">ES6 -- Proxy</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/HTTP/">
+                        <span class="tag">HTTP</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/JS/">
+                        <span class="tag">JS</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vue/">
+                        <span class="tag">vue</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/总结/">
+                        <span class="tag">总结</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/感想/">
+                        <span class="tag">感想</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/源码/">
+                        <span class="tag">源码</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/缓存/">
+                        <span class="tag">缓存</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
 
 
 <!-- 粘贴的部分 -->
@@ -717,7 +937,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo-3.png" alt="浅析HTTP缓存" height="28">
+                    <img src="/images/logo-3.png" alt="Ysom &#39;s Blog" height="28">
                 
                 </a>
                 <p class="is-size-7">
