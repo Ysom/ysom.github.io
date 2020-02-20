@@ -19,7 +19,7 @@
 <meta property="og:description" content="前言 上一篇分析了浏览器缓存类型之一：HTTP缓存，接下来简单分析一下浏览器另外的三大缓存机制：Memory Cache、Service Worker Cache以及Push Cache。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="og:updated_time" content="2020-02-20T03:15:38.724Z">
+<meta property="og:updated_time" content="2020-02-20T05:37:38.509Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅析浏览器另外三大缓存">
 <meta name="twitter:description" content="前言 上一篇分析了浏览器缓存类型之一：HTTP缓存，接下来简单分析一下浏览器另外的三大缓存机制：Memory Cache、Service Worker Cache以及Push Cache。">
@@ -164,7 +164,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    8 分钟 读完 (大约 1271 个字)
+                    8 分钟 读完 (大约 1259 个字)
                 </span>
                 
                 
@@ -208,9 +208,9 @@
 <p>第三步，我们在<code>waitUntil</code>方法里面使用了<code>cache.open</code>来创建一个新的缓存v1，它返回一个promise，在被resolved之后调用<code>addAll</code>方法来添加要缓存的资源的路径；如果被rejected，service worker不会做任何操作。</p>
 <h4 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h4><p>通过webstorm打开index.html，可以为我们开启一个本地服务器，运行后可以看到：</p>
 <p>注册成功</p>
-<p><img src="C:%5CUsers%5C86157%5CDesktop%5C%E5%8D%9A%E6%96%87%E6%88%AA%E5%9B%BE%5C%E6%B3%A8%E5%86%8C%E6%88%90%E5%8A%9F.png" alt="注册成功"></p>
+<p><img src="/images/%E6%B3%A8%E5%86%8C%E6%88%90%E5%8A%9F.png" alt="注册成功"></p>
 <p>缓存成功</p>
-<p><img src="C:%5CUsers%5C86157%5CDesktop%5C%E5%8D%9A%E6%96%87%E6%88%AA%E5%9B%BE%5C%E7%BC%93%E5%AD%98%E6%88%90%E5%8A%9F.png" alt="缓存成功"></p>
+<p><img src="/images/%E7%BC%93%E5%AD%98%E6%88%90%E5%8A%9F.png" alt="缓存成功"></p>
 <h4 id="使用缓存"><a href="#使用缓存" class="headerlink" title="使用缓存"></a>使用缓存</h4><p>我们成功添加缓存之后，接下来就是要使用缓存。</p>
 <p>Service Worker会监听所有的网络请求，网络请求的产生触发的是fetch事件，我们可以通过监听fetch事件来处理我们的操作。</p>
 <figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// index.js</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">this</span>.addEventListener(<span class="hljs-string">'fetch'</span>, (event) =&gt; &#123;</span><br><span class="line">  event.respondWith(</span><br><span class="line">    caches.match(event.request)</span><br><span class="line">  )</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
