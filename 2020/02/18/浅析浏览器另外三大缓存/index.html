@@ -19,7 +19,7 @@
 <meta property="og:description" content="前言 上一篇分析了浏览器缓存类型之一：HTTP缓存，接下来简单分析一下浏览器另外的三大缓存机制：Memory Cache、Service Worker Cache以及Push Cache。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="og:updated_time" content="2020-02-20T05:45:20.171Z">
+<meta property="og:updated_time" content="2020-02-20T06:04:13.170Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅析浏览器另外三大缓存">
 <meta name="twitter:description" content="前言 上一篇分析了浏览器缓存类型之一：HTTP缓存，接下来简单分析一下浏览器另外的三大缓存机制：Memory Cache、Service Worker Cache以及Push Cache。">
@@ -164,7 +164,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    9 分钟 读完 (大约 1298 个字)
+                    9 分钟 读完 (大约 1330 个字)
                 </span>
                 
                 
@@ -218,6 +218,8 @@
 <p>第一步，监听fetch事件；</p>
 <p>第二步，通过<code>respondWith</code>方法劫持请求；</p>
 <p>第三步，可以自定义我们的操作，当然最简单粗暴的就是直接返回我们缓存的资源</p>
+<p>再刷新浏览器，可以看到，index.html来自于service worker cache</p>
+<p><img src="/images/%E4%BD%BF%E7%94%A8serviceWorker%E7%BC%93%E5%AD%98.png" alt="使用serviceWorker缓存"></p>
 <h3 id="Push-Cache"><a href="#Push-Cache" class="headerlink" title="Push Cache"></a>Push Cache</h3><p>push cache（推送缓存）是比较新颖的东西，属于HTTP/2，当前面几种缓存没有命中的时候，才会询问推送缓存。</p>
 <p>具体的可以查看Jake Archibald大神的<a href="https://jakearchibald.com/2017/h2-push-tougher-than-i-thought/" target="_blank" rel="noopener">HTTP/2 push is tougher than I thought</a></p>
 <p>文章中有部分结论：</p>
