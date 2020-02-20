@@ -19,7 +19,7 @@
 <meta property="og:description" content="前言 上一篇分析了浏览器缓存类型之一：HTTP缓存，接下来简单分析一下浏览器另外的三大缓存机制：Memory Cache、Service Worker Cache以及Push Cache。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="og:updated_time" content="2020-02-18T15:45:09.496Z">
+<meta property="og:updated_time" content="2020-02-20T03:15:38.724Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅析浏览器另外三大缓存">
 <meta name="twitter:description" content="前言 上一篇分析了浏览器缓存类型之一：HTTP缓存，接下来简单分析一下浏览器另外的三大缓存机制：Memory Cache、Service Worker Cache以及Push Cache。">
@@ -157,14 +157,14 @@
                 <time class="level-item has-text-grey" datetime="2020-02-18T09:56:49.303Z">2020-02-18</time>
                 
                 <div class="level-item">
-                <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                <a class="has-link-grey -link" href="/categories/网络/">网络</a>
                 </div>
                 
                 
                 <span class="level-item has-text-grey">
                     
                     
-                    2 分钟 读完 (大约 322 个字)
+                    8 分钟 读完 (大约 1271 个字)
                 </span>
                 
                 
@@ -190,6 +190,44 @@
 <h3 id="Memory-Cache"><a href="#Memory-Cache" class="headerlink" title="Memory Cache"></a>Memory Cache</h3><p>Memory Cache是指内存中的缓存，是浏览器尝试命中的优先级最高的缓存，其响应速度也是最快的。</p>
 <p>哪些资源会被放进内存缓存呢？这个没有明确的规定，因为内存本身就是有限的，对于内存来讲，很多时候需要考虑内存的即时余量以及资源本身大小，根据日常开发观察的结果，base64格式的图片几乎是被放到内存缓存，而文件体积较小的JS、CSS文件，也有很大的几率可以写进内存缓存，至于体积比较大的，用一句俗话来讲，就是“庙小容不了大佛”，几乎是不可能给写进内存缓存的。</p>
 <p>内存缓存的响应速度虽然很快，但是相应的，它的“寿命”是比较短的，当我们关闭tab之后，内存里的数据也将不复存在。</p>
+<h3 id="Service-Worker-Cache"><a href="#Service-Worker-Cache" class="headerlink" title="Service Worker Cache"></a>Service Worker Cache</h3><p>service worker运行在worker上下文，因此它无法访问DOM，同时独立于主线程，可以在浏览器幕后帮我们实现消息推送、离线缓存等操作，而借助于service worker实现的缓存，就是离线缓存。</p>
+<blockquote>
+<p>PS：出于安全考量，Service workers只能由HTTPS承载。</p>
+</blockquote>
+<p>service worker需要先进行install（安装），之后会一直存在，并且只在active（激活）和working（工作）之间切换，直到我们主动终止。</p>
+<p>下面看实践的例子，新建<code>index.html</code>和<code>index.js</code>两个文件</p>
+<h4 id="注册"><a href="#注册" class="headerlink" title="注册"></a>注册</h4><figure class="highlight html hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">&lt;!-- index.html --&gt;</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-meta">&lt;!DOCTYPE html&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">html</span> <span class="hljs-attr">lang</span>=<span class="hljs-string">"en"</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">head</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">charset</span>=<span class="hljs-string">"UTF-8"</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">name</span>=<span class="hljs-string">"viewport"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"width=device-width, initial-scale=1.0"</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;<span class="hljs-name">meta</span> <span class="hljs-attr">http-equiv</span>=<span class="hljs-string">"X-UA-Compatible"</span> <span class="hljs-attr">content</span>=<span class="hljs-string">"ie=edge"</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;<span class="hljs-name">title</span>&gt;</span>service worker test<span class="hljs-tag">&lt;/<span class="hljs-name">title</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">head</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;<span class="hljs-name">body</span>&gt;</span></span><br><span class="line">  <span class="hljs-tag">&lt;<span class="hljs-name">script</span>&gt;</span></span><br><span class="line"><span class="hljs-javascript">     <span class="hljs-keyword">if</span> (<span class="hljs-string">'serviceWorker'</span> <span class="hljs-keyword">in</span> navigator) &#123;</span></span><br><span class="line"><span class="hljs-javascript">       <span class="hljs-built_in">window</span>.addEventListener(<span class="hljs-string">'load'</span>, () =&gt; &#123;</span></span><br><span class="line"><span class="hljs-javascript">         navigator.serviceWorker.register(<span class="hljs-string">'./index.js'</span>, &#123;<span class="hljs-attr">scope</span>: <span class="hljs-string">'./'</span>&#125;)</span></span><br><span class="line"><span class="hljs-javascript">         .then(<span class="hljs-function">(<span class="hljs-params">res</span>) =&gt;</span> &#123;</span></span><br><span class="line"><span class="hljs-javascript">           <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`注册成功`</span>)</span></span><br><span class="line">         &#125;)</span><br><span class="line"><span class="hljs-javascript">         .catch(<span class="hljs-function"><span class="hljs-params">err</span> =&gt;</span> &#123;</span></span><br><span class="line"><span class="hljs-javascript">           <span class="hljs-built_in">console</span>.log(<span class="hljs-string">`注册失败：<span class="hljs-subst">$&#123;err&#125;</span>`</span>)</span></span><br><span class="line">         &#125;)</span><br><span class="line">       &#125;)</span><br><span class="line">     &#125; </span><br><span class="line">  <span class="hljs-tag">&lt;/<span class="hljs-name">script</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">body</span>&gt;</span></span><br><span class="line"><span class="hljs-tag">&lt;/<span class="hljs-name">html</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>第一步，先判断浏览器是否支持<code>serviceWorker</code>；</p>
+<p>第二步，浏览器若支持，再通过<code>register</code>方法注册<code>index.js</code>文件，scope指定service worker控制内容的子目录，该参数为可选参数，默认为根目录；</p>
+<p>第三步，通过返回的Promise，了解注册成功或失败</p>
+<h4 id="安装"><a href="#安装" class="headerlink" title="安装"></a>安装</h4><figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// index.js</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">this</span>.addEventListener(<span class="hljs-string">'install'</span>, (event) =&gt; &#123;</span><br><span class="line">  event.waitUntil(</span><br><span class="line">    caches.open(<span class="hljs-string">'v1'</span>).then(<span class="hljs-function">(<span class="hljs-params">cache</span>) =&gt;</span> &#123;</span><br><span class="line">      <span class="hljs-keyword">return</span> cache.addAll([</span><br><span class="line">        <span class="hljs-string">'index.html'</span></span><br><span class="line">      ])</span><br><span class="line">    &#125;)</span><br><span class="line">  )</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>第一步，通过<code>install</code>方法，安装service worker；</p>
+<p>第二步，这里要注意的是，从安装到激活这个过程需要一些时间，service worker标准提供一个<code>waitUntil</code>方法，当<code>oninstall</code>或者<code>onactivate</code>触发时被调用，接受一个promise。在这个 promise被成功resolve以前，功能性事件不会分发到service worker；</p>
+<p>第三步，我们在<code>waitUntil</code>方法里面使用了<code>cache.open</code>来创建一个新的缓存v1，它返回一个promise，在被resolved之后调用<code>addAll</code>方法来添加要缓存的资源的路径；如果被rejected，service worker不会做任何操作。</p>
+<h4 id="运行"><a href="#运行" class="headerlink" title="运行"></a>运行</h4><p>通过webstorm打开index.html，可以为我们开启一个本地服务器，运行后可以看到：</p>
+<p>注册成功</p>
+<p><img src="C:%5CUsers%5C86157%5CDesktop%5C%E5%8D%9A%E6%96%87%E6%88%AA%E5%9B%BE%5C%E6%B3%A8%E5%86%8C%E6%88%90%E5%8A%9F.png" alt="注册成功"></p>
+<p>缓存成功</p>
+<p><img src="C:%5CUsers%5C86157%5CDesktop%5C%E5%8D%9A%E6%96%87%E6%88%AA%E5%9B%BE%5C%E7%BC%93%E5%AD%98%E6%88%90%E5%8A%9F.png" alt="缓存成功"></p>
+<h4 id="使用缓存"><a href="#使用缓存" class="headerlink" title="使用缓存"></a>使用缓存</h4><p>我们成功添加缓存之后，接下来就是要使用缓存。</p>
+<p>Service Worker会监听所有的网络请求，网络请求的产生触发的是fetch事件，我们可以通过监听fetch事件来处理我们的操作。</p>
+<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// index.js</span></span><br><span class="line"></span><br><span class="line"><span class="hljs-keyword">this</span>.addEventListener(<span class="hljs-string">'fetch'</span>, (event) =&gt; &#123;</span><br><span class="line">  event.respondWith(</span><br><span class="line">    caches.match(event.request)</span><br><span class="line">  )</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<p>第一步，监听fetch事件；</p>
+<p>第二步，通过<code>respondWith</code>方法劫持请求；</p>
+<p>第三步，可以自定义我们的操作，当然最简单粗暴的就是直接返回我们缓存的资源</p>
+<h3 id="Push-Cache"><a href="#Push-Cache" class="headerlink" title="Push Cache"></a>Push Cache</h3><p>push cache（推送缓存）是比较新颖的东西，属于HTTP/2，当前面几种缓存没有命中的时候，才会询问推送缓存。</p>
+<p>具体的可以查看Jake Archibald大神的<a href="https://jakearchibald.com/2017/h2-push-tougher-than-i-thought/" target="_blank" rel="noopener">HTTP/2 push is tougher than I thought</a></p>
+<p>文章中有部分结论：</p>
+<ul>
+<li>Push Cache 是缓存的最后一道防线。浏览器只有在 前面说到的几种缓存均未命中的情况下才会去询问 Push Cache；</li>
+<li>Push Cache 是一种存在于会话阶段的缓存，当 session 终止时，缓存也随之释放；</li>
+<li>不同的页面只要共享了同一个 HTTP2 连接，那么它们就可以共享同一个 Push Cache；</li>
+<li>Push Cache 中的缓存只能被使用一次</li>
+</ul>
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>浏览器的缓存知识博大精深，就算不断在工作中和学习中实践，也只能说理解皮毛。</p>
 
         </div>
         
@@ -374,7 +412,7 @@
                 <span class="level-item">前端</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">11</span>
+                <span class="level-item tag">10</span>
             </span>
         </a></li><li>
         <a class="level is-marginless" href="/categories/生活/">
@@ -390,7 +428,7 @@
                 <span class="level-item">网络</span>
             </span>
             <span class="level-end">
-                <span class="level-item tag">1</span>
+                <span class="level-item tag">2</span>
             </span>
         </a></li>
             </ul>
@@ -432,7 +470,7 @@
                     <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-18T09:56:49.303Z">2020-02-18</time></div>
                     <a href="/2020/02/18/浅析浏览器另外三大缓存/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浅析浏览器另外三大缓存</a>
                     <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                        <a class="has-link-grey -link" href="/categories/网络/">网络</a>
                     </p>
                 </div>
             </div>
