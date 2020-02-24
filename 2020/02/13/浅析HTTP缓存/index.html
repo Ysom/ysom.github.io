@@ -19,7 +19,7 @@
 <meta property="og:description" content="前言 浏览器缓存机制有四个方面，按照资源获取优先级排列，分别是Memory Cache、Service Worker Cache、HTTP Cache、Push Cache。我们经常使用，也比较熟悉的是HTTP Cache。这里单独分析HTTP Cache。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="og:updated_time" content="2020-02-13T06:03:16.396Z">
+<meta property="og:updated_time" content="2020-02-24T14:17:28.820Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅析HTTP缓存">
 <meta name="twitter:description" content="前言 浏览器缓存机制有四个方面，按照资源获取优先级排列，分别是Memory Cache、Service Worker Cache、HTTP Cache、Push Cache。我们经常使用，也比较熟悉的是HTTP Cache。这里单独分析HTTP Cache。">
@@ -164,7 +164,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    9 分钟 读完 (大约 1332 个字)
+                    10 分钟 读完 (大约 1573 个字)
                 </span>
                 
                 
@@ -222,7 +222,12 @@
 <figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">If-None-Match: W/<span class="hljs-string">"1q2w-108946715"</span></span><br></pre></td></tr></table></figure>
 
 <p>很明显，<code>Etag</code>有利也有弊，它的生成需要服务器付出额外的开销，会影响服务器的性能，<code>Etag</code>并不能直接代替<code>Last-Modified</code>，而是作为补充，它的优先级比<code>Last-Modified</code>高，两者共存时，以<code>Etag</code>为准。</p>
-<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>HTTP缓存的知识点比较琐碎，很多人过段时间很容易忘记。个人认为只有多分析多总结，才能够把握这些知识。</p>
+<h3 id="HTTP缓存策略"><a href="#HTTP缓存策略" class="headerlink" title="HTTP缓存策略"></a>HTTP缓存策略</h3><p>对于上面讲的知识点，要如何对应到实际的开发中呢，这边拿了谷歌官方的一张图：</p>
+<p><img src="/images/%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5.png" alt="缓存策略"></p>
+<p>这张图片清楚地给我们展示了缓存策略流程。</p>
+<p>首先看看资源的可复用性，如果是不可复用的话，很干脆，直接把<code>Cache-control</code>设置为<code>no-store</code>，不需要任何形式的缓存。</p>
+<p>如果是可复用的资源，那么看看是否需要每次都向服务器去验证缓存是否有效，如果需要，则设置<code>Cache-control</code>为<code>no-store</code>，不需要的，则进行下一步，考虑资源是否可被代理服务器缓存，根据情况设置<code>private</code>或<code>public</code>；接着考虑资源的过期时间，设置资源的<code>max-age</code>；最后一步配置协商缓存，设置<code>Last-Modified</code>和<code>Etag</code>。</p>
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>HTTP缓存的知识点比较琐碎，很多人过段时间很容易忘记。只有多分析多总结，才能够把握这些知识。</p>
 
         </div>
         
