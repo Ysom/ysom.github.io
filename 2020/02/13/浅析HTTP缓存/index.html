@@ -19,7 +19,7 @@
 <meta property="og:description" content="前言 浏览器缓存机制有四个方面，按照资源获取优先级排列，分别是Memory Cache、Service Worker Cache、HTTP Cache、Push Cache。我们经常使用，也比较熟悉的是HTTP Cache。这里单独分析HTTP Cache。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="og:updated_time" content="2020-02-24T14:17:28.820Z">
+<meta property="og:updated_time" content="2020-02-25T23:54:50.201Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="浅析HTTP缓存">
 <meta name="twitter:description" content="前言 浏览器缓存机制有四个方面，按照资源获取优先级排列，分别是Memory Cache、Service Worker Cache、HTTP Cache、Push Cache。我们经常使用，也比较熟悉的是HTTP Cache。这里单独分析HTTP Cache。">
@@ -164,7 +164,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    10 分钟 读完 (大约 1573 个字)
+                    10 分钟 读完 (大约 1564 个字)
                 </span>
                 
                 
@@ -206,7 +206,7 @@
 <figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">If-Modified-Since: Wed, <span class="hljs-number">12</span> Feb <span class="hljs-number">2020</span> <span class="hljs-number">09</span>:<span class="hljs-number">21</span>:<span class="hljs-number">28</span> GMT</span><br></pre></td></tr></table></figure>
 
 <p>服务器收到这个时间戳之后，会根据该时间戳与服务器的资源的最后修改时间对比，如果时间改变，则返回一个新的完整的响应，并在Response Headers返回新的<code>Last-Modified</code>值；如果时间没有变化，则返回一个304状态码，提示资源并未改动，然后重定向到浏览器缓存，Response Headers也不会再返回<code>Last-Modified</code>字段，如下图：</p>
-<p><img src="C:%5CUsers%5C86157%5CAppData%5CRoaming%5CTypora%5Ctypora-user-images%5Cimage-20200212174102907.png" alt="image-20200212174102907"></p>
+<p><img src="/images/304.png" alt="304"></p>
 <p>但是使用<code>Last-Modified</code>也会存在弊端：</p>
 <ul>
 <li>资源文件改动了，但是并没有改变内容，文件的最后修改时间会变化，导致该资源会被重新请求</li>
