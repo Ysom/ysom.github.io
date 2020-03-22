@@ -7,22 +7,17 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>振奋人心的ES2020新特性！ - Ysom &#39;s Blog</title>
+<title>分类: 前端 - Ysom &#39;s Blog</title>
 
 
-    <meta name="description" content="ES2020已完成的提案中，有了比较振奋人心的新特性。下面来看看几个比较有意思的特性 BigInt在JS的Number类型中，安全值的范围为Number.MIN_SAFE_INTEGER-Number.MAX_SAFE_INTEGER，即-(253-1)~253-1，超出该范围整数计算或表示将会丢失精度 123let max_num = Number.MAX_SAFE_INTEGER // 900">
-<meta name="keywords" content="JS">
-<meta property="og:type" content="article">
-<meta property="og:title" content="振奋人心的ES2020新特性！">
-<meta property="og:url" content="http://yoursite.com/2020/01/13/finished-proposals-ES2020/index.html">
+    <meta property="og:type" content="website">
+<meta property="og:title" content="Ysom &#39;s Blog">
+<meta property="og:url" content="http://yoursite.com/categories/前端/page/2/index.html">
 <meta property="og:site_name" content="Ysom &#39;s Blog">
-<meta property="og:description" content="ES2020已完成的提案中，有了比较振奋人心的新特性。下面来看看几个比较有意思的特性 BigInt在JS的Number类型中，安全值的范围为Number.MIN_SAFE_INTEGER-Number.MAX_SAFE_INTEGER，即-(253-1)~253-1，超出该范围整数计算或表示将会丢失精度 123let max_num = Number.MAX_SAFE_INTEGER // 900">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="og:updated_time" content="2020-01-21T03:23:07.615Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="振奋人心的ES2020新特性！">
-<meta name="twitter:description" content="ES2020已完成的提案中，有了比较振奋人心的新特性。下面来看看几个比较有意思的特性 BigInt在JS的Number类型中，安全值的范围为Number.MIN_SAFE_INTEGER-Number.MAX_SAFE_INTEGER，即-(253-1)~253-1，超出该范围整数计算或表示将会丢失精度 123let max_num = Number.MAX_SAFE_INTEGER // 900">
+<meta name="twitter:title" content="Ysom &#39;s Blog">
 <meta name="twitter:image" content="http://yoursite.com/images/og_image.png">
 
 
@@ -97,7 +92,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo-3.png" alt="振奋人心的ES2020新特性！" height="28">
+                <img src="/images/logo-3.png" alt="Ysom &#39;s Blog" height="28">
             
             </a>
         </div>
@@ -148,13 +143,25 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-6-tablet is-6-desktop is-9-widescreen has-order-2 column-main"><div class="card">
+                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+    <div class="card-content">
+        <nav class="breadcrumb" aria-label="breadcrumbs">
+        <ul>
+            <li><a href="/categories">分类</a></li>
+            
+            <li class="is-active"><a href="#" aria-current="page">前端</a></li>
+        </ul>
+        </nav>
+    </div>
+</div>
+
+    <div class="card">
     
     <div class="card-content article ">
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-01-13T15:05:15.051Z">2020-01-13</time>
+                <time class="level-item has-text-grey" datetime="2019-10-04T14:58:44.900Z">2019-10-04</time>
                 
                 <div class="level-item">
                 <a class="has-link-grey -link" href="/categories/前端/">前端</a>
@@ -164,70 +171,36 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    7 分钟 读完 (大约 1053 个字)
+                    10 分钟 读完 (大约 1487 个字)
                 </span>
                 
-                
-                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
-                    <i class="far fa-eye"></i>
-                    <span id="busuanzi_value_page_pv">0</span>次访问
-                </span>
                 
             </div>
         </div>
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                振奋人心的ES2020新特性！
+                <a class="has-link-black-ter" href="/2019/10/04/前端幸福感是如何炼成的/">前端幸福感是如何炼成的（上）</a>
             
         </h1>
         <div class="content">
-            <p>ES2020已完成的<a href="https://github.com/tc39/proposals/blob/master/finished-proposals.md" target="_blank" rel="noopener">提案</a>中，有了比较振奋人心的新特性。下面来看看几个比较有意思的特性</p>
-<h3 id="BigInt"><a href="#BigInt" class="headerlink" title="BigInt"></a>BigInt</h3><p>在JS的<code>Number</code>类型中，安全值的范围为<code>Number.MIN_SAFE_INTEGER</code>-<code>Number.MAX_SAFE_INTEGER</code>，即-(2<sup>53</sup>-1)~2<sup>53</sup>-1，超出该范围整数计算或表示将会丢失精度</p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> max_num = <span class="hljs-built_in">Number</span>.MAX_SAFE_INTEGER <span class="hljs-comment">// 9007199254740991</span></span><br><span class="line"><span class="hljs-keyword">let</span> more_num = max_num + <span class="hljs-number">1</span> <span class="hljs-comment">// 9007199254740992</span></span><br><span class="line"><span class="hljs-keyword">let</span> more_max_num = max_num + <span class="hljs-number">2</span> <span class="hljs-comment">// 9007199254740992</span></span><br></pre></td></tr></table></figure>
-
-<p>可以看到，当数值超过安全范围时，就不会正确表示，甚至还有以下情况</p>
-<a id="more"></a>
-
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-number">9007199254740992</span> === <span class="hljs-number">9007199254740993</span> <span class="hljs-comment">// true</span></span><br></pre></td></tr></table></figure>
-
-<p>新规范<code>BigInt</code>就是用来解决大数计算问题，同时它也属于原始类型。可以在整数后面加上n或者BigInt函数来实现</p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 直接在整数后面加n</span></span><br><span class="line"><span class="hljs-keyword">let</span> bigNum = <span class="hljs-number">9007199254740993</span>n</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 使用BigInt函数</span></span><br><span class="line"><span class="hljs-keyword">let</span> bigNum = BigInt(<span class="hljs-number">9007199254740993</span>)</span><br><span class="line"><span class="hljs-comment">// or </span></span><br><span class="line"><span class="hljs-keyword">let</span> bigNum = BigInt(<span class="hljs-string">'9007199254740993'</span>)</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 大数运算</span></span><br><span class="line"><span class="hljs-keyword">let</span> superNum = <span class="hljs-number">9007199254740993</span>n + <span class="hljs-number">9007199254740993</span>n </span><br><span class="line"><span class="hljs-comment">// 18014398509481986n</span></span><br><span class="line"><span class="hljs-keyword">typeof</span> superNum <span class="hljs-comment">// 'bigInt'</span></span><br></pre></td></tr></table></figure>
-
-<p>需要注意的是，使用<code>BigInt</code>函数实例化大数时，会将参数进行Number类型的实例化，超出安全范围的数字可能会引起精度丢失</p>
-<h3 id="Promise-allSettled"><a href="#Promise-allSettled" class="headerlink" title="Promise.allSettled"></a>Promise.allSettled</h3><p>用过<code>Promise.all</code>的都知道，这方法有一个比较明显的缺陷，只要其中一个Promise被<code>reject</code>，整个<code>Promise.all</code>就会挂掉，剩下的Promise都会停止执行。例如在一个用户模块中，通过并发异步请求多个版块的数据，只要其中一个服务挂了，其它的版块也就不会拿到数据。很明显，这并不是我们想要的，我们希望并发的任务，不管是异常还是正常，都可以返回对应的状态和值，这样就可以最大限度地保证服务的可访问性。新特性<code>Promise.allSettled</code>就是来满足这一要求的</p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-built_in">Promise</span>.allSettled([</span><br><span class="line">    <span class="hljs-built_in">Promise</span>.reject(&#123;<span class="hljs-attr">status</span>: <span class="hljs-string">'fail'</span>, <span class="hljs-attr">msg</span>: <span class="hljs-string">'服务异常'</span>&#125;),</span><br><span class="line">    <span class="hljs-built_in">Promise</span>.resolve(&#123;<span class="hljs-attr">status</span>: <span class="hljs-string">'suc'</span>, <span class="hljs-attr">data</span>: &#123;&#125;&#125;),</span><br><span class="line">    <span class="hljs-built_in">Promise</span>.resolve(&#123;<span class="hljs-attr">status</span>: <span class="hljs-string">'suc'</span>, <span class="hljs-attr">data</span>: &#123;&#125;&#125;)</span><br><span class="line">]).then(<span class="hljs-function"><span class="hljs-params">result</span> =&gt;</span> &#123;</span><br><span class="line">    <span class="hljs-comment">/*</span></span><br><span class="line"><span class="hljs-comment">    * 0: &#123;status: 'rejected', reason: &#123;&#125;&#125;,</span></span><br><span class="line"><span class="hljs-comment">    * 1: &#123;status: 'fulfilled', value: &#123;&#125;&#125;,</span></span><br><span class="line"><span class="hljs-comment">    * 2: &#123;status: 'fulfilled', value: &#123;&#125;&#125;</span></span><br><span class="line"><span class="hljs-comment">    */</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
-
-<p>当服务异常时，会返回status和reason字段，reason值为reject的值，而当服务正常时，会返回status和value字段。可以通过filter函数来过滤出fulfilled状态的数据，从而实现服务正常的数据渲染</p>
-<h3 id="globalThis"><a href="#globalThis" class="headerlink" title="globalThis"></a>globalThis</h3><p>一般我们很难写出可移植的js代码来访问全局对象，因为在不用的环境全局对象也不同。在web中，全局对象为<code>window</code>、<code>self</code>，在node中，为<code>global</code>，甚至很多时候会使用<code>this</code>来访问全局对象，但是<code>this</code>严重依赖上下文，还会存在各种改变<code>this</code>指向的情况，这会导致更加复杂。而现在，通过一个<code>globalThis</code>就可以轻松获取到当前环境下的全局对象，是不是很清爽？</p>
-<h3 id="optional-Chaining"><a href="#optional-Chaining" class="headerlink" title="optional Chaining"></a>optional Chaining</h3><p>如果我们要使用到多层级对象中的某个属性，为了避免属性不存在时抛出错误，需要经过一系列前置的繁琐的判断</p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> data = &#123;&#125;</span><br><span class="line"><span class="hljs-keyword">if</span> (data &amp;&amp; data.options &amp;&amp; data.options.name) &#123;</span><br><span class="line">    <span class="hljs-keyword">let</span> name = data.options.name</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>看起来很麻烦。有了<strong>可选链</strong>新特性后，只需简单一句代码</p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> name = data?.options?.name</span><br></pre></td></tr></table></figure>
-
-<p>判断<code>?</code>前的属性是否存在，存在才会继续查询<code>.</code>后面的属性。简化了大量前置校验，且更为安全</p>
-<h3 id="Nullish-coalescing-Operator"><a href="#Nullish-coalescing-Operator" class="headerlink" title="Nullish coalescing Operator"></a>Nullish coalescing Operator</h3><p>在对某个变量或对象的属性赋值时，我们会经常做以下类似的操作</p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> defaultFlag = <span class="hljs-string">'default'</span></span><br><span class="line"><span class="hljs-keyword">let</span> obj = &#123;</span><br><span class="line">    name: defaultFlag || <span class="hljs-string">'obj'</span>,</span><br><span class="line">    value: <span class="hljs-number">18</span>,</span><br><span class="line">    level: <span class="hljs-number">0</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>当<code>defaultFlag</code>转换为布尔值是true的时候，就会采用<code>defaultFlag</code>代表的值，否则采用值<code>obj</code>，但是这会有一些问题，比如值为0的时候，<code>defaultFlag</code>的值就为false，这会跳过0直接赋值为后面的值，如果我们允许0的存在，那这里就会出现预想中的误差。再看新特性<strong>空值合并运算符</strong> <code>??</code></p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">let</span> level = obj.level ?? <span class="hljs-string">'暂无等级'</span></span><br></pre></td></tr></table></figure>
-
-<p>使用空值合并运算符之后，只有当值为<code>undefined</code>、<code>null</code>的时候，才会跳过，赋值为后面的值</p>
-
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
+<p>做前端开发已经有一年多了，前端这个职业，在很多人看来就是一个切图仔、页面仔，包括产品、UI或后端等同事，很多时候在他们看来，前端只需按照设计图做页面，做做交互，对接接口，工作比较简单没有难度。但是前端真的是这样简单吗？</p>
+</blockquote>
+<p>近年来前端需要学习的知识越来越多，从以前前端三剑客，到现在的各种框架、混合开发、各类小程序开发、打包工具、服务端知识等等，很多前端小伙伴直言学不动了，前端焦虑感也越来越强。那我们要如何在这种别人误解的目光下与焦虑感日渐强大的情况下，练就、保持前端幸福感呢？我总结了一年多以来的经历和经验，分成<strong>外在因素</strong>和<strong>内在因素（技巧、技术提升）</strong>两方面，这里分享<strong>外在因素</strong>。</p>
+<h3 id="重要的几个点"><a href="#重要的几个点" class="headerlink" title="重要的几个点"></a>重要的几个点</h3>
         </div>
         
-        <div class="level is-size-7 is-uppercase">
+        
+        <div class="level is-mobile">
             <div class="level-start">
                 <div class="level-item">
-                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/JS/">JS</a>
+                <a class="button is-size-7 is-light" href="/2019/10/04/前端幸福感是如何炼成的/#more">阅读更多</a>
                 </div>
             </div>
         </div>
         
         
-        
     </div>
 </div>
 
@@ -235,34 +208,31 @@
 
 
 
+
+
+
+
+    
 <div class="card card-transparent">
-    <div class="level post-navigation is-flex-wrap is-mobile">
-        
-        <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/01/20/Module/">
-                <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">ES6 -- Module</span>
-            </a>
+    <nav class="pagination is-centered" role="navigation" aria-label="pagination">
+        <div class="pagination-previous">
+            <a class="is-flex-grow has-text-black-ter" href="/categories/前端/">上一页</a>
         </div>
-        
-        
-        <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2020/01/01/ES6----Proxy/">
-                <span class="level-item">ES6 -- Proxy</span>
-                <i class="level-item fas fa-chevron-right"></i>
-            </a>
+        <div class="pagination-next is-invisible is-hidden-mobile">
+            <a class="is-flex-grow has-text-black-ter" href="/categories/前端/page/3/">下一页</a>
         </div>
-        
-    </div>
+        <ul class="pagination-list is-hidden-mobile">
+            
+            <li><a class="pagination-link has-text-black-ter" href="/categories/前端/">1</a></li>
+            
+            <li><a class="pagination-link is-current" href="/categories/前端/page/2/">2</a></li>
+            
+        </ul>
+    </nav>
 </div>
-
-
 </div>
                 <!-- 新增的复制配置项 -->
-
-
-<!-- 粘贴的部分 -->
-                          <!-- 修改，可选保留的栏 -->
+        <!-- 修改 -->
 
 
 
@@ -705,7 +675,277 @@
     
 </div>
 
+
+<!-- 粘贴的部分 -->
+
                 <!-- 新增的复制配置项 -->
+        <!-- 修改 -->
+
+
+
+
+<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
+    
+        
+<div class="card widget">
+    <div class="card-content">
+        <h3 class="menu-label">
+            最新文章
+        </h3>
+        
+        <article class="media">
+            
+            <a href="/2020/03/22/分享一道有趣的题/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="分享一道有趣的题">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-03-22T13:47:57.801Z">2020-03-22</time></div>
+                    <a href="/2020/03/22/分享一道有趣的题/" class="title has-link-black-ter is-size-6 has-text-weight-normal">分享一道有趣的题</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/02/18/浅析浏览器另外三大缓存/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浅析浏览器另外三大缓存">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-18T09:56:49.303Z">2020-02-18</time></div>
+                    <a href="/2020/02/18/浅析浏览器另外三大缓存/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浅析浏览器另外三大缓存</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/网络/">网络</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/02/13/浅析HTTP缓存/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="浅析HTTP缓存">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-02-12T16:10:22.432Z">2020-02-13</time></div>
+                    <a href="/2020/02/13/浅析HTTP缓存/" class="title has-link-black-ter is-size-6 has-text-weight-normal">浅析HTTP缓存</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/网络/">网络</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/01/20/Module/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="ES6 -- Module">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-20T05:55:02.582Z">2020-01-20</time></div>
+                    <a href="/2020/01/20/Module/" class="title has-link-black-ter is-size-6 has-text-weight-normal">ES6 -- Module</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+        <article class="media">
+            
+            <a href="/2020/01/13/finished-proposals-ES2020/" class="media-left">
+                <p class="image is-64x64">
+                    <img class="thumbnail" src="/images/thumbnail.svg" alt="振奋人心的ES2020新特性！">
+                </p>
+            </a>
+            
+            <div class="media-content">
+                <div class="content">
+                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-01-13T15:05:15.051Z">2020-01-13</time></div>
+                    <a href="/2020/01/13/finished-proposals-ES2020/" class="title has-link-black-ter is-size-6 has-text-weight-normal">振奋人心的ES2020新特性！</a>
+                    <p class="is-size-7 is-uppercase">
+                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
+                    </p>
+                </div>
+            </div>
+        </article>
+        
+    </div>
+</div>
+
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+        <h3 class="menu-label">
+            归档
+        </h3>
+        <ul class="menu-list">
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/03/">
+                <span class="level-start">
+                    <span class="level-item">三月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/02/">
+                <span class="level-start">
+                    <span class="level-item">二月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2020/01/">
+                <span class="level-start">
+                    <span class="level-item">一月 2020</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">3</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/12/">
+                <span class="level-start">
+                    <span class="level-item">十二月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/11/">
+                <span class="level-start">
+                    <span class="level-item">十一月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">2</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/10/">
+                <span class="level-start">
+                    <span class="level-item">十月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">4</span>
+                </span>
+            </a>
+        </li>
+        
+        <li>
+            <a class="level is-marginless" href="/archives/2019/09/">
+                <span class="level-start">
+                    <span class="level-item">九月 2019</span>
+                </span>
+                <span class="level-end">
+                    <span class="level-item tag">1</span>
+                </span>
+            </a>
+        </li>
+        
+        </ul>
+        </div>
+    </div>
+</div>
+    
+        <div class="card widget">
+    <div class="card-content">
+        <div class="menu">
+            <h3 class="menu-label">
+                标签
+            </h3>
+            <div class="field is-grouped is-grouped-multiline">
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/HTTP/">
+                        <span class="tag">HTTP</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/JS/">
+                        <span class="tag">JS</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/vue/">
+                        <span class="tag">vue</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/总结/">
+                        <span class="tag">总结</span>
+                        <span class="tag is-grey">5</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/感想/">
+                        <span class="tag">感想</span>
+                        <span class="tag is-grey">2</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/源码/">
+                        <span class="tag">源码</span>
+                        <span class="tag is-grey">3</span>
+                    </a>
+                </div>
+                
+                <div class="control">
+                    <a class="tags has-addons" href="/tags/缓存/">
+                        <span class="tag">缓存</span>
+                        <span class="tag is-grey">1</span>
+                    </a>
+                </div>
+                
+            </div>
+        </div>
+    </div>
+</div>
+    
+    
+</div>
 
 
 <!-- 粘贴的部分 -->
@@ -719,7 +959,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo-3.png" alt="振奋人心的ES2020新特性！" height="28">
+                    <img src="/images/logo-3.png" alt="Ysom &#39;s Blog" height="28">
                 
                 </a>
                 <p class="is-size-7">
