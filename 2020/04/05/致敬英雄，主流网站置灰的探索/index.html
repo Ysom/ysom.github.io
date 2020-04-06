@@ -10,19 +10,19 @@
 <title>致敬英雄，主流网站置灰的探索 - Ysom &#39;s Blog</title>
 
 
-    <meta name="description" content="2020年4月4号，清明节，全国下降半旗，北京时间十点整，全国默哀3分钟，停止一切娱乐性活动，致敬为国、为民而逝世的英雄。 国内的很多主流网站，也为致敬英雄做了网站全站置灰。如：">
+    <meta name="description" content="2020年4月4号，清明节，全国下降半旗，北京时间十点整，全国默哀3分钟，停止一切娱乐性活动，致敬为国、为民而逝世的英雄。 国内的很多主流网站，为致敬英雄将网站全站置灰。如：">
 <meta name="keywords" content="CSS">
 <meta property="og:type" content="article">
 <meta property="og:title" content="致敬英雄，主流网站置灰的探索">
 <meta property="og:url" content="http://yoursite.com/2020/04/05/致敬英雄，主流网站置灰的探索/index.html">
 <meta property="og:site_name" content="Ysom &#39;s Blog">
-<meta property="og:description" content="2020年4月4号，清明节，全国下降半旗，北京时间十点整，全国默哀3分钟，停止一切娱乐性活动，致敬为国、为民而逝世的英雄。 国内的很多主流网站，也为致敬英雄做了网站全站置灰。如：">
+<meta property="og:description" content="2020年4月4号，清明节，全国下降半旗，北京时间十点整，全国默哀3分钟，停止一切娱乐性活动，致敬为国、为民而逝世的英雄。 国内的很多主流网站，为致敬英雄将网站全站置灰。如：">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="og:updated_time" content="2020-04-05T15:01:09.872Z">
+<meta property="og:updated_time" content="2020-04-06T13:52:51.332Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="致敬英雄，主流网站置灰的探索">
-<meta name="twitter:description" content="2020年4月4号，清明节，全国下降半旗，北京时间十点整，全国默哀3分钟，停止一切娱乐性活动，致敬为国、为民而逝世的英雄。 国内的很多主流网站，也为致敬英雄做了网站全站置灰。如：">
+<meta name="twitter:description" content="2020年4月4号，清明节，全国下降半旗，北京时间十点整，全国默哀3分钟，停止一切娱乐性活动，致敬为国、为民而逝世的英雄。 国内的很多主流网站，为致敬英雄将网站全站置灰。如：">
 <meta name="twitter:image" content="http://yoursite.com/images/og_image.png">
 
 
@@ -164,7 +164,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    7 分钟 读完 (大约 989 个字)
+                    7 分钟 读完 (大约 1016 个字)
                 </span>
                 
                 
@@ -183,26 +183,26 @@
         </h1>
         <div class="content">
             <p>2020年4月4号，清明节，全国下降半旗，北京时间十点整，全国默哀3分钟，停止一切娱乐性活动，致敬为国、为民而逝世的英雄。</p>
-<p>国内的很多主流网站，也为致敬英雄做了网站全站置灰。如：</p>
+<p>国内的很多主流网站，为致敬英雄将网站全站置灰。如：</p>
 <a id="more"></a>
 
 <p><img src="/images/%E8%87%B4%E6%95%AC%E8%8B%B1%E9%9B%84iqiyi.png" alt="爱奇艺"></p>
 <p><img src="/images/%E8%87%B4%E6%95%AC%E8%8B%B1%E9%9B%84bilibili.png" alt="b站"></p>
 <p>这种置灰包括了图片、按钮、文字等，那是怎样实现的呢？</p>
 <p>一种思路是通过对每个元素都加上统一的样式，但是这种成本太高，而且要做到没有遗漏，是一件比较费精力的事情。</p>
-<p>另一种思路是通过主题样式设置，即设置为灰色主题，但是我们都知道，主题都会有对应的配色设计，像这种置灰是单一的，直接全体置灰，没有一些黑白显示突出的设计。</p>
-<p>其实上面两种方案是可以实现的，只是不符合我们程序猿简洁、高效的理念。</p>
-<p>那有没有一种方案，靠一个属性，一个方法直接设置，就能对全站起到这样一个效果呢？如果有的话，毫无疑问这种方案应该是最省时省力的。</p>
-<p>带着这种疑问，通过开发者工具，扒了几个主流网站的代码，可以看到在<code>html</code>元素上有一些操作样式的代码</p>
+<p>另一种思路是通过主题样式设置，即设置为灰色主题，但是我们知道，主题样式会有对应的配色设计，像这种置灰是单一的，直接全体置灰，没有一些配色显示突出的设计。</p>
+<p>上面两种方案是可以实现的，只是不符合我们程序猿简洁、高效的理念。</p>
+<p>那有没有一种方案，靠一个属性，一个方法直接设置，就能对全站起到这样一个效果呢？如果有的话，毫无疑问这种方案是最省时省力的。</p>
+<p>带着这种疑问，我们利用开发者工具，看了几个主流网站的代码，貌似还真的有一个属性可以实现我们的想法</p>
 <figure class="highlight css hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">// b站</span><br><span class="line"><span class="hljs-selector-tag">html</span><span class="hljs-selector-class">.gray</span> &#123;</span><br><span class="line">    <span class="hljs-attribute">-webkit-filter</span>: <span class="hljs-built_in">grayscale</span>(.95);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">// CSDN博客</span><br><span class="line"><span class="hljs-selector-tag">html</span> &#123;</span><br><span class="line">    <span class="hljs-attribute">-webkit-filter</span>: <span class="hljs-built_in">grayscale</span>(100%);</span><br><span class="line">    <span class="hljs-attribute">-moz-filter</span>: <span class="hljs-built_in">grayscale</span>(100%);</span><br><span class="line">    <span class="hljs-attribute">-ms-filter</span>: <span class="hljs-built_in">grayscale</span>(100%);</span><br><span class="line">    <span class="hljs-attribute">-o-filter</span>: <span class="hljs-built_in">grayscale</span>(100%);</span><br><span class="line">    <span class="hljs-attribute">filter</span>: <span class="hljs-built_in">grayscale</span>(100%);</span><br><span class="line">    <span class="hljs-attribute">filter</span>: progid:DXImageTransform.Microsoft.<span class="hljs-built_in">BasicImage</span>(grayscale=1);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<p>把这些个样式勾选掉，网站果然就恢复了原来的配色，看来这种置灰操作，跟<code>filter</code>这个属性脱不了干系。</p>
-<p>搜下MDN，可以看到对<code>filter</code>的解释：</p>
+<p>把这些个样式勾选掉，网站果然就恢复了原来的配色，看来这种置灰操作，确实可以由属性来操控，而且跟<code>filter</code>属性脱不了干系。</p>
+<p>搜下<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/filter" target="_blank" rel="noopener">MDN</a>，可以看到对<code>filter</code>的解释：</p>
 <blockquote>
 <p>CSS属性将模糊或颜色偏移等图形效果应用于元素。滤镜通常用于调整图像，背景和边框的渲染。</p>
 </blockquote>
 <p>也就是说，这个属性可以用来做滤镜操作。</p>
-<p>这里展示一下所有属性设置的代码，建议前往官网查看更详细的操作和解释</p>
+<p>这里展示一下所有属性设置的代码，建议前往<a href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/filter" target="_blank" rel="noopener">官网</a>查看更详细的操作和解释</p>
 <figure class="highlight css hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">/* URL to SVG filter */</span></span><br><span class="line"><span class="hljs-selector-tag">filter</span>: <span class="hljs-selector-tag">url</span>("<span class="hljs-selector-tag">filters</span><span class="hljs-selector-class">.svg</span><span class="hljs-selector-id">#filter-id</span>");</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">/* &lt;filter-function&gt; values */</span></span><br><span class="line"><span class="hljs-selector-tag">filter</span>: <span class="hljs-selector-tag">blur</span>(5<span class="hljs-selector-tag">px</span>);</span><br><span class="line"><span class="hljs-selector-tag">filter</span>: <span class="hljs-selector-tag">brightness</span>(0<span class="hljs-selector-class">.4</span>);</span><br><span class="line"><span class="hljs-selector-tag">filter</span>: <span class="hljs-selector-tag">contrast</span>(200%);</span><br><span class="line"><span class="hljs-selector-tag">filter</span>: <span class="hljs-selector-tag">drop-shadow</span>(16<span class="hljs-selector-tag">px</span> 16<span class="hljs-selector-tag">px</span> 20<span class="hljs-selector-tag">px</span> <span class="hljs-selector-tag">blue</span>);</span><br><span class="line"><span class="hljs-selector-tag">filter</span>: <span class="hljs-selector-tag">grayscale</span>(50%);</span><br><span class="line"><span class="hljs-selector-tag">filter</span>: <span class="hljs-selector-tag">hue-rotate</span>(90<span class="hljs-selector-tag">deg</span>);</span><br><span class="line"><span class="hljs-selector-tag">filter</span>: <span class="hljs-selector-tag">invert</span>(75%);</span><br><span class="line"><span class="hljs-selector-tag">filter</span>: <span class="hljs-selector-tag">opacity</span>(25%);</span><br><span class="line"><span class="hljs-selector-tag">filter</span>: <span class="hljs-selector-tag">saturate</span>(30%);</span><br><span class="line"><span class="hljs-selector-tag">filter</span>: <span class="hljs-selector-tag">sepia</span>(60%);</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">/* Multiple filters */</span></span><br><span class="line"><span class="hljs-selector-tag">filter</span>: <span class="hljs-selector-tag">contrast</span>(175%) <span class="hljs-selector-tag">brightness</span>(3%);</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">/* Global values */</span></span><br><span class="line"><span class="hljs-selector-tag">filter</span>: <span class="hljs-selector-tag">inherit</span>;</span><br><span class="line"><span class="hljs-selector-tag">filter</span>: <span class="hljs-selector-tag">initial</span>;</span><br><span class="line"><span class="hljs-selector-tag">filter</span>: <span class="hljs-selector-tag">unset</span>;</span><br></pre></td></tr></table></figure>
 
 <p>这里再引用官方的一个例子，设置高斯模糊</p>
