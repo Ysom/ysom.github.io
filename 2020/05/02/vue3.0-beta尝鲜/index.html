@@ -7,22 +7,22 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>分享一道有趣的题 - Ysom &#39;s Blog</title>
+<title>vue3.0-beta尝鲜 - Ysom &#39;s Blog</title>
 
 
-    <meta name="description" content="今天在群里看到朋友发了一道有趣的题  就是如何让(a == 1 &amp;amp;&amp;amp; a == 2 &amp;amp;&amp;amp; a == 3) === true这个等式成立。一开始看到这个题觉得是无稽之谈，这不扯淡吗，一个变量能同时满足几个值？但是朋友这么问还真说不定有可能，于是开始一波思考。">
-<meta name="keywords" content="JS">
+    <meta name="description" content="前言尤大大前段时间发布了vue3.0-beta版本，现在趁着五一假期尝尝鲜，记录一下。 vue3设计更新点先回顾官方提出的vue3.0设计目标  更小 全局 API 和内置组件 支持 tree-shaking 常驻代码大小控制在 10kb gzipped 左右   更快 基于 Proxy 的变动侦测 Virtual DOM 重构 编译器架构重构，更多的编译时优化   加强API设计一致性 加强Ty">
+<meta name="keywords" content="vue">
 <meta property="og:type" content="article">
-<meta property="og:title" content="分享一道有趣的题">
-<meta property="og:url" content="http://yoursite.com/2020/03/22/分享一道有趣的题/index.html">
+<meta property="og:title" content="vue3.0-beta尝鲜">
+<meta property="og:url" content="http://yoursite.com/2020/05/02/vue3.0-beta尝鲜/index.html">
 <meta property="og:site_name" content="Ysom &#39;s Blog">
-<meta property="og:description" content="今天在群里看到朋友发了一道有趣的题  就是如何让(a == 1 &amp;amp;&amp;amp; a == 2 &amp;amp;&amp;amp; a == 3) === true这个等式成立。一开始看到这个题觉得是无稽之谈，这不扯淡吗，一个变量能同时满足几个值？但是朋友这么问还真说不定有可能，于是开始一波思考。">
+<meta property="og:description" content="前言尤大大前段时间发布了vue3.0-beta版本，现在趁着五一假期尝尝鲜，记录一下。 vue3设计更新点先回顾官方提出的vue3.0设计目标  更小 全局 API 和内置组件 支持 tree-shaking 常驻代码大小控制在 10kb gzipped 左右   更快 基于 Proxy 的变动侦测 Virtual DOM 重构 编译器架构重构，更多的编译时优化   加强API设计一致性 加强Ty">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="og:updated_time" content="2020-03-22T14:00:48.610Z">
+<meta property="og:updated_time" content="2020-05-02T15:37:56.313Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="分享一道有趣的题">
-<meta name="twitter:description" content="今天在群里看到朋友发了一道有趣的题  就是如何让(a == 1 &amp;amp;&amp;amp; a == 2 &amp;amp;&amp;amp; a == 3) === true这个等式成立。一开始看到这个题觉得是无稽之谈，这不扯淡吗，一个变量能同时满足几个值？但是朋友这么问还真说不定有可能，于是开始一波思考。">
+<meta name="twitter:title" content="vue3.0-beta尝鲜">
+<meta name="twitter:description" content="前言尤大大前段时间发布了vue3.0-beta版本，现在趁着五一假期尝尝鲜，记录一下。 vue3设计更新点先回顾官方提出的vue3.0设计目标  更小 全局 API 和内置组件 支持 tree-shaking 常驻代码大小控制在 10kb gzipped 左右   更快 基于 Proxy 的变动侦测 Virtual DOM 重构 编译器架构重构，更多的编译时优化   加强API设计一致性 加强Ty">
 <meta name="twitter:image" content="http://yoursite.com/images/og_image.png">
 
 
@@ -97,7 +97,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo-3.png" alt="分享一道有趣的题" height="28">
+                <img src="/images/logo-3.png" alt="vue3.0-beta尝鲜" height="28">
             
             </a>
         </div>
@@ -154,7 +154,7 @@
         
         <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
             <div class="level-left">
-                <time class="level-item has-text-grey" datetime="2020-03-22T13:47:57.801Z">2020-03-22</time>
+                <time class="level-item has-text-grey" datetime="2020-05-02T14:07:03.234Z">2020-05-02</time>
                 
                 <div class="level-item">
                 <a class="has-link-grey -link" href="/categories/前端/">前端</a>
@@ -164,7 +164,7 @@
                 <span class="level-item has-text-grey">
                     
                     
-                    4 分钟 读完 (大约 549 个字)
+                    5 分钟 读完 (大约 738 个字)
                 </span>
                 
                 
@@ -178,25 +178,111 @@
         
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                分享一道有趣的题
+                vue3.0-beta尝鲜
             
         </h1>
         <div class="content">
-            <p>今天在群里看到朋友发了一道有趣的题</p>
-<p><img src="/images/%E6%9C%89%E8%B6%A3%E7%9A%84%E9%A2%98.jpg" alt></p>
-<p>就是如何让<code>(a == 1 &amp;&amp; a == 2 &amp;&amp; a == 3) === true</code>这个等式成立。一开始看到这个题觉得是无稽之谈，这不扯淡吗，一个变量能同时满足几个值？但是朋友这么问还真说不定有可能，于是开始一波思考。</p>
+            <h2 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h2><p>尤大大前段时间发布了vue3.0-beta版本，现在趁着五一假期尝尝鲜，记录一下。</p>
+<h2 id="vue3设计更新点"><a href="#vue3设计更新点" class="headerlink" title="vue3设计更新点"></a>vue3设计更新点</h2><p>先回顾官方提出的vue3.0设计目标</p>
+<ul>
+<li>更小<ul>
+<li>全局 API 和内置组件</li>
+<li>支持 tree-shaking</li>
+<li>常驻代码大小控制在 10kb gzipped 左右</li>
+</ul>
+</li>
+<li>更快<ul>
+<li>基于 Proxy 的变动侦测</li>
+<li>Virtual DOM 重构</li>
+<li>编译器架构重构，更多的编译时优化</li>
+</ul>
+</li>
+<li>加强API设计一致性</li>
+<li>加强TypeScript支持</li>
+<li>提高自身可维护性<ul>
+<li>代码采用 monorepo 结构，内部分层更清晰</li>
+<li>TypeScript 使得外部贡献者更有信心做改动</li>
+</ul>
+</li>
+<li>开放更多底层功能</li>
+</ul>
 <a id="more"></a>
 
-<p>首先分析一下等式左边的<code>a==1</code>，<code>a==2</code>，<code>a==3</code>，相等符号<code>==</code>会判断两个变量的值是否相等，如果不相等，则会涉及到变量类型的转换，全等符号<code>===</code>则会同时判断变量的值和类型，其中一个不相等，则结果为<code>false</code></p>
-<p>然后我们假设等式已经成立，既然这个等式能够成立，那么变量<code>a</code>肯定不是一个普通的变量，至少<strong>基本数据类型</strong>满足不了这种骚操作，那么它应该是<strong>复杂数据类型</strong>。</p>
-<p>那我们接着假定是对象，那么对象跟基本数据类型对比的时候，会有我们上面说的涉及到类型转换，对象会先转换成基本数据类型，这里就会触发原型上<code>toString()</code>方法，如下：</p>
-<p><img src="/images/%E8%A7%A6%E5%8F%91toString.png" alt="触发toString"></p>
-<p>我们给<code>a</code>重写覆盖了<code>toString</code>方法，以方便我们调试，可以看到，对象在判断转换过程中，会触发<code>toString</code>方法。那么我们就可以根据这个特性，对<code>a</code>进行一波骚操作：</p>
-<figure class="highlight javascript hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-keyword">var</span> a = &#123;</span><br><span class="line">	i: <span class="hljs-number">1</span>,</span><br><span class="line">    toString: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;</span><br><span class="line">        <span class="hljs-keyword">return</span> <span class="hljs-keyword">this</span>.i++</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<h2 id="开始"><a href="#开始" class="headerlink" title="开始"></a>开始</h2><h3 id="创建项目"><a href="#创建项目" class="headerlink" title="创建项目"></a>创建项目</h3><figure class="highlight js hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="hljs-comment">// 升级vue-cli到4.0版本</span></span><br><span class="line">cnpm install -g @vue/cli</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 创建项目（注意，这里的vue版本还是2.x）</span></span><br><span class="line">vue create vue<span class="hljs-number">-3.0</span>-beta-test</span><br><span class="line"></span><br><span class="line"><span class="hljs-comment">// 切换到项目目录 通过vue add 命令添加3.0版本</span></span><br><span class="line">vue add vue-next</span><br></pre></td></tr></table></figure>
 
-<p>运行一下：</p>
-<p><img src="/images/%E7%AD%89%E5%BC%8F%E6%88%90%E7%AB%8B.png" alt></p>
-<p>可以看到，<strong>等式成立！！！</strong>这说明确实可以存在这种情况的，不过现实中不建议这样重写去改变原本默认行为，可能会导致出现不可预料的错误。但是不可否认，这种骚操作的题，一定程度上可以反馈出我们对JS基础、还有一些底层操作的理解。学习路上，真的是任重而道远啊~</p>
+<p>然后打开项目，可以看到vue的版本已经变成<code>^3.0.0-beta.1</code>，还有一些插件版本的更新和新增了两个插件</p>
+<p><img src="/images/vue%E5%8D%87%E7%BA%A73.0-beta.png" alt="vue升级3.0-beta"></p>
+<h3 id="对比项目结构"><a href="#对比项目结构" class="headerlink" title="对比项目结构"></a>对比项目结构</h3><p>再从项目的整体结构来看，对比2.x版本基本没有变化，主要看下变化了的<code>main.js</code>文件</p>
+<p><img src="/images/mainjs%E5%AF%B9%E6%AF%94.png" alt="main.js"></p>
+<p>通过图片可以看到，这里只解构出一个<code>createApp</code>函数，因为vue3.0支持<code>tree-shaking</code>，可以把每一个用到的API抽取出来，让vue变得更小</p>
+<h3 id="Composition-API"><a href="#Composition-API" class="headerlink" title="Composition API"></a>Composition API</h3><p>原先是叫<code>Vue-Function-API</code>，后面经社区意见收集，更改为<code>Vue-Composition-API</code>，这里面有几个变化比较大的：</p>
+<ul>
+<li>生命周期钩子</li>
+<li>reactive API</li>
+<li>ref API</li>
+<li>watch API</li>
+<li>computed API</li>
+</ul>
+<h4 id="生命周期"><a href="#生命周期" class="headerlink" title="生命周期"></a>生命周期</h4><p>在3.0中，生命周期发生了很大变化：</p>
+<table>
+<thead>
+<tr>
+<th>2.x</th>
+<th>3.0</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>beforeCreate</td>
+<td>setup</td>
+</tr>
+<tr>
+<td>created</td>
+<td>setup</td>
+</tr>
+<tr>
+<td>beforeMount</td>
+<td>onBeforeMount</td>
+</tr>
+<tr>
+<td>mounted</td>
+<td>onMounted</td>
+</tr>
+<tr>
+<td>beforeUpdate</td>
+<td>onBeforeUpdate</td>
+</tr>
+<tr>
+<td>updated</td>
+<td>onUpdated</td>
+</tr>
+<tr>
+<td>beforeDestroy</td>
+<td>onBeforeUnmount</td>
+</tr>
+<tr>
+<td>destroyed</td>
+<td>onUnmounted</td>
+</tr>
+</tbody></table>
+<h4 id="reactive"><a href="#reactive" class="headerlink" title="reactive"></a>reactive</h4><blockquote>
+<p>该API作用是创建响应式对象，类似之前在<code>data</code>中声明变量</p>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><span class="line">// App.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id=&quot;app&quot;&gt;</span><br><span class="line">    &lt;img alt=&quot;Vue logo&quot; src=&quot;./assets/logo.png&quot; /&gt;</span><br><span class="line">    &lt;h3&gt;&#123;&#123; info.msg &#125;&#125;&lt;/h3&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123; reactive &#125; from &quot;vue&quot;;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &quot;App&quot;,</span><br><span class="line">  setup() &#123;</span><br><span class="line">    let info = reactive(&#123;</span><br><span class="line">      msg: `vue3.0-beta尝鲜`</span><br><span class="line">    &#125;);</span><br><span class="line">    return &#123;</span><br><span class="line">      info</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>效果：</p>
+<p><img src="/images/%E6%95%88%E6%9E%9C%E5%9B%BE-1.png" alt="reactive效果"></p>
+<h4 id="ref"><a href="#ref" class="headerlink" title="ref"></a>ref</h4><blockquote>
+<p>创建一个包装式对象，含有一个响应式属性value，通过修改value来修改值</p>
+</blockquote>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br></pre></td><td class="code"><pre><span class="line">// App.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id=&quot;app&quot;&gt;</span><br><span class="line">    &lt;img alt=&quot;Vue logo&quot; src=&quot;./assets/logo.png&quot; /&gt;</span><br><span class="line">    &lt;h3&gt;&#123;&#123; info.msg &#125;&#125;&lt;/h3&gt;</span><br><span class="line">    &lt;h3&gt;&#123;&#123; tip &#125;&#125;&lt;/h3&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123; reactive, ref &#125; from &quot;vue&quot;;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &quot;App&quot;,</span><br><span class="line">  setup() &#123;</span><br><span class="line">    let info = reactive(&#123;</span><br><span class="line">      msg: `vue3.0-beta尝鲜`</span><br><span class="line">    &#125;);</span><br><span class="line">    let tip = ref(`value of ref`);</span><br><span class="line">    // 通过修改value属性来修改值</span><br><span class="line">    tip.value = `change ref of value`;</span><br><span class="line">    return &#123;</span><br><span class="line">      info,</span><br><span class="line">      tip</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>效果：</p>
+<p><img src="/images/ref%E6%95%88%E6%9E%9C%E5%9B%BE.png" alt="ref效果"></p>
+<h4 id="事件处理"><a href="#事件处理" class="headerlink" title="事件处理"></a>事件处理</h4><p>3.0没有<code>methods</code>对象，也是写在<code>setup</code>里面</p>
+<figure class="highlight plain hljs"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line">// App.vue</span><br><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div id=&quot;app&quot;&gt;</span><br><span class="line">    &lt;img alt=&quot;Vue logo&quot; src=&quot;./assets/logo.png&quot; /&gt;</span><br><span class="line">    &lt;h3&gt;&#123;&#123; info.msg &#125;&#125;&lt;/h3&gt;</span><br><span class="line">    &lt;h3&gt;tip：&#123;&#123; tip &#125;&#125;&lt;/h3&gt;</span><br><span class="line">    &lt;input v-model=&quot;inputValue&quot; /&gt;</span><br><span class="line">    &lt;button @click=&quot;handleClick&quot;&gt;click me&lt;/button&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">import &#123; reactive, ref &#125; from &quot;vue&quot;;</span><br><span class="line">export default &#123;</span><br><span class="line">  name: &quot;App&quot;,</span><br><span class="line">  setup() &#123;</span><br><span class="line">    let info = reactive(&#123;</span><br><span class="line">      msg: `vue3.0-beta尝鲜`</span><br><span class="line">    &#125;);</span><br><span class="line">    let tip = ref(`value of ref`);</span><br><span class="line">    tip.value = `change ref of value`;</span><br><span class="line">    let inputValue = ref(&quot;&quot;);</span><br><span class="line">    const handleClick = () =&gt; &#123;</span><br><span class="line">      tip.value = inputValue.value;</span><br><span class="line">    &#125;;</span><br><span class="line">    return &#123;</span><br><span class="line">      info,</span><br><span class="line">      tip,</span><br><span class="line">      inputValue,</span><br><span class="line">      handleClick</span><br><span class="line">    &#125;;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
+
+<p>上面写了一个方法，绑定一个点击事件来改变变量<code>tip</code>的值，效果如图：</p>
+<p><img src="/images/%E4%BA%8B%E4%BB%B6%E6%95%88%E6%9E%9C%E5%9B%BE.png" alt="绑定事件"></p>
 
         </div>
         
@@ -204,7 +290,7 @@
             <div class="level-start">
                 <div class="level-item">
                     <span class="is-size-6 has-text-grey has-mr-7">#</span>
-                    <a class="has-link-grey -link" href="/tags/JS/">JS</a>
+                    <a class="has-link-grey -link" href="/tags/vue/">vue</a>
                 </div>
             </div>
         </div>
@@ -221,17 +307,10 @@
 <div class="card card-transparent">
     <div class="level post-navigation is-flex-wrap is-mobile">
         
-        <div class="level-start">
-            <a class="level level-item has-link-grey  article-nav-prev" href="/2020/04/05/致敬英雄，主流网站置灰的探索/">
-                <i class="level-item fas fa-chevron-left"></i>
-                <span class="level-item">致敬英雄，主流网站置灰的探索</span>
-            </a>
-        </div>
-        
         
         <div class="level-end">
-            <a class="level level-item has-link-grey  article-nav-next" href="/2020/02/18/浅析浏览器另外三大缓存/">
-                <span class="level-item">浅析浏览器另外三大缓存</span>
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/04/05/致敬英雄，主流网站置灰的探索/">
+                <span class="level-item">致敬英雄，主流网站置灰的探索</span>
                 <i class="level-item fas fa-chevron-right"></i>
             </a>
         </div>
@@ -731,7 +810,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo-3.png" alt="分享一道有趣的题" height="28">
+                    <img src="/images/logo-3.png" alt="vue3.0-beta尝鲜" height="28">
                 
                 </a>
                 <p class="is-size-7">
