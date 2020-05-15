@@ -7,21 +7,22 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
 
-<title>关于我 - Ysom &#39;s Blog</title>
+<title>《程序员修炼之道》 -- 务实的方法（上） - Ysom &#39;s Blog</title>
 
 
-    <meta name="description" content="95的骚年一枚，有周游世界、踏遍千山万水的梦想，也能各种姿势宅在家里，足不出门 喜欢交流，能侃侃而谈，也不喜欢说话，陌生人面前安静，用Eason的歌词来形容，大概就是外向的孤独患者？ 地地道道的超爱喝茶的潮汕小伙子，一天能喝三四泡茶，特喜欢家乡的凤凰茶！那种独属家乡的味道，一杯就能融进生活，趟进心里~">
-<meta property="og:type" content="website">
-<meta property="og:title" content="关于我">
-<meta property="og:url" content="http://yoursite.com/about/index.html">
+    <meta name="description" content="前言周五啦，忙碌了一个星期，趁着周五晚上听听轻音乐，看会书，写写感想，放松一下~ 《程修道》在第一章由务实的哲学开头之后，在接下来的第二章就开始讲务实的方法，由思想理念到操作实践。 务实的方法总共有8部分，优秀设计的精髓、DRY-邪恶的重复、正交性、可逆性、曳光弹、原型与便签、领域语言、估算。 第二章的内容更丰富也更需要深入去阅读品味，今晚先记录第一部分。">
+<meta name="keywords" content="务实">
+<meta property="og:type" content="article">
+<meta property="og:title" content="《程序员修炼之道》 -- 务实的方法（上）">
+<meta property="og:url" content="http://yoursite.com/2020/05/15/《程序员修炼之道》----务实的方法（上）/index.html">
 <meta property="og:site_name" content="Ysom &#39;s Blog">
-<meta property="og:description" content="95的骚年一枚，有周游世界、踏遍千山万水的梦想，也能各种姿势宅在家里，足不出门 喜欢交流，能侃侃而谈，也不喜欢说话，陌生人面前安静，用Eason的歌词来形容，大概就是外向的孤独患者？ 地地道道的超爱喝茶的潮汕小伙子，一天能喝三四泡茶，特喜欢家乡的凤凰茶！那种独属家乡的味道，一杯就能融进生活，趟进心里~">
+<meta property="og:description" content="前言周五啦，忙碌了一个星期，趁着周五晚上听听轻音乐，看会书，写写感想，放松一下~ 《程修道》在第一章由务实的哲学开头之后，在接下来的第二章就开始讲务实的方法，由思想理念到操作实践。 务实的方法总共有8部分，优秀设计的精髓、DRY-邪恶的重复、正交性、可逆性、曳光弹、原型与便签、领域语言、估算。 第二章的内容更丰富也更需要深入去阅读品味，今晚先记录第一部分。">
 <meta property="og:locale" content="zh-CN">
 <meta property="og:image" content="http://yoursite.com/images/og_image.png">
-<meta property="og:updated_time" content="2019-12-14T14:43:09.630Z">
+<meta property="og:updated_time" content="2020-05-15T15:37:07.571Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="关于我">
-<meta name="twitter:description" content="95的骚年一枚，有周游世界、踏遍千山万水的梦想，也能各种姿势宅在家里，足不出门 喜欢交流，能侃侃而谈，也不喜欢说话，陌生人面前安静，用Eason的歌词来形容，大概就是外向的孤独患者？ 地地道道的超爱喝茶的潮汕小伙子，一天能喝三四泡茶，特喜欢家乡的凤凰茶！那种独属家乡的味道，一杯就能融进生活，趟进心里~">
+<meta name="twitter:title" content="《程序员修炼之道》 -- 务实的方法（上）">
+<meta name="twitter:description" content="前言周五啦，忙碌了一个星期，趁着周五晚上听听轻音乐，看会书，写写感想，放松一下~ 《程修道》在第一章由务实的哲学开头之后，在接下来的第二章就开始讲务实的方法，由思想理念到操作实践。 务实的方法总共有8部分，优秀设计的精髓、DRY-邪恶的重复、正交性、可逆性、曳光弹、原型与便签、领域语言、估算。 第二章的内容更丰富也更需要深入去阅读品味，今晚先记录第一部分。">
 <meta name="twitter:image" content="http://yoursite.com/images/og_image.png">
 
 
@@ -96,7 +97,7 @@
         <div class="navbar-brand is-flex-center">
             <a class="navbar-item navbar-logo" href="/">
             
-                <img src="/images/logo-3.png" alt="关于我" height="28">
+                <img src="/images/logo-3.png" alt="《程序员修炼之道》 -- 务实的方法（上）" height="28">
             
             </a>
         </div>
@@ -116,7 +117,7 @@
                 <a class="navbar-item"
                 href="/tags">标签</a>
                 
-                <a class="navbar-item is-active"
+                <a class="navbar-item"
                 href="/about">关于</a>
                 
             </div>
@@ -147,20 +148,64 @@
     <section class="section">
         <div class="container">
             <div class="columns">
-                <div class="column is-8-tablet is-8-desktop is-6-widescreen has-order-2 column-main"><div class="card">
+                <div class="column is-6-tablet is-6-desktop is-9-widescreen has-order-2 column-main"><div class="card">
     
     <div class="card-content article ">
         
+        <div class="level article-meta is-size-7 is-uppercase is-mobile is-overflow-x-auto">
+            <div class="level-left">
+                <time class="level-item has-text-grey" datetime="2020-05-15T15:34:25.691Z">2020-05-15</time>
+                
+                <div class="level-item">
+                <a class="has-link-grey -link" href="/categories/代码人生/">代码人生</a>
+                </div>
+                
+                
+                <span class="level-item has-text-grey">
+                    
+                    
+                    7 分钟 读完 (大约 1015 个字)
+                </span>
+                
+                
+                <span class="level-item has-text-grey" id="busuanzi_container_page_pv">
+                    <i class="far fa-eye"></i>
+                    <span id="busuanzi_value_page_pv">0</span>次访问
+                </span>
+                
+            </div>
+        </div>
+        
         <h1 class="title is-size-3 is-size-4-mobile has-text-weight-normal">
             
-                关于我
+                《程序员修炼之道》 -- 务实的方法（上）
             
         </h1>
         <div class="content">
-            <p>95的骚年一枚，有周游世界、踏遍千山万水的梦想，也能各种姿势宅在家里，足不出门</p>
-<p>喜欢交流，能侃侃而谈，也不喜欢说话，陌生人面前安静，用Eason的歌词来形容，大概就是外向的孤独患者？</p>
-<p>地地道道的超爱喝茶的潮汕小伙子，一天能喝三四泡茶，特喜欢家乡的凤凰茶！那种独属家乡的味道，一杯就能融进生活，趟进心里~</p>
+            <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>周五啦，忙碌了一个星期，趁着周五晚上听听轻音乐，看会书，写写感想，放松一下~</p>
+<p>《程修道》在第一章由务实的哲学开头之后，在接下来的第二章就开始讲务实的方法，由思想理念到操作实践。</p>
+<p>务实的方法总共有<strong>8</strong>部分，<code>优秀设计的精髓</code>、<code>DRY-邪恶的重复</code>、<code>正交性</code>、<code>可逆性</code>、<code>曳光弹</code>、<code>原型与便签</code>、<code>领域语言</code>、<code>估算</code>。</p>
+<p>第二章的内容更丰富也更需要深入去阅读品味，今晚先记录第一部分。</p>
+<a id="more"></a>
 
+<h3 id="优秀设计的精髓"><a href="#优秀设计的精髓" class="headerlink" title="优秀设计的精髓"></a>优秀设计的精髓</h3><p>这一部分，可以说是触及软件开发核心的至关重要主题，后面的7部分内容，都是由此来进行更为详细的展开。</p>
+<p><strong>优秀的设计比糟糕的设计更容易变更</strong>。我们在日常经常有谈到怎样设计好的软件，最后总的概括，能适应使用者的就是好的设计。对于我们的代码而言，就是要顺应变化，这个顺应变化怎么理解呢，书中提到了一个重要的原则–<strong>ETC（Easier To Change）原则</strong>，更容易变更。很多设计原则，基本都是ETC原则的特例。</p>
+<p>为什么代码要解耦，因为通过隔离关注焦点，可以让每一部分都容易变更。</p>
+<p>为什么单一职责原则很有用？因为一个需求变化仅体现为某个单一模块上的一个对应变化。</p>
+<p>为什么良好的命名规则很重要？因为好的命名可以使打代码更容易阅读，而我们必须通过阅读才能做到变更。</p>
+<p><strong>ETC应当是一种价值观念，而不是一条规则</strong>。价值观念跟规则的区别在于，规则是用来规范大家的行为，是要遵守的，有一种被动、甚至是束缚的感知。而价值观念是一种思维向导，它会帮助我们去思考，去做决定：哪些是该做的，哪些是不该做的，我们应该把ETC当成跟其它的价值观念一样，像“八荣八耻”，让它漂浮在我们的思维当中，当我们开始思考做决定时，它能微妙地将我们推向正确的方向。</p>
+<p><strong>怎样做到将ETC作为价值观念？</strong>书中作者给出来他们这些年总结的一些经验：一开始需要一点有意识的强化。我们可能花几个星期的时间来有意识地问自己：“刚刚做的代码设计是让整个系统更容易变更还是更难改变？”当我们提交代码的时候问一遍，写测试的时候问一遍，当我们修复BUG的时候再问一遍，甚至要反思这个BUG的出现是不是可以通过更好的设计来规避。</p>
+<p><strong>更进一步</strong>。除了上述作者给出的经验建议，我们还可以做得更好。第一点是让我们的代码坚持保持<strong>解耦</strong>和<strong>内聚</strong>、让我们的代码容易替换，即我们常说的<strong>可配置化</strong>。可配置化的好处就是不管以后有什么需求改变，我们都可以较为容易地去变更，而无需花费精力去重写。第二点是培养直觉，要经常记录我们遇到的问题、可以做的选择、可以怎样改变的猜测，以便我们可以进行快速的回顾和反思，下次遇到同样的问题，可以在脑海里快速提炼出方案。</p>
+
+        </div>
+        
+        <div class="level is-size-7 is-uppercase">
+            <div class="level-start">
+                <div class="level-item">
+                    <span class="is-size-6 has-text-grey has-mr-7">#</span>
+                    <a class="has-link-grey -link" href="/tags/务实/">务实</a>
+                </div>
+            </div>
         </div>
         
         
@@ -172,10 +217,27 @@
 
 
 
+<div class="card card-transparent">
+    <div class="level post-navigation is-flex-wrap is-mobile">
+        
+        
+        <div class="level-end">
+            <a class="level level-item has-link-grey  article-nav-next" href="/2020/05/09/《程序员修炼之道》--务实的哲学/">
+                <span class="level-item">《程序员修炼之道》 -- 务实的哲学</span>
+                <i class="level-item fas fa-chevron-right"></i>
+            </a>
+        </div>
+        
+    </div>
+</div>
+
 
 </div>
                 <!-- 新增的复制配置项 -->
-        <!-- 修改 -->
+
+
+<!-- 粘贴的部分 -->
+                          <!-- 修改，可选保留的栏 -->
 
 
 
@@ -662,313 +724,7 @@
     
 </div>
 
-
-<!-- 粘贴的部分 -->
-
                 <!-- 新增的复制配置项 -->
-        <!-- 修改 -->
-
-
-
-
-<div class="column is-4-tablet is-4-desktop is-3-widescreen is-hidden-touch is-hidden-desktop-only has-order-3 column-right ">
-    
-        
-<div class="card widget">
-    <div class="card-content">
-        <h3 class="menu-label">
-            最新文章
-        </h3>
-        
-        <article class="media">
-            
-            <a href="/2020/05/15/《程序员修炼之道》----务实的方法（上）/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="《程序员修炼之道》 -- 务实的方法（上）">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-15T15:34:25.691Z">2020-05-15</time></div>
-                    <a href="/2020/05/15/《程序员修炼之道》----务实的方法（上）/" class="title has-link-black-ter is-size-6 has-text-weight-normal">《程序员修炼之道》 -- 务实的方法（上）</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/代码人生/">代码人生</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2020/05/09/《程序员修炼之道》--务实的哲学/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="《程序员修炼之道》 -- 务实的哲学">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-09T15:27:09.847Z">2020-05-09</time></div>
-                    <a href="/2020/05/09/《程序员修炼之道》--务实的哲学/" class="title has-link-black-ter is-size-6 has-text-weight-normal">《程序员修炼之道》 -- 务实的哲学</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/代码人生/">代码人生</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2020/05/07/《程序员修炼之道》/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="《程序员修炼之道》">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-07T14:13:40.073Z">2020-05-07</time></div>
-                    <a href="/2020/05/07/《程序员修炼之道》/" class="title has-link-black-ter is-size-6 has-text-weight-normal">《程序员修炼之道》</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/代码人生/">代码人生</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2020/05/02/vue3.0-beta尝鲜/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="vue3.0-beta尝鲜">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-05-02T14:07:03.234Z">2020-05-02</time></div>
-                    <a href="/2020/05/02/vue3.0-beta尝鲜/" class="title has-link-black-ter is-size-6 has-text-weight-normal">vue3.0-beta尝鲜</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-        <article class="media">
-            
-            <a href="/2020/04/05/致敬英雄，主流网站置灰的探索/" class="media-left">
-                <p class="image is-64x64">
-                    <img class="thumbnail" src="/images/thumbnail.svg" alt="致敬英雄，主流网站置灰的探索">
-                </p>
-            </a>
-            
-            <div class="media-content">
-                <div class="content">
-                    <div><time class="has-text-grey is-size-7 is-uppercase" datetime="2020-04-05T14:20:47.115Z">2020-04-05</time></div>
-                    <a href="/2020/04/05/致敬英雄，主流网站置灰的探索/" class="title has-link-black-ter is-size-6 has-text-weight-normal">致敬英雄，主流网站置灰的探索</a>
-                    <p class="is-size-7 is-uppercase">
-                        <a class="has-link-grey -link" href="/categories/前端/">前端</a>
-                    </p>
-                </div>
-            </div>
-        </article>
-        
-    </div>
-</div>
-
-    
-        <div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-        <h3 class="menu-label">
-            归档
-        </h3>
-        <ul class="menu-list">
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2020/05/">
-                <span class="level-start">
-                    <span class="level-item">五月 2020</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">4</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2020/04/">
-                <span class="level-start">
-                    <span class="level-item">四月 2020</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">1</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2020/03/">
-                <span class="level-start">
-                    <span class="level-item">三月 2020</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">1</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2020/02/">
-                <span class="level-start">
-                    <span class="level-item">二月 2020</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">2</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2020/01/">
-                <span class="level-start">
-                    <span class="level-item">一月 2020</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">3</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/12/">
-                <span class="level-start">
-                    <span class="level-item">十二月 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">2</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/11/">
-                <span class="level-start">
-                    <span class="level-item">十一月 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">2</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/10/">
-                <span class="level-start">
-                    <span class="level-item">十月 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">4</span>
-                </span>
-            </a>
-        </li>
-        
-        <li>
-            <a class="level is-marginless" href="/archives/2019/09/">
-                <span class="level-start">
-                    <span class="level-item">九月 2019</span>
-                </span>
-                <span class="level-end">
-                    <span class="level-item tag">1</span>
-                </span>
-            </a>
-        </li>
-        
-        </ul>
-        </div>
-    </div>
-</div>
-    
-        <div class="card widget">
-    <div class="card-content">
-        <div class="menu">
-            <h3 class="menu-label">
-                标签
-            </h3>
-            <div class="field is-grouped is-grouped-multiline">
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/CSS/">
-                        <span class="tag">CSS</span>
-                        <span class="tag is-grey">1</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/HTTP/">
-                        <span class="tag">HTTP</span>
-                        <span class="tag is-grey">1</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/JS/">
-                        <span class="tag">JS</span>
-                        <span class="tag is-grey">3</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/vue/">
-                        <span class="tag">vue</span>
-                        <span class="tag is-grey">4</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/务实/">
-                        <span class="tag">务实</span>
-                        <span class="tag is-grey">3</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/总结/">
-                        <span class="tag">总结</span>
-                        <span class="tag is-grey">5</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/感想/">
-                        <span class="tag">感想</span>
-                        <span class="tag is-grey">2</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/源码/">
-                        <span class="tag">源码</span>
-                        <span class="tag is-grey">3</span>
-                    </a>
-                </div>
-                
-                <div class="control">
-                    <a class="tags has-addons" href="/tags/缓存/">
-                        <span class="tag">缓存</span>
-                        <span class="tag is-grey">1</span>
-                    </a>
-                </div>
-                
-            </div>
-        </div>
-    </div>
-</div>
-    
-    
-</div>
 
 
 <!-- 粘贴的部分 -->
@@ -982,7 +738,7 @@
             <div class="level-start has-text-centered-mobile">
                 <a class="footer-logo is-block has-mb-6" href="/">
                 
-                    <img src="/images/logo-3.png" alt="关于我" height="28">
+                    <img src="/images/logo-3.png" alt="《程序员修炼之道》 -- 务实的方法（上）" height="28">
                 
                 </a>
                 <p class="is-size-7">
