@@ -1,0 +1,519 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="/blog/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>开发一个UI框架项目[2]-Button - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"ysom.gitee.io","root":"/blog/","version":"1.8.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>Code Life</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/blog/images/default_banner.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="开发一个UI框架项目[2]-Button">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-09-04 23:56" pubdate>
+        2020年9月4日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.1k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      14
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">开发一个UI框架项目[2]-Button</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2020年9月12日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h2 id="设计细节"><a href="#设计细节" class="headerlink" title="设计细节"></a>设计细节</h2><ol>
+<li>高度最好为<strong>8</strong>的倍数，此处设置为<strong>32px</strong>；如果要支持大小类型的按钮，可设置为<strong>24px</strong>(<strong>small</strong>)和<strong>40px</strong>(<strong>large</strong>)；</li>
+<li>按钮不设置固定宽度，左右<code>padding</code>设置为<strong>1em</strong>，表示左右各留一个字的空间；</li>
+<li>因为<code>button</code>设置为<code>inline-flex</code>布局，在多个按钮并列时会存在位置不对齐的问题，使用<code>vertical-align: middle</code>解决。</li>
+</ol>
+<a id="more"></a>
+
+<h2 id="功能细节"><a href="#功能细节" class="headerlink" title="功能细节"></a>功能细节</h2><ol>
+<li>支持icon的设置。比较常见的场景是icon在文案左边或者右边，这个可以通过传入一个<code>iconPosition</code>为<strong>left</strong>或<strong>right</strong>来决定，一开始的想法是通过<code>v-if</code>来决定显示哪一行：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;button&gt;<br>  &lt;yv-icon v-if&#x3D;&quot;iconPosition &#x3D;&#x3D;&#x3D; &#39;left&#39;&quot;&gt;&lt;&#x2F;yv-icon&gt;<br>  &lt;div class&#x3D;&quot;button-content&quot;&gt;&lt;&#x2F;div&gt;<br>  &lt;yv-icon v-if&#x3D;&quot;iconPosition &#x3D;&#x3D;&#x3D; &#39;right&#39;&quot;&gt;&lt;&#x2F;yv-icon&gt;<br>&lt;&#x2F;button&gt;<br></code></pre></td></tr></table></figure>
+
+<p>但是这种做法有点low，也多了一行没必要的重复代码，然后想到<code>flex</code>有一个<code>order</code>的属性，可以决定子元素布局的排列优先级，<code>template</code>修改成如下：</p>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;template&gt;<br>    &lt;button class&#x3D;&quot;yv-button&quot; :class&#x3D;&quot;&#123;[&#96;icon-$&#123;iconPosition&#125;&#96;]: true&#125;&quot;&gt;<br>      &lt;div class&#x3D;&quot;button-content&quot;&gt;<br>        &lt;slot&gt;&lt;&#x2F;slot&gt;<br>      &lt;&#x2F;div&gt;<br>      &lt;yv-icon class&#x3D;&quot;icon&quot;&gt;&lt;&#x2F;yv-icon&gt;<br>    &lt;&#x2F;button&gt;<br>&lt;&#x2F;template&gt;<br>&lt;style scoped lang&#x3D;&quot;scss&quot;&gt;<br>  .yv-button &#123;<br>    &gt; .button-content &#123;<br>      order: 2;<br>    &#125;<br>    &gt; .icon &#123;<br>      order: 1;<br>    &#125;<br>    &amp;.icon-right &#123;<br>      &gt; .button-content &#123;<br>        order: 1;<br>      &#125; <br>      &gt; .icon &#123;<br>        order: 2;<br>      &#125; <br>    &#125; <br>  &#125;<br>&lt;&#x2F;style&gt;<br></code></pre></td></tr></table></figure>
+
+<p>一开始设置icon的<code>order</code>为<strong>1</strong>表示默认icon是在左边，当用户传了<code>iconPosition</code>为<strong>right</strong>时，就会给<code>button</code>加上<br><code>icon-right</code>的<strong>class</strong>名，这时icon的<code>order</code>设置为<strong>2</strong>，<code>content</code>的<code>order</code>设置为<strong>1</strong>，这样在不修改代码的情况下，通过<code>order</code>的值就可以设置icon的显示位置。</p>
+<ol start="2">
+<li>支持loading的设置。因为loading也要有图标，所以需要处理loading时不出现其它图标的情况，增加一个判断条件：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;button&gt;<br>  &lt;div class&#x3D;&quot;button-content&quot;&gt;<br>    &lt;slot&gt;&lt;&#x2F;slot&gt;<br>  &lt;&#x2F;div&gt;<br>  &lt;yv-icon class&#x3D;&quot;icon&quot; v-if&#x3D;&quot;icon &amp;&amp; !loading&quot; :name&#x3D;&quot;name&quot;&gt;&lt;&#x2F;yv-icon&gt;<br>  &lt;yv-icon class&#x3D;&quot;loading icon&quot; v-if&#x3D;&quot;loading&quot; name&#x3D;&quot;loading&quot;&gt;&lt;&#x2F;yv-icon&gt;<br>&lt;&#x2F;button&gt;<br></code></pre></td></tr></table></figure>
+
+<ol start="3">
+<li>让loading的图标动起来。因为<strong>iconfont</strong>上面的图标都是静态的，而loading是要动起来的。仔细想了一下，loading就是360°不断地旋转，那我们只要写一个旋转的动画处理就可以，如下：</li>
+</ol>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-keyword">@keyframes</span> spin&#123;<br>  0% &#123;<span class="hljs-attribute">transform</span>: <span class="hljs-built_in">rotate</span>(<span class="hljs-number">0deg</span>)&#125;<br>  100% &#123;<span class="hljs-attribute">transform</span>: <span class="hljs-built_in">rotate</span>(<span class="hljs-number">360deg</span>)&#125;<br>&#125;<br><br><span class="hljs-selector-class">.loading</span> &#123;<br>  <span class="hljs-attribute">animation</span>: spin <span class="hljs-number">1s</span> infinite linear;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<ol start="4">
+<li>按钮组合。按钮组合应该让按钮衔接看起来顺滑一点，这里采取的默认方案是按钮紧挨，然后第一个按钮和最后一个按钮的边缘钝化，同时中间的按钮应向前靠<strong>1像素</strong>，因为<code>button</code>都有<code>border</code>，看起来会很粗。代码如下：</li>
+</ol>
+<figure class="highlight plain"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><code class="hljs vue">&lt;style scoped lang&#x3D;&quot;scss&quot;&gt;<br>$button-radius: 4px;<br>.yv-button-group &#123;<br>  display: inline-flex;<br>  vertical-align: middle;<br>  .yv-button &#123;<br>    border-radius: 0;<br>    &amp;:not(:first-child) &#123;<br>      margin-left: -1px;<br>    &#125;<br>    &amp;:first-child &#123;<br>      border-bottom-left-radius: $button-radius;<br>      border-top-left-radius: $button-radius;<br>    &#125;<br>    &amp;:last-child &#123;<br>      border-top-right-radius: $button-radius;<br>      border-bottom-right-radius: $button-radius;<br>    &#125;<br>  &#125;<br>&#125;<br>&lt;&#x2F;style&gt;<br></code></pre></td></tr></table></figure>
+
+<h2 id="人工测试"><a href="#人工测试" class="headerlink" title="人工测试"></a>人工测试</h2><p>手动测试。。。已完成。</p>
+<h2 id="自动化测试"><a href="#自动化测试" class="headerlink" title="自动化测试"></a>自动化测试</h2><p>在<strong>test</strong>文件夹下增加<code>button.test.js</code>文件。</p>
+<p>主要增加<strong>7</strong>个测试用例，分别是：<strong>测试button是否存在</strong>、<strong>设置icon</strong>、<strong>icon初始位置</strong>、<strong>设置icon位置</strong>、<strong>设置loading</strong>、<strong>设置disabled</strong>、<strong>click点击事件</strong>。</p>
+<p>运行<code>npm run dev-test</code>命令，是配置在package.json文件中的该命令：<code>parcel watch test/* --no-cache &amp; karma start</code>，就是监听、打包test文件夹下的*.test.js文件，然后运行karma开始自动化测试，测试结果可在浏览器控制台查看：</p>
+<p><img src="/images/browser.png" srcset="/blog/img/loading.gif" alt="浏览器控制台显示"></p>
+<p>或者powershell面板查看：</p>
+<p><img src="/images/powershell.png" srcset="/blog/img/loading.gif" alt="powershell显示"></p>
+<h2 id="vuepress配置"><a href="#vuepress配置" class="headerlink" title="vuepress配置"></a>vuepress配置</h2><p>在<strong>docs/.vuepress/components</strong>文件夹下增加<code>button-demo</code>的vue文件，内容就是我们要展示的<code>button</code>示例，然后在<strong>docs/components</strong>文件夹下增加<code>button</code>的md文件，内容就是放置整个<code>button</code>组件说明。</p>
+<p>具体内容请<a target="_blank" rel="noopener" href="https://ysom.github.io/yvue-ui/components/button.html">访问这里</a></p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/vue/">vue</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/2020/09/12/%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AAUI%E6%A1%86%E6%9E%B6%E9%A1%B9%E7%9B%AE%5B3%5D-Layout/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">开发一个UI框架项目[3]-Layout</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2020/08/31/%E5%BC%80%E5%8F%91%E4%B8%80%E4%B8%AAUI%E6%A1%86%E6%9E%B6%E9%A1%B9%E7%9B%AE%5B1%5D-%E5%89%8D%E7%BD%AE%E5%B7%A5%E4%BD%9C/">
+                        <span class="hidden-mobile">开发一个UI框架项目[1]-前置工作</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>

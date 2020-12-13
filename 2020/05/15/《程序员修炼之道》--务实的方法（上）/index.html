@@ -1,0 +1,516 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="/blog/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>《程序员修炼之道》 -- 务实的方法（上） - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"ysom.gitee.io","root":"/blog/","version":"1.8.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>Code Life</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/blog/images/default_banner.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="《程序员修炼之道》 -- 务实的方法（上）">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-05-15 23:34" pubdate>
+        2020年5月15日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.8k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      18
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">《程序员修炼之道》 -- 务实的方法（上）</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2020年5月20日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>周五啦，忙碌了一个星期，趁着周五晚上听听轻音乐，看会书，写写感想，放松一下~</p>
+<p>《程修道》在第一章由务实的哲学开头之后，在接下来的第二章就开始讲务实的方法，由思想理念到操作实践。</p>
+<p>务实的方法总共有<strong>8</strong>部分，<code>优秀设计的精髓</code>、<code>DRY-邪恶的重复</code>、<code>正交性</code>、<code>可逆性</code>、<code>曳光弹</code>、<code>原型与便签</code>、<code>领域语言</code>、<code>估算</code>。</p>
+<p>第二章的内容很丰富也更需要深入去阅读品味，今晚先记录一部分。</p>
+<a id="more"></a>
+
+<h3 id="优秀设计的精髓"><a href="#优秀设计的精髓" class="headerlink" title="优秀设计的精髓"></a>优秀设计的精髓</h3><p>这一部分，可以说是触及软件开发核心的至关重要主题，后面的7部分内容，都是由此来进行更为详细的展开。</p>
+<p><strong>优秀的设计比糟糕的设计更容易变更</strong>。我们在日常经常有谈到怎样设计好的软件，最后总的概括，能适应使用者的就是好的设计。对于我们的代码而言，就是要顺应变化，这个顺应变化怎么理解呢，书中提到了一个重要的原则–<strong>ETC（Easier To Change）原则</strong>，更容易变更。很多设计原则，基本都是ETC原则的特例。</p>
+<p>为什么代码要解耦，因为通过隔离关注焦点，可以让每一部分都容易变更。</p>
+<p>为什么单一职责原则很有用？因为一个需求变化仅体现为某个单一模块上的一个对应变化。</p>
+<p>为什么良好的命名规则很重要？因为好的命名可以使打代码更容易阅读，而我们必须通过阅读才能做到变更。</p>
+<p><strong>ETC应当是一种价值观念，而不是一条规则</strong>。价值观念跟规则的区别在于，规则是用来规范大家的行为，是要遵守的，有一种被动、甚至是束缚的感知。而价值观念是一种思维向导，它会帮助我们去思考，去做决定：哪些是该做的，哪些是不该做的，我们应该把ETC当成跟其它的价值观念一样，像“八荣八耻”，让它漂浮在我们的思维当中，当我们开始思考做决定时，它能微妙地将我们推向正确的方向。</p>
+<p><strong>怎样做到将ETC作为价值观念？</strong>书中作者给出来他们这些年总结的一些经验：一开始需要一点有意识的强化。我们可能花几个星期的时间来有意识地问自己：“刚刚做的代码设计是让整个系统更容易变更还是更难改变？”当我们提交代码的时候问一遍，写测试的时候问一遍，当我们修复BUG的时候再问一遍，甚至要反思这个BUG的出现是不是可以通过更好的设计来规避。</p>
+<p><strong>更进一步</strong>。除了上述作者给出的经验建议，我们还可以做得更好。第一点是让我们的代码坚持保持<strong>解耦</strong>和<strong>内聚</strong>、让我们的代码容易替换，即我们常说的<strong>可配置化</strong>。可配置化的好处就是不管以后有什么需求改变，我们都可以较为容易地去变更，而无需花费精力去重写。第二点是培养直觉，要经常记录我们遇到的问题、可以做的选择、可以怎样改变的猜测，以便我们可以进行快速的回顾和反思，下次遇到同样的问题，可以在脑海里快速提炼出方案。</p>
+<p>&lt;— 2020.05.16 添加 —&gt;</p>
+<h3 id="正交性"><a href="#正交性" class="headerlink" title="正交性"></a>正交性</h3><p>“<strong>正交性</strong>”是从几何中借用来的术语。若两条直线相交成直角，它们就是正交的。用向量术语来说，这两条直线互不依赖。</p>
+<p>在计算科学中，正交就代表<strong>独立性</strong>或者<strong>解耦性</strong>。</p>
+<p><strong>消除不相关事物之间的影响</strong>。组件化这个概念在如今已经是一个普遍的概念，很多大厂也都有开源的组件库。我们在写组件的时候，都是希望我们的组件是独立自主，有单一、清晰的定义，能够简单、重复地使用。当我们变更某一个组件的时候，不会对其它组件有很大影响甚至是没有影响。从这角度来看，正交性的系统主要有两个方面的好处：<strong>提高生产力</strong>以及<strong>降低风险</strong>。</p>
+<p><strong>提高生产力</strong></p>
+<ul>
+<li>正交的方法促进了复用。前端组件化最基本的定义，就是组件都是职责明确、定位清晰的，像表格组件、时间组件等等，根据不同的职责，能够跟不同的组件进行搭配复用。越是低耦合，我们需要重新配置和变更的地方就越少，也就越容易进行。</li>
+<li>节省开发、测试时间。</li>
+</ul>
+<p><strong>减少风险</strong></p>
+<ul>
+<li>代码中的“生病”的部分被分隔开。如果一个组件出问题了，我们只需改动组件某部分，减少大幅改动的风险。</li>
+<li>系统更加稳健。这样的系统，就像天气预报一样，局部有阵雨，局部多云一样，哪一块“天气不好”，我们只需对特定的部分修复，不会对系统造成影响。</li>
+<li>更有意思的一点，就是不会受特定供应商的束缚。我们的系统可能会对外对接一些特定的服务，那这些服务我们更应该遵从正交性，最好将对接的这部分独立，以后供应商改了啥东西，我们也照样只是更改独立的这部分就OK了。</li>
+</ul>
+<h3 id="可逆性"><a href="#可逆性" class="headerlink" title="可逆性"></a>可逆性</h3><blockquote>
+<p>如果某个想法是你唯一的想法，那就没有比它更危险的东西了。 ——埃米尔-奥古斯特-沙尔捷</p>
+</blockquote>
+<p><strong>可逆性</strong>跟上面的正交性有点相似，正交性强调独立和解耦，可逆性是<strong>可逆</strong>，<strong>容易改变</strong>，两者之间存在一定的联系。</p>
+<p>我们在生活中都喜欢简单、唯一的解决方案，甚至有时还会严重依赖某些事实，但这在某种程度上是很危险的。</p>
+<p>变化不需要多么剧烈，甚至不必立刻发生，随着时间推移还有项目的演进，我们可能会发现很难前行，甚至陷入无法立足的困境，每当做出一个关键决定，我们就会投身于更具体的目标，由于选择变少，视野会越来越窄。但是问题在于，关键的决定一般不容易逆转。</p>
+<p>所以为了做到可逆性，我们要坚持做面向有弹性、适应性强的编程，像解耦，做外部配置，组件化，模块化等等，错误在于认为任何决定都是板上钉钉，而没有为可能出现的意外或者变更做好准备。</p>
+<p>现实中我们也不可能为今后会出现的各类架构提前做好准备，我们能做的，就是在变化来临时修改能更容易一点，而不是每次面临巨大的变化，脑海里只有一个念头：“重构”。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/categories/%E4%BB%A3%E7%A0%81%E4%BA%BA%E7%94%9F/">代码人生</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/%E5%8A%A1%E5%AE%9E/">务实</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/2020/06/04/%E3%80%8A%E7%A8%8B%E5%BA%8F%E5%91%98%E4%BF%AE%E7%82%BC%E4%B9%8B%E9%81%93%E3%80%8B--%E5%8A%A1%E5%AE%9E%E7%9A%84%E6%96%B9%E6%B3%95%EF%BC%88%E4%B8%8B%EF%BC%89/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">《程序员修炼之道》 -- 务实的方法（下）</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2020/05/09/%E3%80%8A%E7%A8%8B%E5%BA%8F%E5%91%98%E4%BF%AE%E7%82%BC%E4%B9%8B%E9%81%93%E3%80%8B--%E5%8A%A1%E5%AE%9E%E7%9A%84%E5%93%B2%E5%AD%A6/">
+                        <span class="hidden-mobile">《程序员修炼之道》 -- 务实的哲学</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>

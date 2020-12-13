@@ -1,0 +1,525 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="/blog/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>浅析HTTP缓存 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"ysom.gitee.io","root":"/blog/","version":"1.8.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>Code Life</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/blog/images/default_banner.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="浅析HTTP缓存">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-02-13 00:10" pubdate>
+        2020年2月13日 凌晨
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      15
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">浅析HTTP缓存</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2020年2月26日 早上
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><blockquote>
+<p>浏览器缓存机制有<strong>四个方面</strong>，按照资源获取优先级排列，分别是<code>Memory Cache</code>、<code>Service Worker Cache</code>、<code>HTTP Cache</code>、<code>Push Cache</code>。我们经常使用，也比较熟悉的是HTTP Cache。这里单独分析HTTP Cache。</p>
+</blockquote>
+<a id="more"></a>
+
+<h3 id="HTTP-Cache"><a href="#HTTP-Cache" class="headerlink" title="HTTP Cache"></a>HTTP Cache</h3><p>HTTP Cache又分为<strong>强缓存</strong>和<strong>协商缓存</strong>，强缓存优先级比较高，未命中强缓存时才走协商缓存。</p>
+<h4 id="强缓存"><a href="#强缓存" class="headerlink" title="强缓存"></a>强缓存</h4><p>强缓存是通过http头的<code>expires</code>和<code>cache-control</code>来实现控制。当再发出请求时，浏览器会根据<code>expires</code>和<code>cache-control</code>来判断是否命中强缓存，若命中直接从缓存中获取资源，而不再与服务端进行通信。</p>
+<p>在http1.0版本中，服务器响应时会返回一个缓存过期时间戳字段<code>expires</code>，再次发起请求时浏览器通过本地时间与<code>expires</code>时间戳对比，来判断缓存是否过期，这种依赖本地时间的方式会存在一个弊端，如果修改了本地时间，或者本地时间与服务端时间不同步，这将达不到我们预期的缓存效果。</p>
+<p>因此，在http1.1版本中，引入了<code>expires</code>的替代方案：<code>Cache-Control</code>。<code>Cache-Control</code>能做<code>expires</code>做的事，也能做<code>expires</code>做不到的事情，目前<code>expires</code>还存在是为了做向下兼容。</p>
+<p><code>Cache-Control</code>的格式为：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs js">Cache-Control: max-age=<span class="hljs-number">3600</span><br></code></pre></td></tr></table></figure>
+
+<p>在<code>Cache-Control</code>中，<code>max-age</code>字段表示资源最大缓存时间（秒），上面例子表示在3600秒内该资源都是有效的。<code>Cache-Control</code>表示的时间比<code>expires</code>时间戳更为准确，同时<code>Cache-Control</code>优先级更高，两者存在时以<code>Cache-Control</code>为准。</p>
+<p><code>Cache-Control</code>还有其它的缓存方式：<code>no-cache</code>和<code>no-store</code>。</p>
+<p>如果给资源设置了<code>no-cache</code>，则会绕开浏览器，直接询问服务器该资源是否过期，即走<strong>协商缓存</strong>。<code>no-store</code>顾名思义，就比较绝情了，不设置任何缓存，每次发起请求不经过浏览器与服务端缓存，直接想服务器发送请求，并下载完整的响应。</p>
+<h4 id="协商缓存"><a href="#协商缓存" class="headerlink" title="协商缓存"></a>协商缓存</h4><p>协商缓存，顾名思义就是浏览器与服务器合作的缓存策略，它依赖于浏览器与服务器之间的通信，浏览器需要向服务器询问缓存的相关信息，进而判断是读取本地缓存的资源还是重新发起请求，下载完整的响应。</p>
+<h5 id="协商缓存的实现"><a href="#协商缓存的实现" class="headerlink" title="协商缓存的实现"></a>协商缓存的实现</h5><p><strong>Last-Modified</strong></p>
+<p><code>Last-Modified</code>是一个时间戳，在启用协商缓存之后，会在首次请求的时候，随着Response Headers返回</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">Last-Modified: Wed, <span class="hljs-number">12</span> Feb <span class="hljs-number">2020</span> <span class="hljs-number">09</span>:<span class="hljs-number">21</span>:<span class="hljs-number">28</span> GMT<br></code></pre></td></tr></table></figure>
+
+<p>随后每次请求会带上<code>If-Modified-Since</code>时间戳字段，值为上一次Response返回的<code>Last-Modified</code>值</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">If-Modified-Since: Wed, <span class="hljs-number">12</span> Feb <span class="hljs-number">2020</span> <span class="hljs-number">09</span>:<span class="hljs-number">21</span>:<span class="hljs-number">28</span> GMT<br></code></pre></td></tr></table></figure>
+
+<p>服务器收到这个时间戳之后，会根据该时间戳与服务器的资源的最后修改时间对比，如果时间改变，则返回一个新的完整的响应，并在Response Headers返回新的<code>Last-Modified</code>值；如果时间没有变化，则返回一个304状态码，提示资源并未改动，然后重定向到浏览器缓存，Response Headers也不会再返回<code>Last-Modified</code>字段，如下图：</p>
+<p><img src="/images/304.png" srcset="/blog/img/loading.gif" alt="304"></p>
+<p>但是使用<code>Last-Modified</code>也会存在弊端：</p>
+<ul>
+<li>资源文件改动了，但是并没有改变内容，文件的最后修改时间会变化，导致该资源会被重新请求</li>
+<li><code>If-Modified-Since</code>是以秒为单位做检验，如果改动文件的时间小于1000ms，那么该资源有可能被认为是未改变的，导致无法重新请求</li>
+</ul>
+<p>这两种情况反映了一个问题，无法准确感知文件是否发生改变。</p>
+<p>为了解决该问题，<code>Etag</code>出现了。</p>
+<p><code>Etag</code>是服务器为每个资源生成的唯一的<strong>标识字符串</strong>，这个标识字符串是基于文件内容编码的，文件内容不同，对应的 <code>Etag</code> 就是不同的，因此<code>Etag</code> 能够精准地感知文件的变化。</p>
+<p><code>Etag</code> 和 <code>Last-Modified</code> 类似，当首次请求时，我们会在响应头里获取到一个最初的标识符字符串，它可以是这个样子</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">ETag: W/<span class="hljs-string">&quot;1q2w-108946715&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>在下一次请求时，会带上与之相同值的字段<code>if-None-Match</code>，提供给服务器对比</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs javascript">If-None-Match: W/<span class="hljs-string">&quot;1q2w-108946715&quot;</span><br></code></pre></td></tr></table></figure>
+
+<p>很明显，<code>Etag</code>有利也有弊，它的生成需要服务器付出额外的开销，会影响服务器的性能，<code>Etag</code>并不能直接代替<code>Last-Modified</code>，而是作为补充，它的优先级比<code>Last-Modified</code>高，两者共存时，以<code>Etag</code>为准。</p>
+<h3 id="HTTP缓存策略"><a href="#HTTP缓存策略" class="headerlink" title="HTTP缓存策略"></a>HTTP缓存策略</h3><p>对于上面讲的知识点，要如何对应到实际的开发中呢，这边拿了谷歌官方的一张图：</p>
+<p><img src="/images/%E7%BC%93%E5%AD%98%E7%AD%96%E7%95%A5.png" srcset="/blog/img/loading.gif" alt="缓存策略"></p>
+<p>这张图片清楚地给我们展示了缓存策略流程。</p>
+<p>首先看看资源的可复用性，如果是不可复用的话，很干脆，直接把<code>Cache-control</code>设置为<code>no-store</code>，不需要任何形式的缓存。</p>
+<p>如果是可复用的资源，那么看看是否需要每次都向服务器去验证缓存是否有效，如果需要，则设置<code>Cache-control</code>为<code>no-store</code>，不需要的，则进行下一步，考虑资源是否可被代理服务器缓存，根据情况设置<code>private</code>或<code>public</code>；接着考虑资源的过期时间，设置资源的<code>max-age</code>；最后一步配置协商缓存，设置<code>Last-Modified</code>和<code>Etag</code>。</p>
+<h3 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h3><p>HTTP缓存的知识点比较琐碎，很多人过段时间很容易忘记。只有多分析多总结，才能够把握这些知识。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/categories/%E7%BD%91%E7%BB%9C/">网络</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/HTTP/">HTTP</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/blog/2020/02/18/%E6%B5%85%E6%9E%90%E6%B5%8F%E8%A7%88%E5%99%A8%E5%8F%A6%E5%A4%96%E4%B8%89%E5%A4%A7%E7%BC%93%E5%AD%98/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">浅析浏览器另外三大缓存</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2020/01/20/Module/">
+                        <span class="hidden-mobile">ES6 -- Module</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>

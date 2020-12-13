@@ -1,0 +1,524 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/blog/img/favicon.png">
+  <link rel="icon" type="image/png" href="/blog/img/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="John Doe">
+  <meta name="keywords" content="">
+  <title>React踩坑--配置篇 - Hexo</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/blog/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/blog/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"ysom.gitee.io","root":"/blog/","version":"1.8.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/blog/js/utils.js" ></script>
+  <script  src="/blog/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/blog/">&nbsp;<strong>Code Life</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/blog/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/blog/images/default_banner.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="React踩坑--配置篇">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-12-02 22:15" pubdate>
+        2020年12月2日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.4k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      16
+       分钟
+    </span>
+  
+
+  
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">React踩坑--配置篇</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2020年12月9日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p>最近在使用React的脚手架<code>create-react-app</code>搭建项目的时候踩了一些坑，主要都是配置方面的坑，大体上是因为React官方是把webpack等配置都封装好并隐藏起来，所以如果需要自定义配置需要自行处理，当然脚手架也提供了<code>eject</code>命令来释放配置，但是这是一个<strong>单向不可逆操作</strong>，释放了就回不来了，所以最好不要随便就释放配置。</p>
+<a id="more"></a>
+
+<p>但是我在踩坑的过程中搜索资料发现，很多人分享的经验，都是基于释放配置的情况。这种操作我个人不是很喜欢，脚手架将配置封装好隐藏起来肯定有它的道理，至少优化方面肯定是做足的，如果如果能通过其它方法来解决，自然是能不释放配置为好，这也是我做本篇记录的一个原因，以下是我自定义配置踩的一些坑，在不释放配置的前提下进行。</p>
+<p>以<code>create-react-app@4.0.1</code> 及创建出来的项目<code> react@17.0.1</code>为例说明。</p>
+<h3 id="目前踩坑清单"><a href="#目前踩坑清单" class="headerlink" title="目前踩坑清单"></a>目前踩坑清单</h3><ol>
+<li><strong>路径别名配置</strong>；</li>
+<li><strong>多个开发环境配置</strong>；</li>
+<li><strong>多个代理环境配置</strong>；</li>
+<li><strong>node-sass与node版本不匹配问题</strong>；</li>
+</ol>
+<h3 id="路径别名配置"><a href="#路径别名配置" class="headerlink" title="路径别名配置"></a>路径别名配置</h3><p>用脚手架创建的项目配置里面没有默认设置别名，那只通过相对路径去引入文件的话路径就会很长也不方便，那肯定要设置一个别名来缩短路径，让引入变得更方便和优雅。这里借助<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/react-app-rewired">react-app-rewired</a>和<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/customize-cra">customize-cra</a>两个插件。</p>
+<p><strong>react-app-rewired</strong>：此工具可以在不 <code>eject</code> 也不创建额外 <code>react-scripts</code> 的情况下修改脚手架内置的 <strong>webpack</strong> 配置，你将拥有 create-react-app 的一切特性，且可以根据你的需要去配置 <strong>webpack</strong> 的 <strong>plugins</strong>, <strong>loaders</strong> 等。</p>
+<p><strong>customize-cra</strong>：利用<strong>react-app-rewired</strong>的核心功能来自定义<strong>create-react-app</strong>版本2和3的配置。</p>
+<p>根目录创建<code>config-overrides.js</code>文件：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> &#123; override, addWebpackAlias &#125; = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;customize-cra&#x27;</span>)<br><span class="hljs-keyword">const</span> path = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;path&#x27;</span>)<br><br><span class="hljs-built_in">module</span>.exports = override(<br>  addWebpackAlias(&#123;<br>    [<span class="hljs-string">&#x27;@&#x27;</span>]: path.resolve(__dirname, <span class="hljs-string">&#x27;src&#x27;</span>)<br>  &#125;)<br>)<br></code></pre></td></tr></table></figure>
+
+<p>然后修改<code>package.json</code>中运行命令：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs js">&#123;<br>  <span class="hljs-comment">// ...</span><br>  <span class="hljs-string">&quot;scripts&quot;</span>: &#123;<br>    <span class="hljs-string">&quot;start&quot;</span>: <span class="hljs-string">&quot;react-app-rewired start&quot;</span>,<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>如果有引入ts的，还需在<code>tsconfig.json</code>中增加<code>paths</code>字段。但是在修改<code>tsconfig.json</code>配置之后，重新启动项目某些配置字段会被覆盖，就如<code>paths</code>。</p>
+<p>解决方案：在根目录创建一个<code>paths.json</code>文件，写上<code>paths</code>的配置，然后通过<code>extends</code>扩展字段将该文件引入<code>tsconfig.json</code>。</p>
+<p><code>paths.json</code>文件如下：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>  <span class="hljs-attr">&quot;compilerOptions&quot;</span>: &#123;<br>    <span class="hljs-attr">&quot;baseUrl&quot;</span>: <span class="hljs-string">&quot;.&quot;</span>,<br>    <span class="hljs-attr">&quot;paths&quot;</span>: &#123;<br>      <span class="hljs-attr">&quot;@/*&quot;</span>: [<span class="hljs-string">&quot;src/*&quot;</span>]<br>    &#125;<br>  &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p><code>tsconfig.json</code>文件：</p>
+<figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>  <span class="hljs-comment">// ...</span><br>  <span class="hljs-attr">&quot;extends&quot;</span>: <span class="hljs-string">&quot;./paths.json&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>这样就可以解决别名配置问题了。啪的一声，很快啊，项目就跑起来了。</p>
+<h3 id="多个开发环境配置"><a href="#多个开发环境配置" class="headerlink" title="多个开发环境配置"></a>多个开发环境配置</h3><p>React脚手架提供开发环境配置仅限于test、local、和production，对于我们自身开发有其它<strong>自定义环境</strong>的就显得不够了，那怎么去自定义开发环境呢，这里借助第三方插件<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/cross-env">cross-env</a>来实现。</p>
+<p>第一步，通过<strong>yarn</strong>或<strong>npm</strong>安装：</p>
+<figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs powershell">yarn add cross<span class="hljs-literal">-env</span> <span class="hljs-literal">-D</span><br>// or<br>npm i cross<span class="hljs-literal">-env</span> <span class="hljs-literal">-D</span><br></code></pre></td></tr></table></figure>
+
+<p>第二步，修改<code>package.json</code>文件里<code>scripts</code>的执行命令：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs json">&quot;scripts&quot;: &#123;<br>    &quot;start:test&quot;: &quot;cross-env REACT_APP_ENV=test react-app-rewired start&quot;,<br>    &quot;build:test&quot;: &quot;cross-env REACT_APP_ENV=test react-app-rewired build&quot;<br>&#125;,<br></code></pre></td></tr></table></figure>
+
+<p>通过这样的配置，就可以使用<strong>process.env.REACT_APP_ENV</strong>来获取到当前环境。其它自定义环境也是如此。</p>
+<h3 id="多个代理环境配置"><a href="#多个代理环境配置" class="headerlink" title="多个代理环境配置"></a>多个代理环境配置</h3><p>如果是开发环境不需要像上面的自定义，只有一个的话，那可以直接在<code>package.json</code>文件加上代理配置<code>proxy</code>字段：</p>
+<figure class="highlight"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs json">&quot;proxy&quot;: &quot;http://xxx&quot;<br></code></pre></td></tr></table></figure>
+
+<p>但是如果有多个环境，这种配置就不合适了，所以多环境的时候还是需要借助第三方插件，这里选用<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/http-proxy-middleware">http-proxy-middleware</a>，这里比较方便的脚手架安装的时候这个插件已经有了，可以直接拿来用：</p>
+<p>第一步，在<code>src</code>文件夹下新建名为<strong>setupProxy.js</strong>的文件，名字必须是这个；</p>
+<p>第二步，在文件里面加入以下内容：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> proxy = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;http-proxy-middleware&#x27;</span>)<br><span class="hljs-comment">// 这一步是根据上面的配置 获取当前开发对应的环境</span><br><span class="hljs-keyword">const</span> runEnv = process.env.REACT_APP_ENV<br><span class="hljs-comment">// 接下来根据环境自定义需要代理的api和代理目标 并暴露出去 简单参考配置如下</span><br><span class="hljs-built_in">module</span>.exports = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params">app</span>) </span>&#123;<br>  app.use(<span class="hljs-string">&#x27;/api&#x27;</span>, &#123;<br>    target: <span class="hljs-string">&#x27;http://xxx&#x27;</span>,<br>    changeOrigin: <span class="hljs-literal">true</span><br>  &#125;)<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>根据自身业务补充上自定义的逻辑就可以实现多环境代理了。</p>
+<h3 id="node-sass与node版本不匹配"><a href="#node-sass与node版本不匹配" class="headerlink" title="node-sass与node版本不匹配"></a>node-sass与node版本不匹配</h3><p>严格来说，这个坑不属于react配置上的坑，但是因为在项目基础建设的过程中遇到，因此记录进来。</p>
+<p>脚手架已经内置了<code>sass-loader</code>，所以想要在项目里面使用<strong>sass预处理语言</strong>，只需安装<code>node-sass</code>就可以，无需再安装<code>sass-loader</code>。</p>
+<p>安装完<code>node-sass</code>之后项目跑不起来了，根据提示是<code>node-sass</code>版本问题，然后看了一下它的更新文档，有这么一个图：</p>
+<p><img src="/images/node-sass.png" srcset="/blog/img/loading.gif"></p>
+<p>从这个图可以知道，<code>node-sass</code>对<strong>NodeJS</strong>的版本是有要求的，我的版本是<code>14</code>，但安装的<code>node-sass</code>是<code>5.0</code>的，所以才会出现不支持的情况，这里更新一下<strong>node</strong>的版本或者安装<code>4.14+</code>的<code>node-sass</code>都可以解决问题。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/blog/tags/React/">React</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/blog/2020/11/20/%E6%B5%8F%E8%A7%88%E5%99%A8%E5%B7%A5%E4%BD%9C%E5%8E%9F%E7%90%86-%E6%B8%B2%E6%9F%93%E6%B5%81%E7%A8%8B/">
+                        <span class="hidden-mobile">浏览器工作原理-渲染流程</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/blog/js/debouncer.js" ></script>
+<script  src="/blog/js/events.js" ></script>
+<script  src="/blog/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/blog/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/blog/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/blog/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/blog/js/boot.js" ></script>
+
+
+
+</body>
+</html>
