@@ -243,6 +243,7 @@
 <li><strong>多个开发环境配置</strong>；</li>
 <li><strong>多个代理环境配置</strong>；</li>
 <li><strong>node-sass与node版本不匹配问题</strong>；</li>
+<li><strong>动态引进图片</strong></li>
 </ol>
 <h3 id="路径别名配置"><a href="#路径别名配置" class="headerlink" title="路径别名配置"></a>路径别名配置</h3><p>用脚手架创建的项目配置里面没有默认设置别名，那只通过相对路径去引入文件的话路径就会很长也不方便，那肯定要设置一个别名来缩短路径，让引入变得更方便和优雅。这里借助<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/react-app-rewired">react-app-rewired</a>和<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/customize-cra">customize-cra</a>两个插件。</p>
 <p><strong>react-app-rewired</strong>：此工具可以在不 <code>eject</code> 也不创建额外 <code>react-scripts</code> 的情况下修改脚手架内置的 <strong>webpack</strong> 配置，你将拥有 create-react-app 的一切特性，且可以根据你的需要去配置 <strong>webpack</strong> 的 <strong>plugins</strong>, <strong>loaders</strong> 等。</p>
@@ -262,7 +263,7 @@
 <figure class="highlight json"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs json">&#123;<br>  <span class="hljs-comment">// ...</span><br>  <span class="hljs-attr">&quot;extends&quot;</span>: <span class="hljs-string">&quot;./paths.json&quot;</span><br>&#125;<br></code></pre></td></tr></table></figure>
 
 <p>这样就可以解决别名配置问题了。啪的一声，很快啊，项目就跑起来了。</p>
-<h3 id="多个开发环境配置"><a href="#多个开发环境配置" class="headerlink" title="多个开发环境配置"></a>多个开发环境配置</h3><p>React脚手架提供开发环境配置仅限于test、local、和production，对于我们自身开发有其它<strong>自定义环境</strong>的就显得不够了，那怎么去自定义开发环境呢，这里借助第三方插件<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/cross-env">cross-env</a>来实现。</p>
+<h3 id="多个开发环境配置"><a href="#多个开发环境配置" class="headerlink" title="多个开发环境配置"></a>多个开发环境配置</h3><p>React脚手架提供开发环境配置仅限于<code>test</code>、<code>local</code>、<code>development</code>和<code>production</code>，对于我们自身开发有其它<strong>自定义环境</strong>的就显得不够了。那怎么去自定义开发环境呢，这里借助第三方插件<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/cross-env">cross-env</a>来实现。</p>
 <p>第一步，通过<strong>yarn</strong>或<strong>npm</strong>安装：</p>
 <figure class="highlight powershell"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs powershell">yarn add cross<span class="hljs-literal">-env</span> <span class="hljs-literal">-D</span><br>// or<br>npm i cross<span class="hljs-literal">-env</span> <span class="hljs-literal">-D</span><br></code></pre></td></tr></table></figure>
 
@@ -284,7 +285,7 @@
 <p>安装完<code>node-sass</code>之后项目跑不起来了，根据提示是<code>node-sass</code>版本问题，然后看了一下它的更新文档，有这么一个图：</p>
 <p><img src="/images/node-sass.png" srcset="/img/loading.gif"></p>
 <p>从这个图可以知道，<code>node-sass</code>对<strong>NodeJS</strong>的版本是有要求的，我的版本是<code>14</code>，但安装的<code>node-sass</code>是<code>5.0</code>的，所以才会出现不支持的情况，这里更新一下<strong>node</strong>的版本或者安装<code>4.14+</code>的<code>node-sass</code>都可以解决问题。</p>
-
+<h3 id="动态引进图片"><a href="#动态引进图片" class="headerlink" title="动态引进图片"></a>动态引进图片</h3>
             </div>
             <hr>
             <div>
