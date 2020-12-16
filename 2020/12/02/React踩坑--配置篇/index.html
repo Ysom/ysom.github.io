@@ -184,7 +184,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.4k 字
+      1.6k 字
     </span>
   
 
@@ -194,7 +194,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      16
+      19
        分钟
     </span>
   
@@ -228,7 +228,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2020年12月9日 晚上
+                  本文最后更新于：2020年12月2日 晚上
                 
               </p>
             
@@ -285,7 +285,16 @@
 <p>安装完<code>node-sass</code>之后项目跑不起来了，根据提示是<code>node-sass</code>版本问题，然后看了一下它的更新文档，有这么一个图：</p>
 <p><img src="/images/node-sass.png" srcset="/img/loading.gif"></p>
 <p>从这个图可以知道，<code>node-sass</code>对<strong>NodeJS</strong>的版本是有要求的，我的版本是<code>14</code>，但安装的<code>node-sass</code>是<code>5.0</code>的，所以才会出现不支持的情况，这里更新一下<strong>node</strong>的版本或者安装<code>4.14+</code>的<code>node-sass</code>都可以解决问题。</p>
-<h3 id="动态引进图片"><a href="#动态引进图片" class="headerlink" title="动态引进图片"></a>动态引进图片</h3>
+<h3 id="动态引进图片"><a href="#动态引进图片" class="headerlink" title="动态引进图片"></a>动态引进图片</h3><p>本来打算使用<code>require(path)</code>来动态引入图片，通过传参来设置不同的背景图片，但是报错了，错误截图如下：</p>
+<p><img src="/images/require_err.png" srcset="/img/loading.gif"></p>
+<p>原因是<code>webpack</code>本身是一个<strong>预编译</strong>的打包工具，无法预测未知变量路径，<code>require</code>不能传<strong>纯变量</strong>路径，且path需要由三部分组成：<strong>目录+文件名+后缀</strong>，其实上图所示就是一个合格的路径。</p>
+<p>解决方案1：<code>require</code>不使用纯变量，那就采用<strong>字符串+变量</strong>，如<code>require(&#39;@/assets/images&#39;+url)</code>，再写成一个工具函数：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">const</span> getImg = <span class="hljs-function">(<span class="hljs-params">url: string</span>) =&gt;</span> &#123;<br>  <span class="hljs-keyword">const</span> imgObj = <span class="hljs-built_in">require</span>(<span class="hljs-string">&#x27;@/assets/images&#x27;</span>+url)<br>  <span class="hljs-keyword">return</span> imgObj &amp;&amp; imgObj.default<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>然后放到样式中，就可以实现动态渲染背景图片：</p>
+<figure class="highlight jsx"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs jsx">style=&#123;&#123;<br>  backgroundImage: <span class="hljs-string">`url(<span class="hljs-subst">$&#123;getImg(props.bgUrl)&#125;</span>)`</span>,<br>&#125;&#125;<br></code></pre></td></tr></table></figure>
+
+
             </div>
             <hr>
             <div>
