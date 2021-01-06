@@ -167,7 +167,7 @@
 </nav>
 
     <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
+         style="background: url('/images/board_bg.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -196,26 +196,24 @@
               <div class="col-12 col-md-10 m-auto">
                 
 
-<div class="markdown-body">
-    <h2>相逢便是缘</h2>
-欢迎来到我的博客，茫茫博海，相逢便是缘，有任何问题欢迎留言，看到会及时回复~
+<div class="markdown-body" style="margin: 10px 0 50px;">
+    <h2 style="margin-bottom: 15px;">相逢便是缘</h2>
+	<p style="color: #e03445;">欢迎来到我的博客，有任何想聊的欢迎在下方留言交流，看到会及时回复~</p>
 </div>
 
 <!-- comments -->
 
 <div id="vcomments"></div>
+<script defer src='//unpkg.com/valine/dist/Valine.min.js'></script>
 
 <script type="text/javascript">
-var oldLoadVa = window.onload
 window.onload = function () {
-	oldLoadVa && oldLoadVa()
-	
 	new Valine({
 	  el: "#vcomments",
 	  app_id: "WTBwEqCUoYaEA0eEc4DT63w5-gzGzoHsz",
 	  app_key: "O1VfI3HQAqTHidJYA8N7QgFq",
-	  placeholder: "请留下你的文字",
-	  path: window.location.pathname,
+	  placeholder: "建议留下邮箱，回复可收到邮件提醒（邮箱不会被公开）",
+      path: window.location.pathname,
 	  avatar: "retro",
 	  meta: ["nick","mail","link"],
 	  pageSize: "10",
