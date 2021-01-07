@@ -167,7 +167,7 @@
 </nav>
 
     <div class="banner intro-2" id="background" parallax=true
-         style="background: url('/img/default.png') no-repeat center center;
+         style="background: url('/images/board_bg.jpg') no-repeat center center;
            background-size: cover;">
       <div class="full-bg-img">
         <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
@@ -196,10 +196,37 @@
               <div class="col-12 col-md-10 m-auto">
                 
 
-<div class="page-content">
-  
+<div class="markdown-body" style="margin-bottom: 45px;">
+	<h2>相逢便是缘</h2>
+	<p style="color: #e0454c;">欢迎来到我的博客，有任何想聊的都可以在下面留言区留言，看到会尽快回复~</p>
 </div>
 
+<!-- Comments -->
+
+<div id="vcomments"></div>
+
+<script defer src='//unpkg.com/valine/dist/Valine.min.js'></script>
+
+<script type="text/javascript">
+var oldLoadVa = window.onload
+window.onload = function() {
+	oldLoadVa && oldLoadVa()
+	new Valine({
+	  el: "#vcomments",
+	  app_id: "WTBwEqCUoYaEA0eEc4DT63w5-gzGzoHsz",
+	  app_key: "O1VfI3HQAqTHidJYA8N7QgFq",
+	  placeholder: "欢迎留言，建议留下邮箱得到更快的回复（邮箱不会公开）",
+	  path: window.location.pathname,
+	  avatar: "retro",
+	  meta: ["nick","mail","link"],
+	  pageSize: "10",
+	  lang: "zh-CN",
+	  highlight: false,
+	  recordIP: false,
+	  serverURLs: "",
+	});
+}
+</script>
               </div>
             </div>
           </div>
