@@ -1,0 +1,680 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/favicon.png">
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Yuger Ysom">
+  <meta name="keywords" content="code,blog">
+  <title>ES6 -- Proxy - CodeLife - Ysom</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"ysom.gitee.io","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Code Life</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/board/">
+                <i class="iconfont icon-comment"></i>
+                留言板
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/images/default_banner.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="ES6 -- Proxy">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-01-01 20:51" pubdate>
+        2020年1月1日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      1.9k 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      22
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">ES6 -- Proxy</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2020年1月21日 上午
+                
+              </p>
+            
+            <div class="markdown-body">
+              <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本文总结了<code>Proxy</code>代理的陷阱函数和对应的<code>Reflect</code>接口默认行为函数的用法。因为目前用的最多的技术栈是<code>Vue</code>，而<code>Vue3.0</code>版本其中关于响应式原理的核心是<code>Proxy</code>，因此有必要对<code>Proxy</code>做进一步的理解和总结。</p>
+<h3 id="set"><a href="#set" class="headerlink" title="set"></a>set</h3><p>拦截对象：设置属性值行为。成功返回<code>true</code>，失败返回<code>false</code>。</p>
+<p>默认行为实现：<code>Reflect.set()</code></p>
+<a id="more"></a>
+
+<p>接收参数：</p>
+<ol>
+<li><strong>trapTarget</strong>：设置属性的对象（代理的目标对象）</li>
+<li><strong>key</strong>：属性的键</li>
+<li><strong>value</strong>：属性的值</li>
+<li><strong>receiver</strong>：操作发生的对象（通常指代理对象）</li>
+</ol>
+<h3 id="get"><a href="#get" class="headerlink" title="get"></a>get</h3><p>拦截对象：获取属性值行为。</p>
+<p>默认行为实现：<code>Reflect.get()</code></p>
+<p>接收参数：</p>
+<ol>
+<li><strong>trapTarget</strong>：获取属性的对象（代理的目标对象）</li>
+<li><strong>key</strong>：属性的键</li>
+<li><strong>receiver</strong>：操作发生的对象（通常指代理对象）</li>
+</ol>
+<p>骚操作：属性不存在时可明确抛出错误，而不是返回<code>undefined</code></p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> target = &#123;&#125;<br><span class="hljs-keyword">let</span> proxyTar = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(target, &#123;<br>    get (trapTarget, key, receiver) &#123;<br>        <span class="hljs-keyword">if</span> (!(key <span class="hljs-keyword">in</span> receiver)) &#123;<br>            <span class="hljs-keyword">throw</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">TypeError</span>(<span class="hljs-string">`property <span class="hljs-subst">$&#123;key&#125;</span> is not exist`</span>)<br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Reflect</span>.get(trapTarget, key, receiver)<br>    &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="has"><a href="#has" class="headerlink" title="has"></a>has</h3><p>拦截对象：<code>in</code>操作符。成功返回<code>true</code>，失败返回<code>false</code>。</p>
+<p>默认行为实现：<code>Reflect.has()</code></p>
+<p>接收参数：</p>
+<ol>
+<li><strong>trapTarget</strong>：读取属性的对象</li>
+<li><strong>key</strong>：需要检查的属性的键</li>
+</ol>
+<p>骚操作：通过返回<code>false</code>，隐藏属性</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> target = &#123;<br>    name: <span class="hljs-string">&#x27;小叮当&#x27;</span>,<br>    _age: <span class="hljs-number">18</span><br>&#125;<br><span class="hljs-keyword">let</span> proxyTar = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(target, &#123;<br>    has (trapTarget, key) &#123;<br>        <span class="hljs-comment">// 隐藏_age属性</span><br>        <span class="hljs-keyword">if</span> (key === <span class="hljs-string">&#x27;_age&#x27;</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Reflect</span>.has(trapTarget, key)<br>    &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="deleteProperty"><a href="#deleteProperty" class="headerlink" title="deleteProperty"></a>deleteProperty</h3><p>拦截对象：<code>delete</code>操作符。成功返回<code>true</code>，失败返回<code>false</code>。</p>
+<p>默认行为实现：<code>Reflect.deleteProperty()</code></p>
+<p>接收参数：</p>
+<ol>
+<li><strong>trapTarget</strong>：删除属性的对象</li>
+<li><strong>key</strong>：需要删除的属性的键</li>
+</ol>
+<p>骚操作：通过返回<code>false</code>，设置属性不可删除</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> target = &#123;<br>    name: <span class="hljs-string">&#x27;小叮当&#x27;</span>,<br>    age: <span class="hljs-number">18</span>,<br>    idCard: <span class="hljs-string">&#x27;75423546574xxx&#x27;</span><br>&#125;<br><span class="hljs-keyword">let</span> proxyTar = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(target, &#123;<br>    deleteProperty (trapTarget, key) &#123;<br>        <span class="hljs-comment">// idCard属性不可删除</span><br>        <span class="hljs-keyword">if</span> (key === <span class="hljs-string">&#x27;idCard&#x27;</span>) &#123;<br>            <span class="hljs-keyword">return</span> <span class="hljs-literal">false</span><br>        &#125;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Reflect</span>.deleteProperty(trapTarget, key)<br>    &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="getPrototypeOf"><a href="#getPrototypeOf" class="headerlink" title="getPrototypeOf"></a>getPrototypeOf</h3><p>拦截对象：<code>Object.getPrototypeOf()</code>。返回值必须是一个对象或者是<code>null</code>，其它类型返回值会引发错误。</p>
+<p>默认行为实现：<code>Reflect.getPrototypeOf()</code></p>
+<p>接收参数：</p>
+<ol>
+<li><strong>trapTarget</strong>：需要获取原型的对象</li>
+</ol>
+<p>骚操作：可通过返回<code>null</code>来隐藏对象原型</p>
+<h3 id="setPrototypeOf"><a href="#setPrototypeOf" class="headerlink" title="setPrototypeOf"></a>setPrototypeOf</h3><p>拦截对象：<code>Object.setPrototypeOf()</code>。操作不成功时应返回<code>false</code>以让<code>Object.setPrototypeOf()</code>抛出错误，若返回不为<code>false</code>，则认为操作成功。</p>
+<p>默认行为实现：<code>Reflect.setPrototypeOf()</code></p>
+<p>接受参数：</p>
+<ol>
+<li><strong>trapTarget</strong>：需要设置原型的对象</li>
+<li><strong>proto</strong>：被用作原型的对象</li>
+</ol>
+<p>骚操作：可通过返回<code>false</code>使对象原型不可被设置</p>
+<p><strong>为何存在<code>Reflect.getPrototypeOf()</code>、<code>Reflect.setPrototypeOf()</code>与<code>Object.getPrototypeOf()</code>、<code>Object.setPrototypeOf()</code>两组方法？</strong></p>
+<p>两组方法作用虽然相似，但还是存在一些比较显著的差别：</p>
+<ol>
+<li>前者属于JS引擎底层操作，后者属于高级操作；</li>
+<li><code>Reflect.getPrototypeOf()</code>接收的参数不是对象时会抛出错误；而<code>Object.getPrototypeOf()</code>操作前会先将参数转换为对象；</li>
+<li><code>Reflect.setPrototypeOf()</code>会返回布尔值<code>true</code>或<code>false</code>表示成功或失败，<code>Object.setPrototypeOf()</code>操作失败时会报错，成功时会将第一个参数作为返回值；</li>
+</ol>
+<p>因此，Object两个原型操作方法并不适合用来实现代理陷阱的默认行为。</p>
+<h3 id="对象可扩展性的陷阱函数"><a href="#对象可扩展性的陷阱函数" class="headerlink" title="对象可扩展性的陷阱函数"></a>对象可扩展性的陷阱函数</h3><h3 id="preventExtensions"><a href="#preventExtensions" class="headerlink" title="preventExtensions"></a>preventExtensions</h3><p>拦截对象：<code>Object.preventExtensions()</code>。返回<code>true</code>或<code>false</code>表示操作成功或失败。</p>
+<p>默认行为实现：<code>Reflect.preventExtensions()</code>。</p>
+<p>接收参数：</p>
+<ol>
+<li><strong>trapTarget</strong>：设置不可扩展的对象</li>
+</ol>
+<h3 id="isExtensible"><a href="#isExtensible" class="headerlink" title="isExtensible"></a>isExtensible</h3><p>拦截对象：<code>Object.isExtensible()</code>。返回<code>true</code>或<code>false</code>表示操作成功或失败。</p>
+<p>默认行为实现：<code>Reflect.isExtensible()</code>。</p>
+<p>接收参数：</p>
+<ol>
+<li><strong>trapTarget</strong>：设置可扩展的对象</li>
+</ol>
+<p><strong>为何存在<code>Reflect.preventExtensions()</code>、<code>Reflect.isExtensible()</code>与<code>Object.preventExtensions()</code>、<code>Object.isExtensible()</code>两组方法？</strong></p>
+<p>两组方法几乎一致，但有一些差别：</p>
+<ol>
+<li>接收的参数不为对象时，<code>Object.isExtensible()</code>是返回<code>false</code>，而<code>Reflect.isExtensible()</code>会抛出错误；</li>
+<li><code>Object.preventExtensions()</code>不管参数是否是对象，都会将参数值作为自身返回值，而<code>Reflect.preventExtensions() </code>方法则会在参数不是对象时抛出错误，在参数为对象时返回<code>true</code>或<code>false</code>表示操作成功或失败；</li>
+<li>底层功能的方法与对应的高层方法相比，会进行更为严格的校验；</li>
+</ol>
+<h3 id="属性描述符的陷阱函数"><a href="#属性描述符的陷阱函数" class="headerlink" title="属性描述符的陷阱函数"></a>属性描述符的陷阱函数</h3><h3 id="definedProperty"><a href="#definedProperty" class="headerlink" title="definedProperty"></a>definedProperty</h3><p>拦截对象：<code>Object.defineProperty()</code>，返回<code>true</code>或<code>false</code>表示操作成功或失败。</p>
+<p>默认行为实现：<code>Reflect.defineProperty()</code>。</p>
+<p>接收参数：</p>
+<ol>
+<li><strong>tarpTarget</strong>：被定义属性的对象</li>
+<li><strong>key</strong>：属性的键</li>
+<li><strong>descriptor</strong>：为该属性准备的描述符对象</li>
+</ol>
+<p>骚操作：可通过主动返回<code>false</code>让<code>Object.defineProperty()</code>抛出错误失败，也可通过返回<code>true</code>而不调用<code>Reflect.defineProperty()</code>来让<code>Object.defineProperty()</code>静默失败。</p>
+<h3 id="getOwnPropertyDescriptor"><a href="#getOwnPropertyDescriptor" class="headerlink" title="getOwnPropertyDescriptor"></a>getOwnPropertyDescriptor</h3><p>拦截对象：<code>Object.getOwnPropertyDescriptor()</code>，返回对应的描述符。</p>
+<p>默认行为实现：<code>Reflect.getOwnPropertyDescriptor()</code>。</p>
+<p>接收参数：</p>
+<ol>
+<li><strong>tarpTarget</strong>：被检索属性的对象</li>
+<li><strong>key</strong>：属性的键</li>
+</ol>
+<p><strong>为何存在<code>Reflect.defineProperty()</code>、<code>Reflect.getOwnPropertyDescriptor()</code>与<code>Object.defineProperty()</code>、<code>Object.getOwnPropertyDescriptor()</code>两组方法？</strong></p>
+<p>两组方法几乎一致，但也有一些差别：</p>
+<ol>
+<li><code>Object.defineProperty()</code>返回第一个参数值，而<code>Reflect.defineProperty()</code>返回<code>true</code>或<code>false</code>;</li>
+<li>第一个参数不是对象时，<code>Object.getOwnPropertyDescriptor()</code>会将第一个参数转为对象，而<code>Reflect.getOwnPropertyDescriptor()</code>会抛出错误；</li>
+</ol>
+<h3 id="ownKeys"><a href="#ownKeys" class="headerlink" title="ownKeys"></a>ownKeys</h3><p>拦截对象：内部方法<code>[[OwnPropertyKeys]]</code>，返回一个数组重写该行为。数组被用于四个方法：<code>Object.keys()</code>、<code>Object.getOwnPropertyNames()</code>、<code>Object.getOwnPropertySymbols()</code>、<code>Object.assign()</code>，也能影响到<code>for-in</code>循环。不是返回数组或类数组对象，会抛出错误。</p>
+<p>默认行为实现：<code>Reflect.ownKeys()</code>，返回一个由全部自有属性的键构成的数组，无论键的类型是<strong>字符串</strong>还是<strong>符号</strong>。</p>
+<p>接收参数：</p>
+<ol>
+<li><strong>trapTarget</strong>：获取属性的目标对象</li>
+</ol>
+<p>骚操作：可通过设置，不返回比如拥有下划线的属性（一般被定义为私有属性）</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> target = &#123;<br>    name: <span class="hljs-string">&#x27;target&#x27;</span>,<br>    _name: <span class="hljs-string">&#x27;private_target&#x27;</span> <span class="hljs-comment">// 私有属性</span><br>&#125;<br><span class="hljs-keyword">let</span> proxyTarget = <span class="hljs-keyword">new</span> <span class="hljs-built_in">Proxy</span>(target, &#123;<br>    ownKeys (trapTarget) &#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">Reflect</span>.ownKeys(trapTarget).filter(<span class="hljs-function"><span class="hljs-params">key</span> =&gt;</span> &#123;<br>            <span class="hljs-comment">// 可返回符号类型、字符类型且不包含下划线的属性</span><br>            <span class="hljs-keyword">return</span> typeOf key !== <span class="hljs-string">&#x27;string&#x27;</span> || key[<span class="hljs-number">0</span>] !== <span class="hljs-string">&#x27;_&#x27;</span><br>        &#125;)<br>    &#125;<br>&#125;)<br></code></pre></td></tr></table></figure>
+
+
+
+<h3 id="apply和construct"><a href="#apply和construct" class="headerlink" title="apply和construct"></a>apply和construct</h3><p>拦截对象：内部方法<code>[[Call]]</code>和<code>[[Construct]]</code>，前者会在函数被直接调用时执行，而后者会在函数被使用<code>new</code>运算符调用时执行。</p>
+<p>apply陷阱函数(<code>Reflect.apply()</code>同样)接收参数：</p>
+<ol>
+<li><strong>trapTarget</strong> ：被执行的函数（即代理的目标对象）；</li>
+<li><strong>thisArg</strong> ：调用过程中函数内部的 this 值；</li>
+<li><strong>argumentsList</strong> ：被传递给函数的参数数组。</li>
+</ol>
+<p>construct陷阱函数接收参数：</p>
+<ol>
+<li><strong>trapTarget</strong> ：被执行的函数（即代理的目标对象）；</li>
+<li><strong>argumentsList</strong> ：被传递给函数的参数数组。</li>
+</ol>
+<p><code>Reflect.construct()</code>除了上述两个参数，还有第三个可选参数<code>newTarget</code>，此参数指定了函数内部<code>new.target</code>的值。</p>
+<p>骚操作：可以验证函数的类型；还可以不使用<code>new</code>来调用构造器；还可以限制函数只能通过<code>new</code>来调用等等。。。</p>
+<h3 id="撤销代理"><a href="#撤销代理" class="headerlink" title="撤销代理"></a>撤销代理</h3><p>一般代理创建之后不会被解绑，如果想要创建一个可被撤销的代理，可通过<code>Proxy.revocable()</code>方法，该方法跟<code>Proxy</code>构造器一样接收两个参数：</p>
+<ol>
+<li><strong>trapTarget</strong>：被代理的目标对象</li>
+<li><strong>handler</strong>：代理处理器</li>
+</ol>
+<p>然后会返回一个包含以下属性的对象：</p>
+<ol>
+<li><strong>proxy</strong>：可被撤销的代理对象</li>
+<li><strong>revoke</strong>：用于撤销代理的函数</li>
+</ol>
+<p>通过调用<code>revoke()</code>，就无法再对<code>proxy</code>进行更多的操作，任何跟<code>proxy</code>的交互都会触发陷阱函数，从而抛出错误。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/%E6%80%BB%E7%BB%93/">总结</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/59225/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">振奋人心的ES2020新特性！</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/28463/">
+                        <span class="hidden-mobile">JavaScript整理总结(持续更新)</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "WTBwEqCUoYaEA0eEc4DT63w5-gzGzoHsz",
+          app_key: "O1VfI3HQAqTHidJYA8N7QgFq",
+          placeholder: "欢迎留言交流，留下邮箱回复可收到邮件提醒（邮箱不会被公开）",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>

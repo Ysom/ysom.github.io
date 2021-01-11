@@ -1,0 +1,566 @@
+
+
+<!DOCTYPE html>
+<html lang="zh-CN" data-default-color-scheme=&#34;auto&#34;>
+
+
+
+<head>
+  <meta charset="UTF-8">
+  <link rel="apple-touch-icon" sizes="76x76" href="/images/favicon.png">
+  <link rel="icon" type="image/png" href="/images/favicon.png">
+  <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, shrink-to-fit=no">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
+  
+  <meta name="theme-color" content="#2f4154">
+  <meta name="description" content="">
+  <meta name="author" content="Yuger Ysom">
+  <meta name="keywords" content="code,blog">
+  <title>致敬英雄，主流网站置灰的探索 - CodeLife - Ysom</title>
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/css/bootstrap.min.css" />
+
+
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/github-markdown-css@4.0.0/github-markdown.min.css" />
+  <link  rel="stylesheet" href="/lib/hint/hint.min.css" />
+
+  
+    
+    
+      
+      <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/highlight.js@10.4.0/styles/github-gist.min.css" />
+    
+  
+
+  
+    <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.css" />
+  
+
+
+
+<!-- 主题依赖的图标库，不要自行修改 -->
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1749284_ba1fz6golrf.css">
+
+
+
+<link rel="stylesheet" href="//at.alicdn.com/t/font_1736178_kmeydafke9r.css">
+
+
+<link  rel="stylesheet" href="/css/main.css" />
+
+<!-- 自定义样式保持在最底部 -->
+
+
+  <script id="fluid-configs">
+    var Fluid = window.Fluid || {};
+    var CONFIG = {"hostname":"ysom.gitee.io","root":"/","version":"1.8.6","typing":{"enable":true,"typeSpeed":70,"cursorChar":"_","loop":false},"toc":{"enable":true,"headingSelector":"h1,h2,h3,h4,h5,h6","collapseDepth":0},"anchorjs":{"enable":true,"element":"h1,h2,h3,h4,h5,h6","placement":"right","visible":"hover","icon":""},"copy_btn":true,"image_zoom":{"enable":true},"lazyload":{"enable":true,"onlypost":false},"web_analytics":{"enable":false,"baidu":null,"google":null,"gtag":null,"tencent":{"sid":null,"cid":null},"woyaola":null,"cnzz":null,"leancloud":{"app_id":null,"app_key":null,"server_url":null}}};
+  </script>
+  <script  src="/js/utils.js" ></script>
+  <script  src="/js/color-schema.js" ></script>
+<meta name="generator" content="Hexo 5.2.0"></head>
+
+
+<body>
+  <header style="height: 70vh;">
+    <nav id="navbar" class="navbar fixed-top  navbar-expand-lg navbar-dark scrolling-navbar">
+  <div class="container">
+    <a class="navbar-brand"
+       href="/">&nbsp;<strong>Code Life</strong>&nbsp;</a>
+
+    <button id="navbar-toggler-btn" class="navbar-toggler" type="button" data-toggle="collapse"
+            data-target="#navbarSupportedContent"
+            aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <div class="animated-icon"><span></span><span></span><span></span></div>
+    </button>
+
+    <!-- Collapsible content -->
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav ml-auto text-center">
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/">
+                <i class="iconfont icon-home-fill"></i>
+                首页
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/archives/">
+                <i class="iconfont icon-archive-fill"></i>
+                归档
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/categories/">
+                <i class="iconfont icon-category-fill"></i>
+                分类
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/tags/">
+                <i class="iconfont icon-tags-fill"></i>
+                标签
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/about/">
+                <i class="iconfont icon-user-fill"></i>
+                关于
+              </a>
+            </li>
+          
+        
+          
+          
+          
+          
+            <li class="nav-item">
+              <a class="nav-link" href="/board/">
+                <i class="iconfont icon-comment"></i>
+                留言板
+              </a>
+            </li>
+          
+        
+        
+          <li class="nav-item" id="search-btn">
+            <a class="nav-link" data-toggle="modal" data-target="#modalSearch">&nbsp;<i
+                class="iconfont icon-search"></i>&nbsp;</a>
+          </li>
+        
+        
+          <li class="nav-item" id="color-toggle-btn">
+            <a class="nav-link" href="javascript:">&nbsp;<i
+                class="iconfont icon-dark" id="color-toggle-icon"></i>&nbsp;</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+</nav>
+
+    <div class="banner intro-2" id="background" parallax=true
+         style="background: url('/images/default_banner.png') no-repeat center center;
+           background-size: cover;">
+      <div class="full-bg-img">
+        <div class="mask flex-center" style="background-color: rgba(0, 0, 0, 0.3)">
+          <div class="page-header text-center fade-in-up">
+            <span class="h2" id="subtitle" title="致敬英雄，主流网站置灰的探索">
+              
+            </span>
+
+            
+              <div class="mt-3">
+  
+  
+    <span class="post-meta">
+      <i class="iconfont icon-date-fill" aria-hidden="true"></i>
+      <time datetime="2020-04-05 22:20" pubdate>
+        2020年4月5日 晚上
+      </time>
+    </span>
+  
+</div>
+
+<div class="mt-1">
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-chart"></i>
+      921 字
+    </span>
+  
+
+  
+    
+    <span class="post-meta mr-2">
+      <i class="iconfont icon-clock-fill"></i>
+      
+      
+      10
+       分钟
+    </span>
+  
+
+  
+  
+    
+      <!-- 不蒜子统计文章PV -->
+      <span id="busuanzi_container_page_pv" style="display: none">
+        <i class="iconfont icon-eye" aria-hidden="true"></i>
+        <span id="busuanzi_value_page_pv"></span> 次
+      </span>
+    
+  
+</div>
+
+            
+          </div>
+
+          
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    
+      
+
+<div class="container-fluid">
+  <div class="row">
+    <div class="d-none d-lg-block col-lg-2"></div>
+    <div class="col-lg-8 nopadding-md">
+      <div class="container nopadding-md" id="board-ctn">
+        <div class="py-5" id="board">
+          <article class="post-content mx-auto">
+            <!-- SEO header -->
+            <h1 style="display: none">致敬英雄，主流网站置灰的探索</h1>
+            
+              <p class="note note-info">
+                
+                  本文最后更新于：2020年4月6日 晚上
+                
+              </p>
+            
+            <div class="markdown-body">
+              <p>2020年4月4号，清明节，全国下降半旗，北京时间十点整，全国默哀3分钟，停止一切娱乐性活动，致敬为国、为民而逝世的英雄。</p>
+<p>国内的很多主流网站，为致敬英雄将网站全站置灰。如：</p>
+<a id="more"></a>
+
+<p><img src="/images/%E8%87%B4%E6%95%AC%E8%8B%B1%E9%9B%84iqiyi.png" srcset="/img/loading.gif" alt="爱奇艺"></p>
+<p><img src="/images/%E8%87%B4%E6%95%AC%E8%8B%B1%E9%9B%84bilibili.png" srcset="/img/loading.gif" alt="b站"></p>
+<p>这种置灰包括了图片、按钮、文字等，那是怎样实现的呢？</p>
+<p>一种思路是通过对每个元素都加上统一的样式，但是这种成本太高，而且要做到没有遗漏，是一件比较费精力的事情。</p>
+<p>另一种思路是通过主题样式设置，即设置为灰色主题，但是我们知道，主题样式会有对应的配色设计，像这种置灰是单一的，直接全体置灰，没有一些配色显示突出的设计。</p>
+<p>上面两种方案是可以实现的，只是不符合我们程序猿简洁、高效的理念。</p>
+<p>那有没有一种方案，靠一个属性，一个方法直接设置，就能对全站起到这样一个效果呢？如果有的话，毫无疑问这种方案是最省时省力的。</p>
+<p>带着这种疑问，我们利用开发者工具，看了几个主流网站的代码，貌似还真的有一个属性可以实现我们的想法</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><code class="hljs css">// <span class="hljs-selector-tag">b</span>站<br><span class="hljs-selector-tag">html</span><span class="hljs-selector-class">.gray</span> &#123;<br>    <span class="hljs-attribute">-webkit-filter</span>: <span class="hljs-built_in">grayscale</span>(.<span class="hljs-number">95</span>);<br>&#125;<br><br>// <span class="hljs-selector-tag">CSDN</span>博客<br><span class="hljs-selector-tag">html</span> &#123;<br>    <span class="hljs-attribute">-webkit-filter</span>: <span class="hljs-built_in">grayscale</span>(<span class="hljs-number">100%</span>);<br>    <span class="hljs-attribute">-moz-filter</span>: <span class="hljs-built_in">grayscale</span>(<span class="hljs-number">100%</span>);<br>    <span class="hljs-attribute">-ms-filter</span>: <span class="hljs-built_in">grayscale</span>(<span class="hljs-number">100%</span>);<br>    <span class="hljs-attribute">-o-filter</span>: <span class="hljs-built_in">grayscale</span>(<span class="hljs-number">100%</span>);<br>    <span class="hljs-attribute">filter</span>: <span class="hljs-built_in">grayscale</span>(<span class="hljs-number">100%</span>);<br>    <span class="hljs-attribute">filter</span>: progid:DXImageTransform.Microsoft.<span class="hljs-built_in">BasicImage</span>(grayscale=<span class="hljs-number">1</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>把这些个样式勾选掉，网站果然就恢复了原来的配色，看来这种置灰操作，确实可以由属性来操控，而且跟<code>filter</code>属性脱不了干系。</p>
+<p>搜下<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/filter">MDN</a>，可以看到对<code>filter</code>的解释：</p>
+<blockquote>
+<p>CSS属性将模糊或颜色偏移等图形效果应用于元素。滤镜通常用于调整图像，背景和边框的渲染。</p>
+</blockquote>
+<p>也就是说，这个属性可以用来做滤镜操作。</p>
+<p>这里展示一下所有属性设置的代码，建议前往<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/filter">官网</a>查看更详细的操作和解释</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-comment">/* URL to SVG filter */</span><br><span class="hljs-selector-tag">filter</span>: <span class="hljs-selector-tag">url</span>(&quot;<span class="hljs-selector-tag">filters</span><span class="hljs-selector-class">.svg</span><span class="hljs-selector-id">#filter-id</span>&quot;);<br><br><span class="hljs-comment">/* &lt;filter-function&gt; values */</span><br><span class="hljs-selector-tag">filter</span>: <span class="hljs-selector-tag">blur</span>(5<span class="hljs-selector-tag">px</span>);<br><span class="hljs-selector-tag">filter</span>: <span class="hljs-selector-tag">brightness</span>(0.4);<br><span class="hljs-selector-tag">filter</span>: <span class="hljs-selector-tag">contrast</span>(200%);<br><span class="hljs-selector-tag">filter</span>: <span class="hljs-selector-tag">drop-shadow</span>(16<span class="hljs-selector-tag">px</span> 16<span class="hljs-selector-tag">px</span> 20<span class="hljs-selector-tag">px</span> <span class="hljs-selector-tag">blue</span>);<br><span class="hljs-selector-tag">filter</span>: <span class="hljs-selector-tag">grayscale</span>(50%);<br><span class="hljs-selector-tag">filter</span>: <span class="hljs-selector-tag">hue-rotate</span>(90<span class="hljs-selector-tag">deg</span>);<br><span class="hljs-selector-tag">filter</span>: <span class="hljs-selector-tag">invert</span>(75%);<br><span class="hljs-selector-tag">filter</span>: <span class="hljs-selector-tag">opacity</span>(25%);<br><span class="hljs-selector-tag">filter</span>: <span class="hljs-selector-tag">saturate</span>(30%);<br><span class="hljs-selector-tag">filter</span>: <span class="hljs-selector-tag">sepia</span>(60%);<br><br><span class="hljs-comment">/* Multiple filters */</span><br><span class="hljs-selector-tag">filter</span>: <span class="hljs-selector-tag">contrast</span>(175%) <span class="hljs-selector-tag">brightness</span>(3%);<br><br><span class="hljs-comment">/* Global values */</span><br><span class="hljs-selector-tag">filter</span>: <span class="hljs-selector-tag">inherit</span>;<br><span class="hljs-selector-tag">filter</span>: <span class="hljs-selector-tag">initial</span>;<br><span class="hljs-selector-tag">filter</span>: <span class="hljs-selector-tag">unset</span>;<br></code></pre></td></tr></table></figure>
+
+<p>这里再引用官方的一个例子，设置高斯模糊</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">filter</span>: <span class="hljs-selector-tag">blur</span>(<span class="hljs-selector-tag">radius</span>)<br></code></pre></td></tr></table></figure>
+
+<p>给图像设置高斯模糊。radius 一值设定高斯函数的标准差，或者是屏幕上以多少像素融在一起，所以值越大越模糊；如果没有设定值，则默认是 0；这个参数可设置绝对像素值，但不接受百分比值。效果如下：</p>
+<p><img src="/images/%E9%AB%98%E6%96%AF%E6%A8%A1%E7%B3%8A.png" srcset="/img/loading.gif" alt="高斯模糊效果"></p>
+<p>再看看我们置灰用到的<code>grayscale</code>，它表示将图像转换为灰度图像。值定义转换的比例。值为100%则完全转为灰度图像，值为0%图像无变化。值在0%到100%之间，则是效果的线性乘子。若未设置，值默认是0。</p>
+<p>这样其实我们通过设置值来确定灰度的比例，就可以实现置灰的效果，而想要全栈置灰，则将该样式添加到<code>html</code>元素上。</p>
+<p>为了更好的兼容性，可以加上各主流浏览器的私有前缀，即CSDN的写法</p>
+<figure class="highlight css"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><code class="hljs css"><span class="hljs-selector-tag">html</span> &#123;<br>    <span class="hljs-attribute">-webkit-filter</span>: <span class="hljs-built_in">grayscale</span>(<span class="hljs-number">100%</span>);<br>    <span class="hljs-attribute">-moz-filter</span>: <span class="hljs-built_in">grayscale</span>(<span class="hljs-number">100%</span>);<br>    <span class="hljs-attribute">-ms-filter</span>: <span class="hljs-built_in">grayscale</span>(<span class="hljs-number">100%</span>);<br>    <span class="hljs-attribute">-o-filter</span>: <span class="hljs-built_in">grayscale</span>(<span class="hljs-number">100%</span>);<br>    <span class="hljs-attribute">filter</span>: <span class="hljs-built_in">grayscale</span>(<span class="hljs-number">100%</span>);<br>    <span class="hljs-attribute">filter</span>: progid:DXImageTransform.Microsoft.<span class="hljs-built_in">BasicImage</span>(grayscale=<span class="hljs-number">1</span>);<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>灰色给了一种很浓的沉重感，昨天的心情也确实很沉重。</p>
+<p>最后，愿英魂安息，山河无恙，人间皆安。</p>
+
+            </div>
+            <hr>
+            <div>
+              <div class="post-metas mb-3">
+                
+                  <div class="post-meta mr-3">
+                    <i class="iconfont icon-category"></i>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                  </div>
+                
+                
+                  <div class="post-meta">
+                    <i class="iconfont icon-tags"></i>
+                    
+                      <a class="hover-with-bg" href="/tags/CSS/">CSS</a>
+                    
+                  </div>
+                
+              </div>
+              
+                <p class="note note-warning">本博客所有文章除特别声明外，均采用 <a target="_blank" href="https://creativecommons.org/licenses/by-sa/4.0/deed.zh" rel="nofollow noopener noopener">CC BY-SA 4.0 协议</a> ，转载请注明出处！</p>
+              
+              
+                <div class="post-prevnext row">
+                  <article class="post-prev col-6">
+                    
+                    
+                      <a href="/posts/24209/">
+                        <i class="iconfont icon-arrowleft"></i>
+                        <span class="hidden-mobile">vue3.0-beta尝鲜</span>
+                        <span class="visible-mobile">上一篇</span>
+                      </a>
+                    
+                  </article>
+                  <article class="post-next col-6">
+                    
+                    
+                      <a href="/posts/61081/">
+                        <span class="hidden-mobile">分享一道有趣的题</span>
+                        <span class="visible-mobile">下一篇</span>
+                        <i class="iconfont icon-arrowright"></i>
+                      </a>
+                    
+                  </article>
+                </div>
+              
+            </div>
+
+            
+              <!-- Comments -->
+              <article class="comments" id="comments">
+                
+                
+  <div id="vcomments"></div>
+  <script type="text/javascript">
+    Fluid.utils.waitElementVisible('vcomments', function() {
+      Fluid.utils.createScript('https://cdn.jsdelivr.net/npm/valine@1.4.14/dist/Valine.min.js', function () {
+        new Valine({
+          el: "#vcomments",
+          app_id: "WTBwEqCUoYaEA0eEc4DT63w5-gzGzoHsz",
+          app_key: "O1VfI3HQAqTHidJYA8N7QgFq",
+          placeholder: "欢迎留言交流，留下邮箱回复可收到邮件提醒（邮箱不会被公开）",
+          path: window.location.pathname,
+          avatar: "retro",
+          meta: ["nick","mail","link"],
+          pageSize: "10",
+          lang: "zh-CN",
+          highlight: false,
+          recordIP: false,
+          serverURLs: "",
+        });
+      });
+    });
+  </script>
+  <noscript>Please enable JavaScript to view the
+    <a target="_blank" href="https://valine.js.org" rel="nofollow noopener noopener">comments powered by Valine.</a>
+  </noscript>
+
+
+              </article>
+            
+          </article>
+        </div>
+      </div>
+    </div>
+    
+      <div class="d-none d-lg-block col-lg-2 toc-container" id="toc-ctn">
+        <div id="toc">
+  <p class="toc-header"><i class="iconfont icon-list"></i>&nbsp;目录</p>
+  <div class="toc-body" id="toc-body"></div>
+</div>
+
+      </div>
+    
+  </div>
+</div>
+
+<!-- Custom -->
+
+
+    
+
+    
+      <a id="scroll-top-button" href="#" role="button">
+        <i class="iconfont icon-arrowup" aria-hidden="true"></i>
+      </a>
+    
+
+    
+      <div class="modal fade" id="modalSearch" tabindex="-1" role="dialog" aria-labelledby="ModalLabel"
+     aria-hidden="true">
+  <div class="modal-dialog modal-dialog-scrollable modal-lg" role="document">
+    <div class="modal-content">
+      <div class="modal-header text-center">
+        <h4 class="modal-title w-100 font-weight-bold">搜索</h4>
+        <button type="button" id="local-search-close" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body mx-3">
+        <div class="md-form mb-5">
+          <input type="text" id="local-search-input" class="form-control validate">
+          <label data-error="x" data-success="v"
+                 for="local-search-input">关键词</label>
+        </div>
+        <div class="list-group" id="local-search-result"></div>
+      </div>
+    </div>
+  </div>
+</div>
+    
+
+    
+  </main>
+
+  <footer class="text-center mt-5 py-3">
+  <div class="footer-content">
+     <a href="https://hexo.io" target="_blank" rel="nofollow noopener"><span>Hexo</span></a> <i class="iconfont icon-love"></i> <a href="https://github.com/fluid-dev/hexo-theme-fluid" target="_blank" rel="nofollow noopener"><span>Fluid</span></a> <div> <span id="timeDate">载入天数...</span> <span id="times">载入时分秒...</span> <script src="/js/duration.js"></script> </div> 
+  </div>
+  
+  <div class="statistics">
+    
+    
+
+    
+      
+        <!-- 不蒜子统计PV -->
+        <span id="busuanzi_container_site_pv" style="display: none">
+            总访问量 
+            <span id="busuanzi_value_site_pv"></span>
+             次
+          </span>
+      
+      
+        <!-- 不蒜子统计UV -->
+        <span id="busuanzi_container_site_uv" style="display: none">
+            总访客数 
+            <span id="busuanzi_value_site_uv"></span>
+             人
+          </span>
+      
+    
+  </div>
+
+
+  
+
+  
+</footer>
+
+<!-- SCRIPTS -->
+
+  <script  src="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.js" ></script>
+  <link  rel="stylesheet" href="https://cdn.jsdelivr.net/npm/nprogress@0.2.0/nprogress.min.css" />
+
+  <script>
+    NProgress.configure({"showSpinner":false,"trickleSpeed":200})
+    NProgress.start()
+    document.addEventListener('DOMContentLoaded', function() {
+      window.NProgress && window.NProgress.inc();
+    })
+    window.addEventListener('load', function() {
+      NProgress.done();
+    })
+  </script>
+
+
+<script  src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js" ></script>
+<script  src="https://cdn.jsdelivr.net/npm/bootstrap@4.5.3/dist/js/bootstrap.min.js" ></script>
+<script  src="/js/debouncer.js" ></script>
+<script  src="/js/events.js" ></script>
+<script  src="/js/plugins.js" ></script>
+
+<!-- Plugins -->
+
+
+  
+    <script  src="/js/lazyload.js" ></script>
+  
+
+
+
+  
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/tocbot@4.12.0/dist/tocbot.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/@fancyapps/fancybox@3.5.7/dist/jquery.fancybox.min.js" ></script>
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/anchor-js@4.3.0/anchor.min.js" ></script>
+
+
+
+  <script defer src="https://cdn.jsdelivr.net/npm/clipboard@2.0.6/dist/clipboard.min.js" ></script>
+
+
+
+  <script defer src="https://busuanzi.ibruce.info/busuanzi/2.3/busuanzi.pure.mini.js" ></script>
+
+
+
+
+  <script  src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11/lib/typed.min.js" ></script>
+  <script>
+    (function (window, document) {
+      var typing = Fluid.plugins.typing;
+      var title = document.getElementById('subtitle').title;
+      
+      typing(title)
+      
+    })(window, document);
+  </script>
+
+
+
+  <script  src="/js/local-search.js" ></script>
+  <script>
+    (function () {
+      var path = "/local-search.xml";
+      var inputArea = document.querySelector("#local-search-input");
+      inputArea.onclick = function () {
+        searchFunc(path, 'local-search-input', 'local-search-result');
+        this.onclick = null
+      }
+    })()
+  </script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<!-- 主题的启动项 保持在最底部 -->
+<script  src="/js/boot.js" ></script>
+
+
+
+</body>
+</html>
