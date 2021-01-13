@@ -196,7 +196,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      496 字
+      570 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      5
+      6
        分钟
     </span>
   
@@ -258,16 +258,19 @@
 <p>就是如何让<code>(a == 1 &amp;&amp; a == 2 &amp;&amp; a == 3) === true</code>这个等式成立。一开始看到这个题觉得是无稽之谈，这不扯淡吗，一个变量能同时满足几个值？但是朋友这么问还真说不定有可能，于是开始一波思考。</p>
 <a id="more"></a>
 
-<p>首先分析一下等式左边的<code>a==1</code>，<code>a==2</code>，<code>a==3</code>，相等符号<code>==</code>会判断两个变量的值是否相等，如果不相等，则会涉及到变量类型的转换，全等符号<code>===</code>则会同时判断变量的值和类型，其中一个不相等，则结果为<code>false</code></p>
+<p>首先分析一下等式左边的<code>a==1</code>，<code>a==2</code>，<code>a==3</code>，相等符号<code>==</code>会判断两个变量的值是否相等，如果不相等，则会触发变量类型的隐式转换；全等符号<code>===</code>则同时判断变量的值和类型，其中一个不相等，判断结果为<code>false</code>。</p>
 <p>然后我们假设等式已经成立，既然这个等式能够成立，那么变量<code>a</code>肯定不是一个普通的变量，至少<strong>基本数据类型</strong>满足不了这种骚操作，那么它应该是<strong>复杂数据类型</strong>。</p>
-<p>那我们接着假定是对象，那么对象跟基本数据类型对比的时候，会有我们上面说的涉及到类型转换，对象会先转换成基本数据类型，这里就会触发原型上<code>toString()</code>方法，如下：</p>
-<p><img src="/images/%E8%A7%A6%E5%8F%91toString.png" srcset="/img/loading.gif" alt="触发toString"></p>
-<p>我们给<code>a</code>重写覆盖了<code>toString</code>方法，以方便我们调试，可以看到，对象在判断转换过程中，会触发<code>toString</code>方法。那么我们就可以根据这个特性，对<code>a</code>进行一波骚操作：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">var</span> a = &#123;<br>	i: <span class="hljs-number">1</span>,<br>    toString: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>        <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.i++<br>    &#125;<br>&#125;<br></code></pre></td></tr></table></figure>
-
-<p>运行一下：</p>
-<p><img src="/images/%E7%AD%89%E5%BC%8F%E6%88%90%E7%AB%8B.png" srcset="/img/loading.gif"></p>
-<p>可以看到，<strong>等式成立！！！</strong>这说明确实可以存在这种情况的，不过现实中不建议这样重写去改变原本默认行为，可能会导致出现不可预料的错误。但是不可否认，这种骚操作的题，一定程度上可以反馈出我们对JS基础、还有一些底层操作的理解。学习路上，真的是任重而道远啊~</p>
+<p>接着，对象跟基本数据类型做对比或运算的时候，会有我们上面说的类型隐式转换的一个过程，这里分三种情况：</p>
+<ul>
+<li>对象转换的规则，会先调用内置的 <code>[ToPrimitive]</code> 函数，如果部署了 <code>Symbol.toPrimitive</code> 方法，优先调用再返回；</li>
+<li>调用 <code>valueOf()</code>，如果转换为基础类型，则返回；</li>
+<li>调用 <code>toString()</code>，如果转换为基础类型，则返回；</li>
+</ul>
+<p>如果上面几种情况都没有返回基础类型，就会报错。</p>
+<p>那么分析到这里就很简单了，重写其中某个方法，覆盖默认行为：</p>
+<p><img src="/images/%E8%A7%A6%E5%8F%91%E9%9A%90%E5%BC%8F%E8%BD%AC%E6%8D%A2.png" srcset="/img/loading.gif" alt="触发隐式转换"></p>
+<p>我们分别给对象<code>a</code>重写覆盖了 <code>Symbol.toPrimitive</code> 、<code>valueOf</code> 和<code>toString</code>方法，以方便我们调试。从控制台的输出可以看到，对象在判断转换过程中，会分别触发上述的方法，并且可以看到<strong>等式已经成立</strong>！</p>
+<p>这说明确实可以存在这种“不可思议”的情况。不过现实中不建议这样去改变对象的默认行为，往往会导致不可预料的后果。但是不可否认，这种骚操作的题，一定程度上可以反馈出我们对JS基础、底层操作的理解和积累。学习一途，真的是任重而道远啊~</p>
 
             </div>
             <hr>
