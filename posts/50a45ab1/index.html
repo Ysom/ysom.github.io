@@ -256,21 +256,21 @@
               <p>在JavaScript中数据的类型有<strong>基本数据类型</strong>和<strong>引用数据类型</strong>，我们在开发中也经常需要对数据进行<strong>复制</strong>的操作，而<strong>深拷贝</strong>和<strong>浅拷贝</strong>就是围绕着数据的类型来展开的。</p>
 <h3 id="浅拷贝的原理与实现"><a href="#浅拷贝的原理与实现" class="headerlink" title="浅拷贝的原理与实现"></a>浅拷贝的原理与实现</h3><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>浅拷贝的大致定义：</p>
 <blockquote>
-<p>创建一个新的对象来接收要复制的值。根据对象属性的类型来区分，如果是基本数据类型，就是复制值给新对象；如果是引用数据类型，复制的就是内存中的地址。如果其中一个对象改变了内存中的地址的内容，那么另外一个对象也会受到影响。</p>
+<p>创建一个新的对象来接收要复制的值。根据对象属性的类型来区分，如果是基本数据类型，就是复制值给新对象；如果是引用数据类型，复制的就是内存中的地址。如果其中一个对象改变了内存中的地址的内容，另外一个对象也会受到影响。</p>
 </blockquote>
 <h4 id="常见的浅拷贝方法"><a href="#常见的浅拷贝方法" class="headerlink" title="常见的浅拷贝方法"></a>常见的浅拷贝方法</h4><a id="more"></a>
 
 <h5 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign"></a>Object.assign</h5><blockquote>
-<p>Object.assign() 方法用于将所有可枚举属性的值从一个或多个源对象分配到目标对象。它将返回目标对象。语法 Object.assign(target, …sources) </p>
+<p><code>Object.assign()</code> 方法用于将所有可枚举属性的值从一个或多个源对象分配到目标对象。它将返回目标对象。语法 Object.assign(target, …sources) </p>
 <p>—— MDN</p>
 </blockquote>
-<p>简单地理解，就是ES5的<code>Object.assign</code>方法可以合并多个对象为新对象。这个过程就是一个浅拷贝。</p>
+<p>简单地理解， <strong>ES5</strong> 的 <code>Object.assign</code> 方法可以合并多个对象为新对象。这个操作就是一个浅拷贝。</p>
 <p>来一个示例：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> target = &#123;&#125;;<br><span class="hljs-keyword">let</span> source = &#123; <span class="hljs-attr">a</span>: &#123; <span class="hljs-attr">aa</span>: <span class="hljs-number">1</span> &#125; &#125;<br><span class="hljs-built_in">Object</span>.assign(target, source)<br><span class="hljs-built_in">console</span>.log(&#123;<br>  target: target<br>&#125;)<br><span class="hljs-comment">// 再修改一下source.a.aa的值</span><br>source.a.aa = <span class="hljs-number">111</span> <br><span class="hljs-built_in">console</span>.log(&#123;<br>    target: target,<br>    source: source<br>&#125;)<br></code></pre></td></tr></table></figure>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> target = &#123;&#125;<br><span class="hljs-keyword">let</span> source = &#123; <span class="hljs-attr">a</span>: &#123; <span class="hljs-attr">aa</span>: <span class="hljs-number">1</span> &#125; &#125;<br><span class="hljs-built_in">Object</span>.assign(target, source)<br><span class="hljs-built_in">console</span>.log(&#123;<br>  target: target<br>&#125;)<br><span class="hljs-comment">// 再修改一下source.a.aa的值</span><br>source.a.aa = <span class="hljs-number">111</span> <br><span class="hljs-built_in">console</span>.log(&#123;<br>    target: target,<br>    source: source<br>&#125;)<br></code></pre></td></tr></table></figure>
 
 <p>看下输出结果：</p>
 <p><img src="/images/assign_result.png" srcset="/img/loading.gif"></p>
-<p>从上面的输出结果可以看到，通过<code>Object.assign</code>成功地实现了浅拷贝。</p>
+<p>从上面的输出结果可以看到，通过 <code>Object.assign</code> 成功地实现了浅拷贝。</p>
 <p>但是，根据该方法的定义，我们需要注意几个点：</p>
 <ul>
 <li>不会拷贝对象的<strong>不可枚举属性</strong>；</li>
@@ -282,9 +282,9 @@
 
 <p>结果：</p>
 <p><img src="/images/assign_less.png" srcset="/img/loading.gif"></p>
-<h5 id="扩展运算符"><a href="#扩展运算符" class="headerlink" title="扩展运算符"></a>扩展运算符</h5><p>还可以利用ES6提供的扩展运算符，在构造对象的同时完成浅拷贝。</p>
+<h5 id="扩展运算符"><a href="#扩展运算符" class="headerlink" title="扩展运算符"></a>扩展运算符</h5><p>还可以利用 <strong>ES6</strong> 提供的扩展运算符，在构造对象的同时完成浅拷贝。</p>
 <blockquote>
-<p>展开语法(Spread syntax), 可以在函数调用/数组构造时, 将数组表达式或者string在语法层面展开；还可以在构造字面量对象时, 将对象表达式按key-value的方式展开。</p>
+<p>展开语法(Spread syntax), 可以在函数调用/数组构造时, 将数组表达式或者 string 在语法层面展开；还可以在构造字面量对象时, 将对象表达式按 key-value 的方式展开。</p>
 <p>—— MDN</p>
 </blockquote>
 <p>多种场景下的语法：</p>
