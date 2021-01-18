@@ -248,7 +248,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年1月16日 晚上
+                  本文最后更新于：2021年1月18日 晚上
                 
               </p>
             
@@ -339,7 +339,7 @@
 <li>无法拷贝<strong>不可枚举属性</strong>；</li>
 <li>无法拷贝对象的<strong>原型链</strong>；</li>
 <li>无法拷贝对象的<strong>循环引用</strong>，即对象成环；</li>
-<li>拷贝 <code>RegExp</code> 引用类型会变成空对象；</li>
+<li>拷贝 <code>RegExp</code>、<code>Error</code> 引用类型会变成空对象；</li>
 <li>对象中含有 <code>NaN</code>、<code>Infinity</code> 以及 <code>-Infinity</code>，序列化的结果会变成 <code>null</code>；</li>
 </ul>
 <p>对于上述的缺陷，其实现实中我们开发并没有很常遇到，<code>JSON.stringify</code> 基本足以应付日常开发所用，所以它算是开发中<strong>最常见</strong>、<strong>最便捷</strong>的深拷贝方式。</p>
