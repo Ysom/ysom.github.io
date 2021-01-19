@@ -196,7 +196,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.6k 字
+      1.9k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      19
+      23
        分钟
     </span>
   
@@ -248,7 +248,7 @@
             
               <p class="note note-info">
                 
-                  本文最后更新于：2021年1月18日 晚上
+                  本文最后更新于：2021年1月19日 晚上
                 
               </p>
             
@@ -343,6 +343,17 @@
 <li>对象中含有 <code>NaN</code>、<code>Infinity</code> 以及 <code>-Infinity</code>，序列化的结果会变成 <code>null</code>；</li>
 </ul>
 <p>对于上述的缺陷，其实现实中我们开发并没有很常遇到，<code>JSON.stringify</code> 基本足以应付日常开发所用，所以它算是开发中<strong>最常见</strong>、<strong>最便捷</strong>的深拷贝方式。</p>
+<h5 id="递归实现"><a href="#递归实现" class="headerlink" title="递归实现"></a>递归实现</h5><p>除了常见的 <code>JSON.stringify</code> ，在开发中还会经常自己使用递归来进行深拷贝，看示例：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">const</span> obj = &#123;<br>  a: &#123;<br>    b: &#123;<br>      c: <span class="hljs-number">111</span>  <br>    &#125;  <br>  &#125;  <br>&#125;<br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">deepClone</span>(<span class="hljs-params">obj</span>) </span>&#123; <br>  <span class="hljs-keyword">let</span> cloneObj = &#123;&#125;<br>  <span class="hljs-keyword">for</span>(<span class="hljs-keyword">let</span> key <span class="hljs-keyword">in</span> obj) &#123;<br>    <span class="hljs-keyword">if</span>(<span class="hljs-keyword">typeof</span> obj[key] ===<span class="hljs-string">&#x27;object&#x27;</span>) &#123; <br>      cloneObj[key] = deepClone(obj[key])<br>    &#125; <span class="hljs-keyword">else</span> &#123;<br>      cloneObj[key] = obj[key]<br>    &#125;<br>  &#125;<br>  <span class="hljs-keyword">return</span> cloneObj<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>上述例子的思路就是遍历对象的属性，如果属性是对象，那么继续调用 <code>deepClone</code> 方法递归拷贝，如果是基本类型的值，则直接复制。</p>
+<p>虽然该方法可以实现简单的深拷贝，也能满足大部分开发场景的需求，但是还是存在一些缺陷：</p>
+<ul>
+<li>不能复制<strong>不可枚举属性</strong>以及 <code>Symbol</code> 类型；</li>
+<li>对于 <code>Array</code> 、<code>Date</code> 、<code>RegExp</code> 、<code>Error</code> 、<code>Function</code> 等引用类型不能正确拷贝；</li>
+<li>还是没有解决循环引用的问题</li>
+</ul>
+<p>那么如何写出一个比较完美的深拷贝呢？下面就来仔细分析下相应的缺陷以及对应的解决方案。</p>
 
             </div>
             <hr>
