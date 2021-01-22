@@ -196,7 +196,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      1.9k 字
+      2.3k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      23
+      28
        分钟
     </span>
   
@@ -353,7 +353,17 @@
 <li>对于 <code>Array</code> 、<code>Date</code> 、<code>RegExp</code> 、<code>Error</code> 、<code>Function</code> 等引用类型不能正确拷贝；</li>
 <li>还是没有解决循环引用的问题</li>
 </ul>
-<p>那么如何写出一个比较完美的深拷贝呢？下面就来仔细分析下相应的缺陷以及对应的解决方案。</p>
+<h5 id="实现深拷贝"><a href="#实现深拷贝" class="headerlink" title="实现深拷贝"></a>实现深拷贝</h5><p>那有没有一个比较完美的深拷贝方案呢？下面来仔细分析下上面深拷贝相应的缺陷以及对应的解决方案。</p>
+<ul>
+<li>对于<strong>不可枚举</strong>的属性以及 <code>Symbol</code> 类型，可以通过 <code>Reflect.ownKeys</code> 方法来处理；</li>
+<li>对于 <code>Date</code> 、<code>Error</code> 、<code>RegExp</code> 等特殊类型，则直接生成一个新的实例；</li>
+<li>对于对象的<strong>原型链</strong>，可以通过 <code>getOwnPropertyDescriptors</code> 方法获得对象的所有属性和对应的特性，再结合 Object 的 <code>create</code> 方法创建一个新对象，并继承传入原对象的原型链；</li>
+<li>对于循环引用的问题，可以借助 <code>WeakMap</code> 来处理</li>
+</ul>
+<p>根据上面的方案来实现一个深拷贝：</p>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 判断数据类型是否是引用类型</span><br><span class="hljs-keyword">const</span> isComplexDataType = <span class="hljs-function"><span class="hljs-params">obj</span> =&gt;</span> (<span class="hljs-keyword">typeof</span> obj === <span class="hljs-string">&#x27;object&#x27;</span> || <span class="hljs-keyword">typeof</span> obj === <span class="hljs-string">&#x27;function&#x27;</span>) &amp;&amp; (obj !== <span class="hljs-literal">null</span>)<br><br><span class="hljs-keyword">const</span> deepClone = <span class="hljs-function"><span class="hljs-keyword">function</span> (<span class="hljs-params">obj, hash = <span class="hljs-keyword">new</span> <span class="hljs-built_in">WeakMap</span>()</span>) </span>&#123;<br><br>  <span class="hljs-keyword">if</span> (obj.constructor === <span class="hljs-built_in">Date</span>)  &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">Date</span>(obj)  <br>  &#125;<br><br>  <span class="hljs-keyword">if</span> (obj.constructor === <span class="hljs-built_in">RegExp</span>) &#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-keyword">new</span> <span class="hljs-built_in">RegExp</span>(obj)  <br>  &#125;<br><br>  <span class="hljs-comment">// 循环引用的处理</span><br>  <span class="hljs-keyword">if</span> (hash.has(obj)) <span class="hljs-keyword">return</span> hash.get(obj)<br><br>  <span class="hljs-keyword">let</span> allDesc = <span class="hljs-built_in">Object</span>.getOwnPropertyDescriptors(obj)<br><br>  <span class="hljs-comment">//遍历传入参数所有键的特性</span><br>  <span class="hljs-keyword">let</span> cloneObj = <span class="hljs-built_in">Object</span>.create(<span class="hljs-built_in">Object</span>.getPrototypeOf(obj), allDesc)<br><br>  <span class="hljs-comment">//继承原型链</span><br>  hash.set(obj, cloneObj)<br><br>  <span class="hljs-keyword">for</span> (<span class="hljs-keyword">let</span> key <span class="hljs-keyword">of</span> <span class="hljs-built_in">Reflect</span>.ownKeys(obj)) &#123; <br>    cloneObj[key] = (isComplexDataType(obj[key]) &amp;&amp; <span class="hljs-keyword">typeof</span> obj[key] !== <span class="hljs-string">&#x27;function&#x27;</span>) ? deepClone(obj[key], hash) : obj[key]<br>  &#125;<br>  <span class="hljs-keyword">return</span> cloneObj<br>&#125;<br></code></pre></td></tr></table></figure>
+
+<p>通过上面的处理，基本就实现了一个完善的深拷贝。虽然在实际开发中我们很少遇到需要深拷贝特殊类型的情况，而且业界也有一些成熟的工具库像 <code>loadsh</code> ，但是自己试着去探索，去实现，对于知识点的巩固和提升编程能力还是很有帮助的。</p>
 
             </div>
             <hr>
