@@ -353,7 +353,7 @@
 <li>对于 <code>Array</code> 、<code>Date</code> 、<code>RegExp</code> 、<code>Error</code> 、<code>Function</code> 等引用类型不能正确拷贝；</li>
 <li>还是没有解决循环引用的问题</li>
 </ul>
-<h5 id="实现深拷贝"><a href="#实现深拷贝" class="headerlink" title="实现深拷贝"></a>实现深拷贝</h5><p>那有没有一个比较完美的深拷贝方案呢？下面来仔细分析下上面深拷贝相应的缺陷以及对应的解决方案。</p>
+<h4 id="实现深拷贝"><a href="#实现深拷贝" class="headerlink" title="实现深拷贝"></a>实现深拷贝</h4><p>那有没有一个比较完美的深拷贝方案呢？下面来仔细分析下上面深拷贝相应的缺陷以及对应的解决方案。</p>
 <ul>
 <li>对于<strong>不可枚举</strong>的属性以及 <code>Symbol</code> 类型，可以通过 <code>Reflect.ownKeys</code> 方法来处理；</li>
 <li>对于 <code>Date</code> 、<code>Error</code> 、<code>RegExp</code> 等特殊类型，则直接生成一个新的实例；</li>
