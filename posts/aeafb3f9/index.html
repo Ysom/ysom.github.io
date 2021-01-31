@@ -196,7 +196,7 @@
     
     <span class="post-meta mr-2">
       <i class="iconfont icon-chart"></i>
-      878 字
+      1.3k 字
     </span>
   
 
@@ -206,7 +206,7 @@
       <i class="iconfont icon-clock-fill"></i>
       
       
-      11
+      16
        分钟
     </span>
   
@@ -269,10 +269,7 @@
 
 <p>查看输出结果：</p>
 <p><img src="/images/js-extend/constructor.png" srcset="/img/loading.gif"></p>
-<p>可以看到，这一次，vue实例跟react实例的content是互不影响的，但是呢，这种继承也存在缺陷，再看代码：</p>
-<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><code class="hljs javascript">vue.getName()<br><br>react.getName()<br></code></pre></td></tr></table></figure>
-
-<p>再看输出结果：</p>
+<p>可以看到，这一次，vue实例跟react实例的content是互不影响的，但是呢，这种继承也存在缺陷，看以下操作：</p>
 <p><img src="/images/js-extend/constructor_err.png" srcset="/img/loading.gif"></p>
 <p>可以看到，构造函数继承的缺陷就是：父类在其原型对象上所添加的方法如 <code>getName</code>，子类是没法继承的。</p>
 <h4 id="原型链与构造函数的组合继承"><a href="#原型链与构造函数的组合继承" class="headerlink" title="原型链与构造函数的组合继承"></a>原型链与构造函数的组合继承</h4><p>既然两种方式各有缺陷，那能不能组合在一起呢？答案肯定是可以的。</p>
@@ -282,6 +279,23 @@
 <p><img src="/images/js-extend/group-1.png" srcset="/img/loading.gif"></p>
 <p>从输出结果可以看到，两个实例之间的 content 属性互不影响，同时也能继承父类原型对象的属性。但同时我们也看到了，这个过程中执行了两次 Fe，多产生了一次性能开销，这就是这个组合继承的缺陷。</p>
 <p>以上是对于构造函数的继承方式，下面再接着看对于普通对象的继承方式。</p>
+<h4 id="原型式继承"><a href="#原型式继承" class="headerlink" title="原型式继承"></a>原型式继承</h4><p>这里需要用到ES5中的 <code>Object.create</code> 方法，看一下定义：</p>
+<blockquote>
+<p>**Object.create()**方法创建一个新对象，使用现有的对象来提供新创建的对象的__proto__。</p>
+<p>语法 Object.create(proto，[propertiesObject])</p>
+<p>—— MDN</p>
+</blockquote>
+<p>简单地说，就是用作新对象的原型对象。看例子：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> frame = &#123;<br>  name: <span class="hljs-string">&#x27;frame&#x27;</span>,<br>  content: [<span class="hljs-string">&#x27;html&#x27;</span>, <span class="hljs-string">&#x27;css&#x27;</span>, <span class="hljs-string">&#x27;js&#x27;</span>],<br>  getName: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.name;<br>  &#125;<br>&#125;<br><br><span class="hljs-keyword">let</span> react = <span class="hljs-built_in">Object</span>.create(frame)<br><span class="hljs-keyword">let</span> vue = <span class="hljs-built_in">Object</span>.create(frame)<br><br>react.name = <span class="hljs-string">&#x27;react&#x27;</span><br>react.content.push(<span class="hljs-string">&#x27;jsx&#x27;</span>)<br><br>vue.name = <span class="hljs-string">&#x27;vue&#x27;</span><br>vue.content.push(<span class="hljs-string">&#x27;template&#x27;</span>)<br><br>react.getName() <span class="hljs-comment">// react</span><br>vue.getName() <span class="hljs-comment">// vue</span><br></code></pre></td></tr></table></figure>
+
+<p>看下结果：</p>
+<p><img src="/images/js-extend/p2.png" srcset="/img/loading.gif"></p>
+<p>从结果可以看到，这种原型式可以继承对象的属性和方法，但是缺陷也很明显，存在不同实例的引用类型内存空间共享的问题。看到这里，还挖掘出 <code>create</code> 的一个作用：可以拿来做浅拷贝使用。</p>
+<h4 id="寄生式继承"><a href="#寄生式继承" class="headerlink" title="寄生式继承"></a>寄生式继承</h4><p>将浅拷贝到的对象，再通过添加一些方法增强其功能，这样的继承方式叫做寄生式继承。</p>
+<p>看下示例：</p>
+<figure class="highlight js"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br></pre></td><td class="code"><pre><code class="hljs js"><span class="hljs-keyword">let</span> frame = &#123;<br>  name: <span class="hljs-string">&#x27;frame&#x27;</span>,<br>  content: [<span class="hljs-string">&#x27;html&#x27;</span>, <span class="hljs-string">&#x27;css&#x27;</span>, <span class="hljs-string">&#x27;js&#x27;</span>],<br>  getName: <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.name;<br>  &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">parasitic</span>(<span class="hljs-params">parent</span>) </span>&#123;<br>  <span class="hljs-keyword">let</span> clone = <span class="hljs-built_in">Object</span>.create(parent)<br>  clone.getContent = <span class="hljs-function"><span class="hljs-keyword">function</span>(<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> <span class="hljs-built_in">this</span>.content  <br>  &#125;<br>  <span class="hljs-keyword">return</span> clone  <br>&#125;<br><br><span class="hljs-keyword">let</span> react = parasitic(frame)<br>react.name = <span class="hljs-string">&#x27;react&#x27;</span><br>react.content.push(<span class="hljs-string">&#x27;jsx&#x27;</span>)<br><br>react.getName() <span class="hljs-comment">// react</span><br>react.getContent() <span class="hljs-comment">// [&#x27;html&#x27;, &#x27;css&#x27;, &#x27;js&#x27;, &#x27;jsx&#x27;]</span><br></code></pre></td></tr></table></figure>
+
+<p>从输出结果看到，实例 react 能同时继承 <code>getName</code> 和 <code>getContent</code> 方法，不过缺陷也是和原型式继承一样，存在共享内存空间的问题，但是相对来说，寄生式继承可以在父类的基础上添加更多的方法。</p>
 
             </div>
             <hr>
