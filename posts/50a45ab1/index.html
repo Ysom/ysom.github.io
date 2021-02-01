@@ -254,11 +254,13 @@
             
             <div class="markdown-body">
               <p>在JavaScript中数据的类型有<strong>基本数据类型</strong>和<strong>引用数据类型</strong>，我们在开发中也经常需要对数据进行<strong>复制</strong>的操作，而<strong>深拷贝</strong>和<strong>浅拷贝</strong>就是围绕着数据的类型来展开的。</p>
+<a id="more"></a>
+
 <h3 id="浅拷贝的原理与实现"><a href="#浅拷贝的原理与实现" class="headerlink" title="浅拷贝的原理与实现"></a>浅拷贝的原理与实现</h3><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>浅拷贝的大致定义：</p>
 <blockquote>
 <p>创建一个新的对象来接收要复制的值。根据对象属性的类型来区分，如果是基本数据类型，就是复制值给新对象；如果是引用数据类型，复制的就是内存中的地址。如果其中一个对象改变了内存中的地址的内容，另外一个对象也会受到影响。</p>
 </blockquote>
-<h4 id="常见的浅拷贝方法"><a href="#常见的浅拷贝方法" class="headerlink" title="常见的浅拷贝方法"></a>常见的浅拷贝方法</h4><a id="more"></a>
+<h4 id="常见的浅拷贝方法"><a href="#常见的浅拷贝方法" class="headerlink" title="常见的浅拷贝方法"></a>常见的浅拷贝方法</h4><!-- more -->
 
 <h5 id="Object-assign"><a href="#Object-assign" class="headerlink" title="Object.assign"></a>Object.assign</h5><blockquote>
 <p><code>Object.assign()</code> 方法用于将所有可枚举属性的值从一个或多个源对象分配到目标对象。它将返回目标对象。语法 Object.assign(target, …sources) </p>
