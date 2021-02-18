@@ -253,7 +253,7 @@
               </p>
             
             <div class="markdown-body">
-              <p>在JavaScript中数据的类型有<strong>基本数据类型</strong>和<strong>引用数据类型</strong>，我们在开发中也经常需要对数据进行<strong>复制</strong>的操作，而<strong>深拷贝</strong>和<strong>浅拷贝</strong>就是围绕着数据的类型来展开的。</p>
+              <p> <code>JavaScript</code> 中数据类型有<strong>基本数据类型</strong>和<strong>引用数据类型</strong>，我们在开发中经常需要进行数据<strong>复制</strong>的操作，而<strong>深拷贝</strong>和<strong>浅拷贝</strong>就是围绕着数据的不同类型来展开的。</p>
 <a id="more"></a>
 
 <h3 id="浅拷贝的原理与实现"><a href="#浅拷贝的原理与实现" class="headerlink" title="浅拷贝的原理与实现"></a>浅拷贝的原理与实现</h3><h4 id="原理"><a href="#原理" class="headerlink" title="原理"></a>原理</h4><p>浅拷贝的大致定义：</p>
@@ -273,7 +273,7 @@
 <p>看下输出结果：</p>
 <p><img src="/images/assign_result.png" srcset="/img/loading.gif"></p>
 <p>从上面的输出结果可以看到，通过 <code>Object.assign</code> 成功地实现了浅拷贝。</p>
-<p>但是，根据该方法的定义，我们需要注意几个点：</p>
+<p>不过，根据该方法的定义，我们需要注意几个点：</p>
 <ul>
 <li>不会拷贝对象的<strong>不可枚举属性</strong>；</li>
 <li>不会拷贝对象的<strong>继承属性</strong>；</li>
@@ -295,8 +295,8 @@
 <p>简单的示例：</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-keyword">let</span> obj1 = &#123;<br>  a: <span class="hljs-number">1</span>,<br>  b: &#123;<br>    c: <span class="hljs-number">1</span><br>  &#125;  <br>&#125;<br><span class="hljs-keyword">let</span> obj2 = &#123; ...obj1 &#125;<br><br><span class="hljs-keyword">let</span> arr = [<span class="hljs-number">1</span>, <span class="hljs-number">2</span>, <span class="hljs-number">3</span>]<br><span class="hljs-keyword">let</span> newArr = [ ...arr ]<br></code></pre></td></tr></table></figure>
 
-<p>扩展运算符和 <code>Object.assign</code> 实现的功能基本一样，同时也存在一样的缺陷。但是很明显，一般情况下用扩展运算符会比较简单便捷。</p>
-<p>下面再介绍两种只适用于数组的浅拷贝方法：</p>
+<p>扩展运算符和 <code>Object.assign</code> 实现的功能基本一样，同时也存在一样的缺陷。但是很明显用扩展运算符会比较简单便捷。</p>
+<p>下面再介绍两种只适用于<strong>数组</strong>的浅拷贝方法：</p>
 <h5 id="Array-prototype-concat"><a href="#Array-prototype-concat" class="headerlink" title="Array.prototype.concat()"></a>Array.prototype.concat()</h5><blockquote>
 <p><code>concat()</code> 方法用于合并两个或多个数组。此方法不会更改现有数组，而是返回一个新数组。</p>
 <p>语法 var new_array = old_array.concat(value1[, value2[, …[, valueN]]])</p>
