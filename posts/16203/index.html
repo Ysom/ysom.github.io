@@ -253,8 +253,8 @@
               </p>
             
             <div class="markdown-body">
-              <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本文总结了<code>Proxy</code>代理的陷阱函数和对应的<code>Reflect</code>接口默认行为函数的用法。因为目前用的最多的技术栈是<code>Vue</code>，而<code>Vue3.0</code>版本其中关于响应式原理的核心是<code>Proxy</code>，因此有必要对<code>Proxy</code>做进一步的理解和总结。</p>
-<h3 id="set"><a href="#set" class="headerlink" title="set"></a>set</h3><p>拦截对象：设置属性值行为。成功返回<code>true</code>，失败返回<code>false</code>。</p>
+              <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>本文总结了 <code>Proxy</code> 代理的陷阱函数和对应的 <code>Reflect</code> 接口默认行为函数的用法。因为目前用的最多的技术栈是 <code>Vue</code> ，而 <code>Vue3.0</code> 版本其中关于响应式原理的核心是 <code>Proxy</code> ，所以有必要对 <code>Proxy</code> 做进一步的理解和总结。</p>
+<h3 id="set"><a href="#set" class="headerlink" title="set"></a>set</h3><p>拦截对象：设置属性值行为。成功返回 <code>true</code> ，失败返回 <code>false</code> 。</p>
 <p>默认行为实现：<code>Reflect.set()</code></p>
 <a id="more"></a>
 
@@ -278,7 +278,7 @@
 
 
 
-<h3 id="has"><a href="#has" class="headerlink" title="has"></a>has</h3><p>拦截对象：<code>in</code>操作符。成功返回<code>true</code>，失败返回<code>false</code>。</p>
+<h3 id="has"><a href="#has" class="headerlink" title="has"></a>has</h3><p>拦截对象：<code>in</code> 操作符。成功返回 <code>true</code>，失败返回 <code>false</code>。</p>
 <p>默认行为实现：<code>Reflect.has()</code></p>
 <p>接收参数：</p>
 <ol>
@@ -290,7 +290,7 @@
 
 
 
-<h3 id="deleteProperty"><a href="#deleteProperty" class="headerlink" title="deleteProperty"></a>deleteProperty</h3><p>拦截对象：<code>delete</code>操作符。成功返回<code>true</code>，失败返回<code>false</code>。</p>
+<h3 id="deleteProperty"><a href="#deleteProperty" class="headerlink" title="deleteProperty"></a>deleteProperty</h3><p>拦截对象：<code>delete </code>操作符。成功返回 <code>true</code>，失败返回 <code>false</code>。</p>
 <p>默认行为实现：<code>Reflect.deleteProperty()</code></p>
 <p>接收参数：</p>
 <ol>
@@ -412,6 +412,8 @@
                     <i class="iconfont icon-category"></i>
                     
                       <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
+                    
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/JavaScript/">JavaScript</a>
                     
                   </div>
                 

@@ -253,27 +253,27 @@
               </p>
             
             <div class="markdown-body">
-              <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>讲到模块化，大家可能对CommonJs、AMD、CMD等规范都比较熟悉，ES6也有Module的规范。本文是对Module理解的整理。那依然先是问题三连：ES6的Module是什么？用来解决什么问题？优点是什么？</p>
+              <h3 id="前言"><a href="#前言" class="headerlink" title="前言"></a>前言</h3><p>讲到模块化，大家可能对 <code>CommonJs</code> 、<code>AMD</code> 、<code>CMD</code> 等规范都比较熟悉，ES6 也有 <code>Module</code> 的规范。本文是对<code>Module</code> 理解的整理。那依然先是问题三连：ES6 的 <code>Module</code> 是什么？用来解决什么问题？优点是什么？</p>
 <a id="more"></a>
 
-<h3 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h3><p>使用不同方式加载的JS文件，与原先脚本（script）加载方式相对。模块的真正力量在于按需导出和导入，而不在于将所有内容放在同一个文件</p>
+<h3 id="是什么？"><a href="#是什么？" class="headerlink" title="是什么？"></a>是什么？</h3><p>使用不同方式加载的 JS 文件，与原先脚本（script）加载方式相对。模块的真正力量在于按需导出和导入，而不在于将所有内容放在同一个文件</p>
 <h3 id="解决什么问题（切入点）"><a href="#解决什么问题（切入点）" class="headerlink" title="解决什么问题（切入点）"></a>解决什么问题（切入点）</h3><ol>
 <li>命名冲突（作用域）</li>
-<li>让JS应用变得更加有条理</li>
+<li>让 JS 应用变得更加有条理</li>
 <li>安全问题</li>
 </ol>
 <h3 id="优点是什么"><a href="#优点是什么" class="headerlink" title="优点是什么"></a>优点是什么</h3><ol>
 <li>自动运行在严格模式下，且无法跳出严格模式；</li>
 <li>在模块的顶级作用域创建的变量，不会自动添加到共享的全局作用域，只存在于模块顶级作用域的内部；</li>
-<li>模块顶级作用域的<code>this</code>为<code>undefined</code>；</li>
-<li>模块中不允许<code>HTML</code>风格的注释，该问题是早期浏览器历史遗留特性；</li>
+<li>模块顶级作用域的 <code>this</code> 为 <code>undefined</code>；</li>
+<li>模块中不允许 <code>HTML</code> 风格的注释，该问题是早期浏览器历史遗留特性；</li>
 <li>要提供给外部访问的代码，模块必须导出它们；</li>
 <li>模块可以由别的模块导入绑定。</li>
 </ol>
-<h3 id="基本导出"><a href="#基本导出" class="headerlink" title="基本导出"></a>基本导出</h3><h4 id="export"><a href="#export" class="headerlink" title="export"></a>export</h4><p>我们可以在任意变量、函数、类声明之前加上<code>export</code>导出它们，没有被显式导出的将会在模块中保持私有</p>
+<h3 id="基本导出"><a href="#基本导出" class="headerlink" title="基本导出"></a>基本导出</h3><h4 id="export"><a href="#export" class="headerlink" title="export"></a>export</h4><p>我们可以在任意变量、函数、类声明之前加上 <code>export</code> 导出它们，没有被显式导出的将会在模块中保持私有</p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// module.js</span><br><span class="hljs-keyword">export</span> <span class="hljs-keyword">let</span> name = <span class="hljs-string">&#x27;Ysom&#x27;</span><br><span class="hljs-keyword">export</span> <span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sum</span> (<span class="hljs-params">num1, num2</span>) </span>&#123;<br>    <span class="hljs-keyword">return</span> num1 + num2<br>&#125;<br><span class="hljs-keyword">export</span> <span class="hljs-class"><span class="hljs-keyword">class</span> <span class="hljs-title">Person</span> </span>&#123;<br>    constrcutor (name, sex) &#123;<br>        <span class="hljs-built_in">this</span>.name = name<br>        <span class="hljs-built_in">this</span>.sex = sex<br>    &#125;<br>&#125;<br><br><span class="hljs-function"><span class="hljs-keyword">function</span> <span class="hljs-title">sayHello</span> (<span class="hljs-params"></span>) </span>&#123;<br>    <span class="hljs-built_in">console</span>.log(<span class="hljs-string">&#x27;hello world&#x27;</span>)<br>&#125;<br><span class="hljs-comment">// 导出引用</span><br><span class="hljs-keyword">export</span> &#123; sayHello &#125;<br></code></pre></td></tr></table></figure>
 
-<h3 id="基本导入"><a href="#基本导入" class="headerlink" title="基本导入"></a>基本导入</h3><h4 id="import"><a href="#import" class="headerlink" title="import"></a>import</h4><p>可以通过<code>import</code>来导入被导出的模块，<code>import</code>语句由两部分组成，被导入的<strong>标识符</strong>和导入标识符的<strong>来源</strong>：<code>import &#123; identifier1, identifier2 &#125; from &#39;./module1.js&#39;</code></p>
+<h3 id="基本导入"><a href="#基本导入" class="headerlink" title="基本导入"></a>基本导入</h3><h4 id="import"><a href="#import" class="headerlink" title="import"></a>import</h4><p>可以通过 <code>import</code> 来导入被导出的模块，<code>import</code> 语句由两部分组成，被导入的<strong>标识符</strong>和导入标识符的<strong>来源</strong>：<code>import &#123; identifier1, identifier2 &#125; from &#39;./module1.js&#39;</code></p>
 <figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><code class="hljs javascript"><span class="hljs-comment">// 导入单个绑定</span><br><span class="hljs-keyword">import</span> &#123; sum &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./module.js&#x27;</span><br><span class="hljs-comment">// 导入多个绑定</span><br><span class="hljs-keyword">import</span> &#123; sum, sayHello &#125; <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./module.js&#x27;</span><br><span class="hljs-comment">// 完全导入一个模块 module所有的导出绑定在example 属于命名空间导入(namespace import)</span><br><span class="hljs-keyword">import</span> * <span class="hljs-keyword">as</span> example <span class="hljs-keyword">from</span> <span class="hljs-string">&#x27;./module.js&#x27;</span><br></code></pre></td></tr></table></figure>
 
 <p>需要注意的一点：无论使用多少次<code>import</code>引入模块，该模块只会执行一次。在导出的模块执行之后，已被实例化的模块会保留在内存中，随时可被其它<code>import</code>使用。同应用的其它模块，如使用<code>import</code>引入该模块，使用的也是同一个实例模块</p>
@@ -328,13 +328,15 @@
                     
                       <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a>
                     
+                      <a class="hover-with-bg" href="/categories/%E5%89%8D%E7%AB%AF/JavaScript/">JavaScript</a>
+                    
                   </div>
                 
                 
                   <div class="post-meta">
                     <i class="iconfont icon-tags"></i>
                     
-                      <a class="hover-with-bg" href="/tags/JS/">JS</a>
+                      <a class="hover-with-bg" href="/tags/%E6%80%BB%E7%BB%93/">总结</a>
                     
                   </div>
                 

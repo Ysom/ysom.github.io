@@ -293,7 +293,7 @@
 <p>具体的可以查看 Jake Archibald 大神的 <a target="_blank" rel="noopener" href="https://jakearchibald.com/2017/h2-push-tougher-than-i-thought/">HTTP/2 push is tougher than I thought</a> 。</p>
 <p>文章中有部分结论：</p>
 <ul>
-<li>Push Cache 是缓存的最后一道防线。浏览器只有在 前面说到的几种缓存均未命中的情况下才会去询问 Push Cache；</li>
+<li>Push Cache 是缓存的最后一道防线。浏览器只有在前面说到的几种缓存均未命中的情况下才会去询问 Push Cache；</li>
 <li>Push Cache 是一种存在于会话阶段的缓存，当 session 终止时，缓存也随之释放；</li>
 <li>不同的页面只要共享了同一个 HTTP2 连接，那么它们就可以共享同一个 Push Cache；</li>
 <li>Push Cache 中的缓存只能被使用一次</li>
